@@ -25,7 +25,7 @@ class AbstractCommand
     /**
      * @var string
      */
-    private $queryString;
+    private $queryString = "";
 
     /**
      * @var string
