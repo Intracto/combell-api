@@ -28,7 +28,7 @@ class GetAvailablePhpVersions extends AbstractCommand
     /**
      * @return string
      */
-    public function getDomainname(): string
+    public function getDomainname()
     {
         return $this->domainname;
     }
@@ -36,7 +36,7 @@ class GetAvailablePhpVersions extends AbstractCommand
     /**
      * @param string $domainname
      */
-    public function setDomainname(string $domainname)
+    public function setDomainname($domainname)
     {
         $this->domainname = $domainname;
     }

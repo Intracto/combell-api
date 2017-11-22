@@ -56,7 +56,7 @@ class AbstractCommand
     /**
      * @return string
      */
-    public function getMethod(): string
+    public function getMethod()
     {
         return $this->method;
     }
@@ -64,7 +64,7 @@ class AbstractCommand
     /**
      * @param string $method
      */
-    public function setMethod(string $method)
+    public function setMethod($method)
     {
         $this->method = $method;
     }
@@ -72,7 +72,7 @@ class AbstractCommand
     /**
      * @return string
      */
-    public function getEndPoint(): string
+    public function getEndPoint()
     {
         return $this->endPoint;
     }
@@ -80,7 +80,7 @@ class AbstractCommand
     /**
      * @param string $endPoint
      */
-    public function setEndPoint(string $endPoint)
+    public function setEndPoint($endPoint)
     {
         $this->endPoint = $endPoint;
     }
@@ -120,7 +120,7 @@ class AbstractCommand
     /**
      * @return int
      */
-    public function getSkip(): int
+    public function getSkip()
     {
         return $this->skip;
     }
@@ -128,7 +128,7 @@ class AbstractCommand
     /**
      * @param int $skip
      */
-    public function setSkip(int $skip)
+    public function setSkip($skip)
     {
         $this->skip = $skip;
     }
@@ -136,7 +136,7 @@ class AbstractCommand
     /**
      * @return int
      */
-    public function getTake(): int
+    public function getTake()
     {
         return $this->take;
     }
@@ -144,7 +144,7 @@ class AbstractCommand
     /**
      * @param int $take
      */
-    public function setTake(int $take)
+    public function setTake($take)
     {
         $this->take = $take;
     }
