@@ -30,7 +30,7 @@ class GuzzleAdapter
 
                 default:
                     $newEx = new \TomCan\CombellApi\Exception\ClientException("Unexpected statuscode", $response->getStatusCode());
-                    $newEx->setBody( $response()->getBody()->getContents() );
+                    $newEx->setBody( $response->getBody()->getContents() );
                     throw $newEx;
                     break;
             }
