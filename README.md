@@ -6,10 +6,15 @@ All the supported calls at the time of writing have been implemented.
 Since the Combell API itself lacks quite some functionality, this library obviously lacks that too. I'll try to keep this up-to-date when new functionality is added.
 
 ## Usage
-Since there is no composer package yet, you will have to integrate it into your project manually. Once you managed to do that, you should be able to run following example and see some json output.
-
+You can install the library through composer
+```
+composer install tomcan/combell-api
+```
+Next, you need to include the composer autoloader. Instantiate the API object with your API key and secret, create the command objects and fire away!
 ```php
 <?php  
+
+require dirname(__DIR__) . '/vendor/autoload.php';
 
 $key = "YOUR-API-KEY";  
 $sec = "YOUR-API-SECRET";
