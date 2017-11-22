@@ -29,6 +29,7 @@ class Api
         $headers = array(
             "Authorization" => $this->getHmacHeader($command),
             "Accept" => "application/json",
+            "Content-type" => "application/json",
         );
 
         $ret = $this->adapter->Call(strtoupper($command->getMethod()), "https://api.combell.com" . $command->getEndPoint() . ( $command->getQueryString() !== '' ? '?' . $command->getQueryString() : "" ), $headers, $command->getBody());
