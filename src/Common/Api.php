@@ -36,7 +36,7 @@ class Api
 
         // json_decode body
         if ($ret["body"] !== "") {
-            $ret["body"] = \GuzzleHttp\json_decode($ret["body"]);
+            $ret["body"] = \json_decode($ret["body"]);
         }
 
         return $ret;
