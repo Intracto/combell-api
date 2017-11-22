@@ -2,6 +2,8 @@
 
 namespace TomCan\CombellApi\Adapter;
 
+use GuzzleHttp\Exception\ClientException;
+
 class GuzzleAdapter
 {
 
@@ -25,18 +27,30 @@ class GuzzleAdapter
                     );
                     break;
 
-                case 401:
-                    throw new Exception("Not authorized", 401);
-                case 403:
-                    throw new Exception("Permission denied", 403);
-                case 404:
-                    throw new Exception("Not found", 404);
-                case 429:
-                    throw new Exception("Ratelimit exceeded", 429);
                 default:
-                    throw new Exception("Unspecified exception", $response->getStatusCode());
-
+                    $newEx = new \TomCan\CombellApi\Exception\ClientException("Unexpected statuscode", $response->getStatusCode());
+                    $newEx->setBody( $response()->getBody()->getContents() );
+                    throw $newEx;
+                    break;
             }
+
+        } catch (ClientException $ex) {
+
+            switch ($ex->getCode()) {
+
+                case 401:
+                case 403:
+                case 404:
+                case 429:
+                    $newEx = new \TomCan\CombellApi\Exception\ClientException($ex->getMessage(), $ex->getCode());
+                    $newEx->setBody( $ex->getResponse()->getBody()->getContents() );
+                    throw $newEx;
+                    break;
+                default:
+                    $newEx = new \TomCan\CombellApi\Exception\ClientException($ex->getMessage(), $ex->getCode());
+                    throw $newEx;
+            }
+
 
         } catch (Exception $ex) {
 
