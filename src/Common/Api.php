@@ -40,6 +40,9 @@ class Api
 
         $ret = $this->adapter->Call(strtoupper($command->getMethod()), "https://api.combell.com" . $command->getEndPoint() . ( $command->getQueryString() !== '' ? '?' . $command->getQueryString() : "" ), $headers, $command->getBody());
 
+        // json_decode body
+        $ret["body"] = \GuzzleHttp\json_decode($ret["body"]);
+
         return $ret;
 
     }
