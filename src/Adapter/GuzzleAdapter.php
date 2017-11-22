@@ -19,6 +19,7 @@ class GuzzleAdapter
                 case 200:
                 case 201:
                 case 202:
+                case 204:
                     // request ok
                     return array(
                         "status" => $response->getStatusCode(),
