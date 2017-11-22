@@ -14,7 +14,7 @@ class GetLinuxHosting extends AbstractCommand
 
     public function __construct($domainname)
     {
-        parent::__construct("get", "/v2/accounts");
+        parent::__construct("get", "/v2/linuxhostings");
 
         $this->domainname = $domainname;
 
@@ -23,6 +23,22 @@ class GetLinuxHosting extends AbstractCommand
     public function prepare()
     {
         $this->setEndPoint("/v2/linuxhostings/" . $this->domainname);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDomainname(): string
+    {
+        return $this->domainname;
+    }
+
+    /**
+     * @param string $domainname
+     */
+    public function setDomainname(string $domainname)
+    {
+        $this->domainname = $domainname;
     }
 
 }
