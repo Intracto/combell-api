@@ -1,4 +1,8 @@
 {
+  "name": "tomcan/combell-api",
+  "description": "Wrapper libraries for Combell public API on their shared hosting environment.",
+  "keywords": ["Combell","API"],
+  "license": "MIT",
   "autoload": {
     "psr-4": {"TomCan\\CombellApi\\": "src/"}
   },
