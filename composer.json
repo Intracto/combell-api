@@ -7,6 +7,7 @@
     "psr-4": {"TomCan\\CombellApi\\": "src/"}
   },
   "require": {
+    "php": ">=5.5",
     "guzzlehttp/guzzle": "~6.0"
   }
 }
