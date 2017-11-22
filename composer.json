@@ -1,0 +1,8 @@
+{
+  "autoload": {
+    "psr-4": {"TomCan\\CombellApi\\": "src/"}
+  },
+  "require": {
+    "guzzlehttp/guzzle": "~6.0"
+  }
+}
