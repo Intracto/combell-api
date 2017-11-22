@@ -1,6 +1,6 @@
 <?php
 
-namespace TomCan\CombellApi\LinuxHostings;
+namespace TomCan\CombellApi\Mailboxes;
 
 use TomCan\CombellApi\Common\AbstractCommand;
 
