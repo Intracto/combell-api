@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Tom
- * Date: 21/11/2017
- * Time: 22:52
- */
 
 namespace TomCan\CombellApi\Common;
-
 
 class AbstractCommand
 {

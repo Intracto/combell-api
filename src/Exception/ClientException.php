@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tom.cannaerts
- * Date: 22/11/2017
- * Time: 11:08
- */
 
 namespace TomCan\CombellApi\Exception;
-
 
 class ClientException extends \Exception
 {
