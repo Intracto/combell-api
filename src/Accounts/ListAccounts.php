@@ -14,7 +14,7 @@ class ListAccounts extends AbstractCommand
     {
         parent::__construct("get", "/v2/accounts");
         $this->setAssetType($assetType);
-        $this->identifier = $identifier;
+        $this->setIdentifier($identifier);
     }
 
     public function prepare()
@@ -52,6 +52,22 @@ class ListAccounts extends AbstractCommand
 
         }
 
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * @param mixed $identifier
+     */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
     }
 
 }
