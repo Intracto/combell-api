@@ -101,6 +101,18 @@ class AbstractCommand
         $this->queryString = $queryString;
     }
 
+    public function appendQueryString($key, $value, $blank = false) {
+
+        if ($blank || (!$blank && $value != "")) {
+            if ($this->queryString != "") {
+                $this->queryString .= "&" . $key . "=" . urlencode($value);
+            } else {
+                $this->queryString = $key . "=" . urlencode($value);
+            }
+        }
+
+    }
+
     /**
      * @return mixed
      */
