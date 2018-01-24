@@ -8,25 +8,21 @@ class ListAccounts extends AbstractCommand
 {
 
     private $assetType;
+    private $identifier;
 
-    public function __construct($assetType = "")
+    public function __construct($assetType = "", $identifier = "")
     {
         parent::__construct("get", "/v2/accounts");
         $this->setAssetType($assetType);
+        $this->identifier = $identifier;
     }
 
     public function prepare()
     {
         parent::prepare();
 
-        if ($this->assetType !== "") {
-            $qs = "asset_type=" . $this->assetType;
-            if ($this->getQueryString() === "") {
-                $this->setQueryString($qs);
-            } else {
-                $this->setQueryString($this->getQueryString() . '&' . $qs);
-            }
-        }
+        $this->appendQueryString("asset_type", $this->assetType);
+        $this->appendQueryString("identifier", $this->identifier);
 
     }
 
