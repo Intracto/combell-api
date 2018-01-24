@@ -53,6 +53,11 @@ class AbstractCommand
         $this->queryString = "skip=" . $this->skip . "&take=" . $this->take;
     }
 
+    public function processResponse($response) {
+        // do any post-processing on the response
+        return $response;
+    }
+
     /**
      * @return string
      */
