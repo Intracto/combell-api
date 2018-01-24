@@ -15,7 +15,7 @@ class CreateMxRecord extends AbstractCommand
 
     public function __construct($domainname, $hostname, $target, $priority, $ttl)
     {
-        parent::__construct("post", "/v2/dns/{domainname}/cnamerecords");
+        parent::__construct("post", "/v2/dns/{domainname}/mxrecords");
 
         $this->setDomainname($domainname);
         $this->setHostname($hostname);
@@ -27,11 +27,12 @@ class CreateMxRecord extends AbstractCommand
     public function prepare()
     {
 
-        $this->setEndPoint("/v2/dns/".$this->domainname."/cnamerecords");
+        $this->setEndPoint("/v2/dns/".$this->domainname."/mxrecords");
 
         $obj = new \stdClass();
         $obj->record = $this->hostname;
-        $obj->ip_address = $this->target;
+        $obj->destination = $this->target;
+        $obj->priority = $this->priority;
         $obj->ttl = $this->ttl;
 
         $this->setBody(
