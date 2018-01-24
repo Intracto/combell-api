@@ -10,6 +10,7 @@ class CreateAccount extends AbstractCommand
     private $identifier;
     private $servicepack;
     private $password;
+    private $provisionJob;
 
     public function __construct($identifier, $servicepack, $password = null)
     {
@@ -40,6 +41,15 @@ class CreateAccount extends AbstractCommand
             json_encode($obj)
         );
 
+    }
+
+    public function processResponse($response)
+    {
+        if (isset($response['headers']['Location'])) {
+            $h = $response['headers']['Location'];
+            $this->provisionJob = substr($h, strrpos($h, '/'));
+        }
+        return $response;
     }
 
     public function getIdentifier()
@@ -101,6 +111,14 @@ class CreateAccount extends AbstractCommand
 
         $this->password = $password;
 
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProvisionJob()
+    {
+        return $this->provisionJob;
     }
 
 }
