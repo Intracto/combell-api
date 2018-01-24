@@ -39,6 +39,8 @@ class Api
             $ret["body"] = \json_decode($ret["body"]);
         }
 
+        $ret = $command->processResponse($ret);
+
         return $ret;
 
     }
