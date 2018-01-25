@@ -46,8 +46,8 @@ class CreateAccount extends AbstractCommand
     public function processResponse($response)
     {
         if (isset($response['headers']['Location'])) {
-            $h = $response['headers']['Location'];
-            $this->provisionJob = substr($h, strrpos($h, '/'));
+            $h = $response['headers']['Location'][0];
+            $this->provisionJob = substr($h, strrpos($h, '/') + 1);
         }
         return $response;
     }
