@@ -29,7 +29,7 @@ class GetProvisioningJob extends AbstractCommand
     {
 
         if ($response['status'] == 200) {
-            $this->status = $response['body']['status'];
+            $this->status = $response['body']->status;
         }
 
         if ($response['status'] == 201) {
