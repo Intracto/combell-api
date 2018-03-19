@@ -2,6 +2,8 @@
 
 namespace TomCan\CombellApi\Common;
 
+use TomCan\CombellApi\Command\AbstractCommand;
+
 class Api
 {
 
