@@ -94,6 +94,7 @@ class AbstractDnsRecord
     {
 
         $obj = new \stdClass();
+        $obj->id = $this->getId();
         $obj->record_name = $this->getHostname();
         $obj->type = $this->getType();
         $obj->ttl = $this->getTtl();
