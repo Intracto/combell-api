@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Tom
- * Date: 19/03/2018
- * Time: 22:09
- */
 
 namespace TomCan\CombellApi\Structure\Dns;
 
@@ -15,18 +9,21 @@ class AbstractDnsRecord
     protected $id;
     protected $type;
     protected $hostname;
+    protected $ttl;
 
     /**
      * AbstractDnsRecord constructor.
      * @param $id
      * @param $type
      * @param $hostname
+     * @param $ttl
      */
-    public function __construct($id, $type, $hostname)
+    public function __construct($id, $type, $hostname, $ttl)
     {
         $this->id = $id;
         $this->type = $type;
         $this->hostname = $hostname;
+        $this->ttl = $ttl;
     }
 
     /**
@@ -75,6 +72,22 @@ class AbstractDnsRecord
     public function setHostname($hostname)
     {
         $this->hostname = $hostname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTtl()
+    {
+        return $this->ttl;
+    }
+
+    /**
+     * @param mixed $ttl
+     */
+    public function setTtl($ttl)
+    {
+        $this->ttl = $ttl;
     }
 
 }
