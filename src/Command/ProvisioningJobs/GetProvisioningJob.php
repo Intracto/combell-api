@@ -3,6 +3,7 @@
 namespace TomCan\CombellApi\Command\ProvisioningJobs;
 
 use TomCan\CombellApi\Command\AbstractCommand;
+use TomCan\CombellApi\Structure\ProvisioningJobs\ProvisioningJob;
 
 class GetProvisioningJob extends AbstractCommand
 {
@@ -28,8 +29,11 @@ class GetProvisioningJob extends AbstractCommand
     public function processResponse($response)
     {
 
+        $provisioningJob = new ProvisioningJob($this->getJobId(), "");
+
         if ($response['status'] == 200) {
             $this->status = $response['body']->status;
+            $provisioningJob->setStatus($response['body']->status);
         }
 
         if ($response['status'] == 201) {
@@ -44,8 +48,11 @@ class GetProvisioningJob extends AbstractCommand
                     );
                 }
             }
+            $provisioningJob->setStatus('finished');
+            $provisioningJob->setLinks($this->resource_links);
         }
 
+        $response['response'] = $provisioningJob;
         return $response;
     }
 
