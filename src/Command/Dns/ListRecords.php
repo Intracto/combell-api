@@ -3,7 +3,6 @@
 namespace TomCan\CombellApi\Command\Dns;
 
 use TomCan\CombellApi\Command\AbstractCommand;
-use TomCan\CombellApi\Structure\Dns\AbstractDnsRecord;
 
 class ListRecords extends AbstractCommand
 {
