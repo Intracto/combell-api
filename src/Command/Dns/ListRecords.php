@@ -41,7 +41,6 @@ class ListRecords extends AbstractCommand
 
         $records = array();
         foreach ($response['body'] as $record) {
-            var_dump($record);
             $className = "\\TomCan\\CombellApi\\Structure\\Dns\\Dns" . $record->type . "Record";
             switch ($record->type) {
                 case "A":
