@@ -38,4 +38,11 @@ class DnsARecord extends AbstractDnsRecord
         }
     }
 
+    public function getObject()
+    {
+        $obj = parent::getObject();
+        $obj->content = $this->getContent();
+        return $obj;
+    }
+
 }

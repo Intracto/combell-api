@@ -90,4 +90,16 @@ class AbstractDnsRecord
         $this->ttl = $ttl;
     }
 
+    public function getObject()
+    {
+
+        $obj = new \stdClass();
+        $obj->record_name = $this->getHostname();
+        $obj->type = $this->getType();
+        $obj->ttl = $this->getTtl();
+
+        return $obj;
+
+    }
+
 }
