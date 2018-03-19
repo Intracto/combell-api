@@ -2,7 +2,7 @@
 
 namespace TomCan\CombellApi\Structure\Accounts;
 
-class BasicAccount
+class Account
 {
 
     /**
