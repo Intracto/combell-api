@@ -99,7 +99,11 @@ array(3) {
 
 ## Changelog
 
-**19-03-2018 - v2.0.0 **
+**20-03-2018 - v2.0.2**
+
+- Added Structured representation to Domains and ProvisioningJobs namespace
+
+**19-03-2018 - v2.0.0**
 
 - We now have a changelog in this file
 
