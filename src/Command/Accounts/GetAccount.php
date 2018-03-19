@@ -3,6 +3,7 @@
 namespace TomCan\CombellApi\Command\Accounts;
 
 use TomCan\CombellApi\Command\AbstractCommand;
+use TomCan\CombellApi\Structure\Accounts\Account;
 
 class GetAccount extends AbstractCommand
 {
@@ -23,6 +24,11 @@ class GetAccount extends AbstractCommand
     public function prepare()
     {
         $this->setEndPoint("/v2/accounts/" . $this->id);
+    }
+
+    public function processResponse($response)
+    {
+        return new Account($response['body']->id, $response['body']->identifier);
     }
 
 }
