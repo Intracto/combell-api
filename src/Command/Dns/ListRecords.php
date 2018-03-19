@@ -41,6 +41,7 @@ class ListRecords extends AbstractCommand
 
         $records = array();
         foreach ($response['body'] as $record) {
+            var_dump($record);
             $className = "\\TomCan\\CombellApi\\Structure\\Dns\\Dns" . $record->type . "Record";
             switch ($record->type) {
                 case "A":
@@ -48,6 +49,7 @@ class ListRecords extends AbstractCommand
                 case "TXT":
                 case "CNAME":
                 case "SOA":
+                case "CAA":
                     $rec = new $className($record->id, $record->record_name, $record->ttl, $record->content);
                     break;
                 case "MX":
