@@ -3,6 +3,7 @@
 namespace TomCan\CombellApi\Command\Accounts;
 
 use TomCan\CombellApi\Command\AbstractCommand;
+use TomCan\CombellApi\Structure\Accounts\BasicAccount;
 
 class ListAccounts extends AbstractCommand
 {
@@ -68,6 +69,18 @@ class ListAccounts extends AbstractCommand
     public function setIdentifier($identifier)
     {
         $this->identifier = $identifier;
+    }
+
+    public function processResponse($response)
+    {
+
+        $accounts = array();
+        foreach ($response['body'] as $item) {
+            $accounts[] = new BasicAccount($item->id, $item->identifier);
+        }
+        $response['response'] = $accounts;
+        return $response;
+
     }
 
 }
