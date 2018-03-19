@@ -10,6 +10,9 @@ class DnsTXTRecord extends AbstractDnsRecord
 
     /**
      * DnsTXTRecord constructor.
+     * @param $id
+     * @param $hostname
+     * @param $ttl
      * @param $content
      */
     public function __construct($id = "", $hostname = "", $ttl = 3600, $content)
