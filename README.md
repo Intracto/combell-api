@@ -21,7 +21,7 @@ $sec = "YOUR-API-SECRET";
 
 $adapter = new \TomCan\CombellApi\Adapter\GuzzleAdapter();  
 $api = new \TomCan\CombellApi\Common\Api($key, $sec, $adapter);  
-$cmd = new \TomCan\CombellApi\Accounts\ListAccounts();  
+$cmd = new \TomCan\CombellApi\Command\Accounts\ListAccounts();  
 var_dump($api->ExecuteCommand($cmd));  
 
 ?>
