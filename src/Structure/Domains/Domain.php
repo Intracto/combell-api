@@ -15,18 +15,21 @@ class Domain
     private $domainname;
     private $expirationDate;
     private $willRenew;
+    private $nameservers;
 
     /**
      * Domain constructor.
      * @param $domainname
      * @param $expirationDate
      * @param $willRenew
+     * @param $nameservers
      */
-    public function __construct($domainname, $expirationDate = null, $willRenew = null)
+    public function __construct($domainname, $expirationDate = null, $willRenew = null, $nameservers = null)
     {
         $this->domainname = $domainname;
         $this->expirationDate = $expirationDate;
         $this->willRenew = $willRenew;
+        $this->nameservers = $nameservers;
     }
 
     /**
@@ -75,6 +78,22 @@ class Domain
     public function setWillRenew($willRenew)
     {
         $this->willRenew = $willRenew;
+    }
+
+    /**
+     * @return array
+     */
+    public function getNameservers(): array
+    {
+        return $this->nameservers;
+    }
+
+    /**
+     * @param array $nameservers
+     */
+    public function setNameservers(array $nameservers)
+    {
+        $this->nameservers = $nameservers;
     }
 
 }
