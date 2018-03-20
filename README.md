@@ -99,6 +99,11 @@ array(3) {
 
 ## Changelog
 
+**20-03-2018 - v2.0.3**
+
+- Added structured representation to MysqlDatabases and Servicepacks namespace
+- Added DNS AAAA Record Type
+
 **20-03-2018 - v2.0.2**
 
 - Added Structured representation to Domains and ProvisioningJobs namespace
@@ -106,15 +111,11 @@ array(3) {
 **19-03-2018 - v2.0.0**
 
 - We now have a changelog in this file
-
 - Reorganised the namespaces to be able to differentiate between Commands and Structures.
-
 - The Account and DNS commands now also return a Structured representation of the objects in the "response" element of the returned array, rather than only the json_decoded body.
-
 - The DNS portion of the API has been redone using the new methods the API provides.
-
 - Known issue: although implemented according to the specs, the UpdateRecord command yields an Internal Server error. Since no data is available regarding the details of the error, we can only assume this is a problem on Combells side.
 
 **pre 19-03-2018**
 
-No changelog has been kept prior to this point. If you really need to know, please see the Git history to get an idead of what changed.
+- No changelog has been kept prior to this point. If you really need to know, please see the Git history to get an idead of what changed.
