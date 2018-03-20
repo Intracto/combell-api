@@ -23,6 +23,8 @@ class ListServicepacks extends AbstractCommand
 
         $response['response'] = $servicepacks;
 
+        return $response;
+
     }
 
 }
