@@ -3,6 +3,7 @@
 namespace TomCan\CombellApi\Command\Accounts;
 
 use TomCan\CombellApi\Command\AbstractCommand;
+use TomCan\CombellApi\Command\ProvisioningJobs\GetProvisioningJob;
 use TomCan\CombellApi\Structure\ProvisioningJobs\ProvisioningJob;
 
 class CreateAccount extends AbstractCommand
@@ -47,19 +48,13 @@ class CreateAccount extends AbstractCommand
     public function processResponse($response)
     {
 
-        $id = $response['body']->id;
-        $status = isset($response['body']->status) ? $response['body']->status : 'completed';
-        $estimate = isset($response['body']->completion->estimate) ? $response['body']->completion->estimate : null;
-        $link = null;
-
         if (isset($response['headers']['Location'])) {
             $h = $response['headers']['Location'][0];
             $link = substr($h, strrpos($h, '/') + 1);
             $this->provisionJob = $link;
+            $job = new ProvisioningJob($link, "unknown");
+            $response['response'] = $job;
         }
-
-        $job = new ProvisioningJob($id, $status, $estimate, $link);
-        $response['response'] = $job;
 
         return $response;
     }
