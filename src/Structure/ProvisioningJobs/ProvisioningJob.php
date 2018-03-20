@@ -43,6 +43,14 @@ class ProvisioningJob
     }
 
     /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
      * @return mixed
      */
     public function getEstimate()
@@ -51,11 +59,27 @@ class ProvisioningJob
     }
 
     /**
+     * @param null $estimate
+     */
+    public function setEstimate($estimate)
+    {
+        $this->estimate = $estimate;
+    }
+
+    /**
      * @return mixed
      */
     public function getLinks()
     {
         return $this->links;
+    }
+
+    /**
+     * @param null $links
+     */
+    public function setLinks($links)
+    {
+        $this->links = $links;
     }
 
 }
