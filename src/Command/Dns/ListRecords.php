@@ -17,6 +17,7 @@ class ListRecords extends AbstractCommand
 
     public function prepare()
     {
+        parent::prepare();
         $this->setEndPoint('/v2/dns/'.$this->domainname.'/records');
     }
 
@@ -44,6 +45,7 @@ class ListRecords extends AbstractCommand
             $className = "\\TomCan\\CombellApi\\Structure\\Dns\\Dns" . $record->type . "Record";
             switch ($record->type) {
                 case "A":
+                case "AAAA":
                 case "NS":
                 case "TXT":
                 case "CNAME":
