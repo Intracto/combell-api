@@ -99,6 +99,10 @@ array(3) {
 
 ## Changelog
 
+**21-03-2018 - v2.0.4**
+
+- Added structured representation to LinuxHostings namespace
+
 **20-03-2018 - v2.0.3**
 
 - Added structured representation to MysqlDatabases and Servicepacks namespace

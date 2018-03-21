@@ -3,6 +3,7 @@
 namespace TomCan\CombellApi\Command\LinuxHostings;
 
 use TomCan\CombellApi\Command\AbstractCommand;
+use TomCan\CombellApi\Structure\LinuxHostings\LinuxHosting;
 
 class GetLinuxHosting extends AbstractCommand
 {
@@ -39,6 +40,26 @@ class GetLinuxHosting extends AbstractCommand
     public function setDomainname($domainname)
     {
         $this->domainname = $domainname;
+    }
+
+    public function processResponse($response)
+    {
+
+        $h = $response['body'];
+        $response['response'] = new LinuxHosting(
+            $h->domain_name,
+            $h->servicepack_id,
+            $h->max_webspace_size,
+            $h->max_size,
+            $h->webspace_usage,
+            $h->actual_size,
+            $h->ip,
+            $h->ip_type,
+            $h->ssh_host
+        );
+
+        return $response;
+
     }
 
 }
