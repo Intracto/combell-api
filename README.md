@@ -99,6 +99,10 @@ array(3) {
 
 ## Changelog
 
+**21-01-2019 - v2.0.5**
+
+- Added command to get Mysql database
+
 **21-03-2018 - v2.0.4**
 
 - Added structured representation to LinuxHostings namespace
