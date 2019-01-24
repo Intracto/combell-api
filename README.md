@@ -99,6 +99,10 @@ array(3) {
 
 ## Changelog
 
+**24-01-2019 - v2.0.6**
+
+- Implement username support from the API
+
 **21-01-2019 - v2.0.5**
 
 - Added command to get Mysql database
