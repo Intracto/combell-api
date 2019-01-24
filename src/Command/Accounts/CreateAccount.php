@@ -8,7 +8,6 @@ use TomCan\CombellApi\Structure\ProvisioningJobs\ProvisioningJob;
 
 class CreateAccount extends AbstractCommand
 {
-
     private $identifier;
     private $servicepack;
     private $password;
@@ -16,16 +15,17 @@ class CreateAccount extends AbstractCommand
 
     public function __construct($identifier, $servicepack, $password = null)
     {
-        parent::__construct("post", "/v2/accounts");
+        parent::__construct('post', '/v2/accounts');
 
         $this->setIdentifier($identifier);
         $this->setServicepack($servicepack);
-        if ($password !== null) $this->setPassword($password);
+        if ($password !== null) {
+            $this->setPassword($password);
+        }
     }
 
     public function prepare()
     {
-
         $obj = new \stdClass();
         $obj->identifier = $this->identifier;
 
@@ -35,24 +35,22 @@ class CreateAccount extends AbstractCommand
             $obj->servicepack_id = $this->servicepack;
         }
 
-        if ($this->password !== "") {
+        if ($this->password !== '') {
             $obj->ftp_password = $this->password;
         }
 
         $this->setBody(
             json_encode($obj)
         );
-
     }
 
     public function processResponse($response)
     {
-
         if (isset($response['headers']['Location'])) {
             $h = $response['headers']['Location'][0];
             $link = substr($h, strrpos($h, '/') + 1);
             $this->provisionJob = $link;
-            $job = new ProvisioningJob($link, "unknown");
+            $job = new ProvisioningJob($link, 'unknown');
             $response['response'] = $job;
         }
 
@@ -98,26 +96,24 @@ class CreateAccount extends AbstractCommand
      */
     public function setPassword($password)
     {
-
-        $uppers  = strlen(preg_replace('/[^A-Z]/', '', $password));
-        $lowers  = strlen(preg_replace('/[^a-z]/', '', $password));
-        $numbers = strlen(preg_replace('/[^0-9]/', '', $password));
-        $others  = strlen(preg_replace('/[a-zA-Z0-9]/', '', $password));
+        $uppers = strlen(preg_replace('/[^A-Z]/', '', $password));
+        $lowers = strlen(preg_replace('/[^a-z]/', '', $password));
+        $numbers = strlen(preg_replace('/\D/', '', $password));
+        $others = strlen(preg_replace('/[a-zA-Z0-9]/', '', $password));
 
         if ($others > 0) {
             throw new \InvalidArgumentException("Password can't contain special characters");
         }
 
         if (strlen($password) < 8 || strlen($password) > 20) {
-            throw  new \InvalidArgumentException("Password must be between 8-20 characters long");
+            throw  new \InvalidArgumentException('Password must be between 8-20 characters long');
         }
 
-        if (($uppers + $lowers) == 0 || $numbers == 0) {
-            throw new \InvalidArgumentException("Password must be a mix of letters and digits");
+        if (($uppers + $lowers) === 0 || $numbers === 0) {
+            throw new \InvalidArgumentException('Password must be a mix of letters and digits');
         }
 
         $this->password = $password;
-
     }
 
     /**
@@ -127,5 +123,4 @@ class CreateAccount extends AbstractCommand
     {
         return $this->provisionJob;
     }
-
 }
