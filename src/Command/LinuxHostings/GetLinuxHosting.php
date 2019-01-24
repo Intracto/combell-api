@@ -7,7 +7,6 @@ use TomCan\CombellApi\Structure\LinuxHostings\LinuxHosting;
 
 class GetLinuxHosting extends AbstractCommand
 {
-
     /**
      * @var string
      */
@@ -18,7 +17,6 @@ class GetLinuxHosting extends AbstractCommand
         parent::__construct("get", "/v2/linuxhostings");
 
         $this->domainname = $domainname;
-
     }
 
     public function prepare()
@@ -44,7 +42,6 @@ class GetLinuxHosting extends AbstractCommand
 
     public function processResponse($response)
     {
-
         $h = $response['body'];
         $response['response'] = new LinuxHosting(
             $h->domain_name,
@@ -61,7 +58,5 @@ class GetLinuxHosting extends AbstractCommand
         );
 
         return $response;
-
     }
-
 }
