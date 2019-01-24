@@ -108,7 +108,7 @@ class CreateAccount extends AbstractCommand
             throw new \InvalidArgumentException("Password can't contain special characters");
         }
 
-        if (strlen($password) < 8 || strlen($password > 20)) {
+        if (strlen($password) < 8 || strlen($password) > 20) {
             throw  new \InvalidArgumentException("Password must be between 8-20 characters long");
         }
 
