@@ -15,6 +15,8 @@ class LinuxHosting
     private $ip;
     private $ipType;
     private $sshHost;
+    private $ftpUserName;
+    private $sshUserName;
 
     /**
      * LinuxHosting constructor.
@@ -27,9 +29,22 @@ class LinuxHosting
      * @param $ip
      * @param $ipType
      * @param $sshHost
+     * @param $ftpUserName
+     * @param $sshUserName
      */
-    public function __construct($domainName, $servicepackId, $maxWebspaceSize = null, $maxSize = null, $webspaceUsage = null, $actualSize = null, $ip = null, $ipType = null, $sshHost = null)
-    {
+    public function __construct(
+        $domainName,
+        $servicepackId,
+        $maxWebspaceSize = null,
+        $maxSize = null,
+        $webspaceUsage = null,
+        $actualSize = null,
+        $ip = null,
+        $ipType = null,
+        $sshHost = null,
+        $ftpUserName = null,
+        $sshUserName = null
+    ) {
         $this->domainName = $domainName;
         $this->servicepackId = $servicepackId;
         $this->maxWebspaceSize = $maxWebspaceSize;
@@ -39,6 +54,8 @@ class LinuxHosting
         $this->ip = $ip;
         $this->ipType = $ipType;
         $this->sshHost = $sshHost;
+        $this->ftpUserName = $ftpUserName;
+        $this->sshUserName = $sshUserName;
     }
 
     /**
@@ -183,6 +200,46 @@ class LinuxHosting
     public function setSshHost($sshHost)
     {
         $this->sshHost = $sshHost;
+    }
+
+    /**
+     * @return null
+     */
+    public function getFtpHost()
+    {
+        return $this->sshUserName . '.webhosting.be';
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFtpUserName()
+    {
+        return $this->ftpUserName;
+    }
+
+    /**
+     * @param string|null $ftpUserName
+     */
+    public function setFtpUserName($ftpUserName)
+    {
+        $this->ftpUserName = $ftpUserName;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSshUserName()
+    {
+        return $this->sshUserName;
+    }
+
+    /**
+     * @param string|null $sshUserName
+     */
+    public function setSshUserName($sshUserName)
+    {
+        $this->sshUserName = $sshUserName;
     }
 
 }

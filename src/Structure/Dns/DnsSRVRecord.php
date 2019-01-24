@@ -18,11 +18,21 @@ class DnsSRVRecord extends AbstractDnsRecord
      * @param $id
      * @param $hostname
      * @param $ttl
+     * @param $service
+     * @param $target
+     * @param $protocol
      * @param $priority
+     * @param $port
+     * @param $weight
      */
     public function __construct($id = "", $hostname = "", $ttl = 3600, $service = "", $target = "", $protocol = "TCP", $priority = 10, $port = 0, $weight = 0)
     {
         parent::__construct($id, 'SRV', $hostname, $ttl);
+        $this->service = $service;
+        $this->target = $target;
+        $this->protocol = $protocol;
+        $this->port = $port;
+        $this->weight = $weight;
         $this->setPriority($priority);
     }
 
