@@ -55,7 +55,9 @@ class GetLinuxHosting extends AbstractCommand
             $h->actual_size,
             $h->ip,
             $h->ip_type,
-            $h->ssh_host
+            $h->ssh_host,
+            $h->ftp_username,
+            $h->ssh_username
         );
 
         return $response;
