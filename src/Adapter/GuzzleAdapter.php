@@ -53,9 +53,9 @@ class GuzzleAdapter
             }
 
 
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
 
-            throw new Exception("Unspecified exception", $ex->getCode());
+            throw new \Exception("Unspecified exception", $ex->getCode());
 
         }
 
