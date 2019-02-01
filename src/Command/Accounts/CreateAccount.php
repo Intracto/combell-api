@@ -3,7 +3,6 @@
 namespace TomCan\CombellApi\Command\Accounts;
 
 use TomCan\CombellApi\Command\AbstractCommand;
-use TomCan\CombellApi\Command\ProvisioningJobs\GetProvisioningJob;
 use TomCan\CombellApi\Structure\ProvisioningJobs\ProvisioningJob;
 
 class CreateAccount extends AbstractCommand
@@ -13,7 +12,7 @@ class CreateAccount extends AbstractCommand
     private $password;
     private $provisionJob;
 
-    public function __construct($identifier, $servicepack, $password = null)
+    public function __construct(string $identifier, int $servicepack, ?string $password = null)
     {
         parent::__construct('post', '/v2/accounts');
 
@@ -24,12 +23,12 @@ class CreateAccount extends AbstractCommand
         }
     }
 
-    public function prepare()
+    public function prepare(): void
     {
         $obj = new \stdClass();
         $obj->identifier = $this->identifier;
 
-        if (is_object($this->servicepack)) {
+        if (\is_object($this->servicepack) && isset($this->servicepack->id)) {
             $obj->servicepack_id = $this->servicepack->id;
         } else {
             $obj->servicepack_id = $this->servicepack;
@@ -39,9 +38,7 @@ class CreateAccount extends AbstractCommand
             $obj->ftp_password = $this->password;
         }
 
-        $this->setBody(
-            json_encode($obj)
-        );
+        $this->setBody((string) json_encode($obj));
     }
 
     public function processResponse($response)
@@ -57,55 +54,43 @@ class CreateAccount extends AbstractCommand
         return $response;
     }
 
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
 
-    public function setIdentifier($identifier)
+    public function setIdentifier($identifier): void
     {
         $this->identifier = $identifier;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getServicepack()
+    public function getServicepack(): int
     {
         return $this->servicepack;
     }
 
-    /**
-     * @param mixed $servicepack
-     */
-    public function setServicepack($servicepack)
+    public function setServicepack(int $servicepack): void
     {
         $this->servicepack = $servicepack;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password)
+    public function setPassword(string $password): void
     {
-        $uppers = strlen(preg_replace('/[^A-Z]/', '', $password));
-        $lowers = strlen(preg_replace('/[^a-z]/', '', $password));
-        $numbers = strlen(preg_replace('/\D/', '', $password));
-        $others = strlen(preg_replace('/[a-zA-Z0-9]/', '', $password));
+        $uppers = \strlen((string) preg_replace('/[^A-Z]/', '', $password));
+        $lowers = \strlen((string) preg_replace('/[^a-z]/', '', $password));
+        $numbers = \strlen((string) preg_replace('/\D/', '', $password));
+        $others = \strlen((string) preg_replace('/[a-zA-Z0-9]/', '', $password));
 
         if ($others > 0) {
             throw new \InvalidArgumentException("Password can't contain special characters");
         }
 
-        if (strlen($password) < 8 || strlen($password) > 20) {
+        if (\strlen($password) < 8 || \strlen($password) > 20) {
             throw  new \InvalidArgumentException('Password must be between 8-20 characters long');
         }
 
@@ -116,9 +101,6 @@ class CreateAccount extends AbstractCommand
         $this->password = $password;
     }
 
-    /**
-     * @return mixed
-     */
     public function getProvisionJob()
     {
         return $this->provisionJob;

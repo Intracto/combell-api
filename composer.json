@@ -1,13 +1,13 @@
 {
   "name": "tomcan/combell-api",
-  "description": "Wrapper libraries for Combell public API on their shared hosting environment.",
+  "description": "Client libraries for the Combell shared hosting public API.",
   "keywords": ["Combell","API"],
   "license": "MIT",
   "autoload": {
     "psr-4": {"TomCan\\CombellApi\\": "src/"}
   },
   "require": {
-    "php": ">=5.5",
+    "php": ">=7.2",
     "guzzlehttp/guzzle": "~6.0"
   },
   "require-dev": {

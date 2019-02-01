@@ -7,24 +7,21 @@ use TomCan\CombellApi\Structure\Domains\Domain;
 
 class ListDomains extends AbstractCommand
 {
-
     public function __construct()
     {
-        parent::__construct("get", "/v2/domains");
+        parent::__construct('get', '/v2/domains');
     }
 
     public function processResponse($response)
     {
-
-        $domains = array();
+        $domains = [];
         foreach ($response['body'] as $domain) {
             $dom = new Domain($domain->domain_name, $domain->expiration_date, $domain->will_renew);
             $domains[] = $dom;
         }
 
         $response['response'] = $domains;
+
         return $response;
-
     }
-
 }

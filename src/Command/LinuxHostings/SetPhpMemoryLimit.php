@@ -6,62 +6,44 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class SetPhpMemoryLimit extends AbstractCommand
 {
-
     private $domainname;
     private $memorylimit;
 
-    public function __construct($domainname, $memorylimit)
+    public function __construct(string $domainname, int $memorylimit)
     {
-        parent::__construct("put", "/v2/linuxhostings/{domainname}/phpsettings/memorylimit");
+        parent::__construct('put', '/v2/linuxhostings/{domainname}/phpsettings/memorylimit');
 
         $this->setDomainname($domainname);
         $this->setMemorylimit($memorylimit);
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-
-        $this->setEndPoint("/v2/linuxhostings/".$this->domainname."/phpsettings/memorylimit");
+        $this->setEndPoint('/v2/linuxhostings/' . $this->domainname . '/phpsettings/memorylimit');
 
         $obj = new \stdClass();
         $obj->memory_limit = $this->memorylimit;
 
-        $this->setBody(
-            json_encode($obj)
-        );
-
+        $this->setBody((string) json_encode($obj));
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDomainname()
+    public function getDomainname(): string
     {
         return $this->domainname;
     }
 
-    /**
-     * @param mixed $domainname
-     */
-    public function setDomainname($domainname)
+    public function setDomainname(string $domainname): void
     {
         $this->domainname = $domainname;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getMemorylimit()
+    public function getMemorylimit(): int
     {
         return $this->memorylimit;
     }
 
-    /**
-     * @param mixed $memorylimit
-     */
-    public function setMemorylimit($memorylimit)
+    public function setMemorylimit(int $memorylimit): void
     {
         $this->memorylimit = $memorylimit;
     }
-
 }

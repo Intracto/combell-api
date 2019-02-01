@@ -7,45 +7,41 @@ use TomCan\CombellApi\Structure\ProvisioningJobs\ProvisioningJob;
 
 class GetProvisioningJob extends AbstractCommand
 {
-
-    private $job_id;
-
+    private $jobId;
     private $status = '';
-    private $resource_links = array();
+    private $resource_links = [];
 
-    public function __construct($job_id)
+    public function __construct(string $jobId)
     {
-        parent::__construct("get", "/v2/provisioningjobs/{jobid}");
+        parent::__construct('get', '/v2/provisioningjobs/{jobid}');
 
-        $this->job_id = $job_id;
-
+        $this->jobId = $jobId;
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-        $this->setEndPoint("/v2/provisioningjobs/" . $this->job_id);
+        $this->setEndPoint('/v2/provisioningjobs/' . $this->jobId);
     }
 
     public function processResponse($response)
     {
+        $provisioningJob = new ProvisioningJob($this->getJobId(), '');
 
-        $provisioningJob = new ProvisioningJob($this->getJobId(), "");
-
-        if ($response['status'] == 200) {
+        if ((int) $response['status'] === 200) {
             $this->status = $response['body']->status;
             $provisioningJob->setStatus($response['body']->status);
         }
 
-        if ($response['status'] == 201) {
+        if ((int) $response['status'] === 201) {
             $this->status = 'finished';
-            $this->resource_links = array();
+            $this->resource_links = [];
             foreach ($response['body']->resource_links as $link) {
-                $matches = array();
+                $matches = [];
                 if (preg_match('/\/([a-z]+)\/([^\/]+)$/', $link, $matches)) {
-                    $this->resource_links[] = array(
+                    $this->resource_links[] = [
                         'type' => $matches[1],
                         'id' => $matches[2],
-                    );
+                    ];
                 }
             }
             $provisioningJob->setStatus('finished');
@@ -53,23 +49,18 @@ class GetProvisioningJob extends AbstractCommand
         }
 
         $response['response'] = $provisioningJob;
+
         return $response;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getJobId()
+    public function getJobId(): string
     {
-        return $this->job_id;
+        return $this->jobId;
     }
 
-    /**
-     * @param mixed $job_id
-     */
-    public function setJobId($job_id)
+    public function setJobId(string $jobId): void
     {
-        $this->job_id = $job_id;
+        $this->jobId = $jobId;
     }
 
     /**
@@ -79,5 +70,4 @@ class GetProvisioningJob extends AbstractCommand
     {
         return $this->resource_links;
     }
-
 }

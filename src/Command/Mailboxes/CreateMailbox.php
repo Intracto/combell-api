@@ -6,81 +6,57 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class CreateMailbox extends AbstractCommand
 {
-
     private $domainname;
     private $email;
     private $password;
 
-    public function __construct($domainname, $email, $password)
+    public function __construct(string $domainname, string $email, string $password)
     {
-        parent::__construct("post", "/v2/mailboxes/{domainname}");
+        parent::__construct('post', '/v2/mailboxes/{domainname}');
 
         $this->setDomainname($domainname);
         $this->setEmail($email);
         $this->setPassword($password);
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-
-        $this->setEndPoint("/v2/mailboxes/".$this->domainname);
+        $this->setEndPoint('/v2/mailboxes/' . $this->domainname);
 
         $obj = new \stdClass();
         $obj->email = $this->email;
         $obj->password = $this->password;
 
-        $this->setBody(
-            json_encode($obj)
-        );
-
+        $this->setBody((string) json_encode($obj));
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDomainname()
+    public function getDomainname(): string
     {
         return $this->domainname;
     }
 
-    /**
-     * @param mixed $domainname
-     */
-    public function setDomainname($domainname)
+    public function setDomainname(string $domainname): void
     {
         $this->domainname = $domainname;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email)
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password)
+    public function setPassword(string $password): void
     {
         $this->password = $password;
     }
-
 }

@@ -6,80 +6,57 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class CreateMysqlDatabase extends AbstractCommand
 {
-
     private $database;
     private $account;
     private $password;
 
-    public function __construct($database, $account, $password)
+    public function __construct(string $database, int $account, string $password)
     {
-        parent::__construct("post", "/v2/mysqldatabases");
+        parent::__construct('post', '/v2/mysqldatabases');
 
         $this->setDatabase($database);
         $this->setAccount($account);
         $this->setPassword($password);
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-
         $obj = new \stdClass();
         $obj->database_name = $this->database;
         $obj->account_id = $this->account;
         $obj->password = $this->password;
 
-        $this->setBody(
-            json_encode($obj)
-        );
-
+        $this->setBody((string) json_encode($obj));
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDatabase()
+    public function getDatabase(): string
     {
         return $this->database;
     }
 
-    /**
-     * @param mixed $database
-     */
-    public function setDatabase($database)
+    public function setDatabase(string $database): void
     {
         $this->database = $database;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getAccount()
+
+    public function getAccount(): int
     {
         return $this->account;
     }
 
-    /**
-     * @param mixed $account
-     */
-    public function setAccount($account)
+    public function setAccount(int $account): void
     {
         $this->account = $account;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password)
+    public function setPassword(string $password): void
     {
         $this->password = $password;
     }
-
 }

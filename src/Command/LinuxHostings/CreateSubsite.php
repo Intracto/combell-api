@@ -6,81 +6,57 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class CreateSubsite extends AbstractCommand
 {
-
     private $domainname;
     private $subsiteDomainname;
     private $path;
 
-    public function __construct($domainname, $subsite_domainname, $path = "")
+    public function __construct(string $domainname, string $subSiteDomainName, string $path = '')
     {
-        parent::__construct("post", "/v2/linuxhostings/{domainname}/subsites");
+        parent::__construct('post', '/v2/linuxhostings/{domainname}/subsites');
 
         $this->setDomainname($domainname);
-        $this->setSubsiteDomainname($subsite_domainname);
+        $this->setSubsiteDomainname($subSiteDomainName);
         $this->setPath($path);
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-
-        $this->setEndPoint("/v2/linuxhostings/".$this->domainname."/subsites");
+        $this->setEndPoint('/v2/linuxhostings/' . $this->domainname . '/subsites');
 
         $obj = new \stdClass();
         $obj->domain_name = $this->subsiteDomainname;
         $obj->path = $this->path;
 
-        $this->setBody(
-            json_encode($obj)
-        );
-
+        $this->setBody((string) json_encode($obj));
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDomainname()
+    public function getDomainname(): string
     {
         return $this->domainname;
     }
 
-    /**
-     * @param mixed $domainname
-     */
-    public function setDomainname($domainname)
+    public function setDomainname(string $domainname): void
     {
         $this->domainname = $domainname;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSubsiteDomainname()
+    public function getSubsiteDomainname(): string
     {
         return $this->subsiteDomainname;
     }
 
-    /**
-     * @param mixed $subsiteDomainname
-     */
-    public function setSubsiteDomainname($subsiteDomainname)
+    public function setSubsiteDomainname(string $subsiteDomainname): void
     {
         $this->subsiteDomainname = $subsiteDomainname;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path;
     }
 
-    /**
-     * @param mixed $path
-     */
-    public function setPath($path)
+    public function setPath(string $path): void
     {
         $this->path = $path;
     }
-
 }

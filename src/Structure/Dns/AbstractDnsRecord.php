@@ -2,23 +2,14 @@
 
 namespace TomCan\CombellApi\Structure\Dns;
 
-
 class AbstractDnsRecord
 {
-
     protected $id;
     protected $type;
     protected $hostname;
     protected $ttl;
 
-    /**
-     * AbstractDnsRecord constructor.
-     * @param $id
-     * @param $type
-     * @param $hostname
-     * @param $ttl
-     */
-    public function __construct($id, $type, $hostname, $ttl)
+    public function __construct(string $id, string $type, string $hostname, int $ttl)
     {
         $this->id = $id;
         $this->type = $type;
@@ -26,73 +17,48 @@ class AbstractDnsRecord
         $this->ttl = $ttl;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
+    public function setId(string $id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param mixed $type
-     */
-    public function setType($type)
+    public function setType(string $type): void
     {
         $this->type = $type;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getHostname()
+    public function getHostname(): string
     {
         return $this->hostname;
     }
 
-    /**
-     * @param mixed $hostname
-     */
-    public function setHostname($hostname)
+    public function setHostname(string $hostname): void
     {
         $this->hostname = $hostname;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getTtl()
+    public function getTtl(): int
     {
         return $this->ttl;
     }
 
-    /**
-     * @param mixed $ttl
-     */
-    public function setTtl($ttl)
+    public function setTtl(int $ttl): void
     {
         $this->ttl = $ttl;
     }
 
-    public function getObject()
+    public function getObject(): \stdClass
     {
-
         $obj = new \stdClass();
         $obj->id = $this->getId();
         $obj->record_name = $this->getHostname();
@@ -100,7 +66,5 @@ class AbstractDnsRecord
         $obj->ttl = $this->getTtl();
 
         return $obj;
-
     }
-
 }

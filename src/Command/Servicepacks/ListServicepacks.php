@@ -7,16 +7,14 @@ use TomCan\CombellApi\Structure\Servicepacks\Servicepack;
 
 class ListServicepacks extends AbstractCommand
 {
-
     public function __construct()
     {
-        parent::__construct("get", "/v2/servicepacks");
+        parent::__construct('get', '/v2/servicepacks');
     }
 
     public function processResponse($response)
     {
-
-        $servicepacks = array();
+        $servicepacks = [];
         foreach ($response['body'] as $sp) {
             $servicepacks[] = new Servicepack($sp->id, $sp->name);
         }
@@ -24,7 +22,5 @@ class ListServicepacks extends AbstractCommand
         $response['response'] = $servicepacks;
 
         return $response;
-
     }
-
 }

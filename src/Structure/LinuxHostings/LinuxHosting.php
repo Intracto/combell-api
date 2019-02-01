@@ -2,10 +2,8 @@
 
 namespace TomCan\CombellApi\Structure\LinuxHostings;
 
-
 class LinuxHosting
 {
-
     private $domainName;
     private $servicepackId;
     private $maxWebspaceSize;
@@ -18,32 +16,18 @@ class LinuxHosting
     private $ftpUserName;
     private $sshUserName;
 
-    /**
-     * LinuxHosting constructor.
-     * @param $domain_name
-     * @param $servicepackId
-     * @param $maxWebspaceSize
-     * @param $maxSize
-     * @param $webspaceUsage
-     * @param $actualSize
-     * @param $ip
-     * @param $ipType
-     * @param $sshHost
-     * @param $ftpUserName
-     * @param $sshUserName
-     */
     public function __construct(
-        $domainName,
-        $servicepackId,
-        $maxWebspaceSize = null,
-        $maxSize = null,
-        $webspaceUsage = null,
-        $actualSize = null,
-        $ip = null,
-        $ipType = null,
-        $sshHost = null,
-        $ftpUserName = null,
-        $sshUserName = null
+        string $domainName,
+        int $servicepackId,
+        ?int $maxWebspaceSize = null,
+        ?int $maxSize = null,
+        ?int $webspaceUsage = null,
+        ?int $actualSize = null,
+        ?string $ip = null,
+        ?string $ipType = null,
+        ?string $sshHost = null,
+        ?string $ftpUserName = null,
+        ?string $sshUserName = null
     ) {
         $this->domainName = $domainName;
         $this->servicepackId = $servicepackId;
@@ -58,188 +42,119 @@ class LinuxHosting
         $this->sshUserName = $sshUserName;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDomainName()
+    public function getDomainName(): string
     {
         return $this->domainName;
     }
 
-    /**
-     * @param mixed $domain_name
-     */
-    public function setDomainName($domainName)
+    public function setDomainName(string $domainName): void
     {
         $this->domainName = $domainName;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getServicepackId()
+    public function getServicepackId(): int
     {
         return $this->servicepackId;
     }
 
-    /**
-     * @param mixed $servicepackId
-     */
-    public function setServicepackId($servicepackId)
+    public function setServicepackId(int $servicepackId): void
     {
         $this->servicepackId = $servicepackId;
     }
 
-    /**
-     * @return null
-     */
-    public function getMaxWebspaceSize()
+    public function getMaxWebspaceSize(): ?int
     {
         return $this->maxWebspaceSize;
     }
 
-    /**
-     * @param null $maxWebspaceSize
-     */
-    public function setMaxWebspaceSize($maxWebspaceSize)
+    public function setMaxWebspaceSize(int $maxWebspaceSize): void
     {
         $this->maxWebspaceSize = $maxWebspaceSize;
     }
 
-    /**
-     * @return null
-     */
-    public function getMaxSize()
+    public function getMaxSize(): ?int
     {
         return $this->maxSize;
     }
 
-    /**
-     * @param null $maxSize
-     */
-    public function setMaxSize($maxSize)
+    public function setMaxSize(int $maxSize): void
     {
         $this->maxSize = $maxSize;
     }
 
-    /**
-     * @return null
-     */
-    public function getWebspaceUsage()
+    public function getWebspaceUsage(): ?int
     {
         return $this->webspaceUsage;
     }
 
-    /**
-     * @param null $webspaceUsage
-     */
-    public function setWebspaceUsage($webspaceUsage)
+    public function setWebspaceUsage(int $webspaceUsage): void
     {
         $this->webspaceUsage = $webspaceUsage;
     }
 
-    /**
-     * @return null
-     */
-    public function getActualSize()
+    public function getActualSize(): ?int
     {
         return $this->actualSize;
     }
 
-    /**
-     * @param null $actualSize
-     */
-    public function setActualSize($actualSize)
+    public function setActualSize(int $actualSize): void
     {
         $this->actualSize = $actualSize;
     }
 
-    /**
-     * @return null
-     */
-    public function getIp()
+    public function getIp(): ?string
     {
         return $this->ip;
     }
 
-    /**
-     * @param null $ip
-     */
-    public function setIp($ip)
+    public function setIp(string $ip): void
     {
         $this->ip = $ip;
     }
 
-    /**
-     * @return null
-     */
-    public function getIpType()
+    public function getIpType(): ?string
     {
         return $this->ipType;
     }
 
-    /**
-     * @param null $ipType
-     */
-    public function setIpType($ipType)
+    public function setIpType(string $ipType): void
     {
         $this->ipType = $ipType;
     }
 
-    /**
-     * @return null
-     */
-    public function getSshHost()
+    public function getSshHost(): ?string
     {
         return $this->sshHost;
     }
 
-    /**
-     * @param null $sshHost
-     */
-    public function setSshHost($sshHost)
+    public function setSshHost(string $sshHost): void
     {
         $this->sshHost = $sshHost;
     }
 
-    /**
-     * @return null
-     */
-    public function getFtpHost()
+    public function getFtpHost(): ?string
     {
-        return $this->sshUserName . '.webhosting.be';
+        return is_null($this->sshUserName) ? null : $this->sshUserName . '.webhosting.be';
     }
 
-    /**
-     * @return string|null
-     */
-    public function getFtpUserName()
+    public function getFtpUserName(): ?string
     {
         return $this->ftpUserName;
     }
 
-    /**
-     * @param string|null $ftpUserName
-     */
-    public function setFtpUserName($ftpUserName)
+    public function setFtpUserName(string $ftpUserName): void
     {
         $this->ftpUserName = $ftpUserName;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getSshUserName()
+    public function getSshUserName(): ?string
     {
         return $this->sshUserName;
     }
 
-    /**
-     * @param string|null $sshUserName
-     */
-    public function setSshUserName($sshUserName)
+    public function setSshUserName(string $sshUserName): void
     {
         $this->sshUserName = $sshUserName;
     }
-
 }
+

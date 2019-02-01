@@ -15,13 +15,13 @@ Next, you need to include the composer autoloader. Instantiate the API object wi
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-$key = "YOUR-API-KEY";  
-$sec = "YOUR-API-SECRET";
+$key = 'YOUR-API-KEY';  
+$sec = 'YOUR-API-SECRET';
 
 $adapter = new \TomCan\CombellApi\Adapter\GuzzleAdapter();  
 $api = new \TomCan\CombellApi\Common\Api($key, $sec, $adapter);  
 $cmd = new \TomCan\CombellApi\Command\Accounts\ListAccounts();  
-var_dump($api->ExecuteCommand($cmd));  
+var_dump($api->executeCommand($cmd));  
 
 ?>
 ```

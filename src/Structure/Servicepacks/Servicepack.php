@@ -2,47 +2,29 @@
 
 namespace TomCan\CombellApi\Structure\Servicepacks;
 
-
 class Servicepack
 {
-
     private $id;
     private $name;
 
-    /**
-     * Servicepack constructor.
-     * @param $id
-     * @param $name
-     */
-    public function __construct($id, $name)
+    public function __construct(int $id, string $name)
     {
         $this->id = $id;
         $this->name = $name;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
-
-
 }

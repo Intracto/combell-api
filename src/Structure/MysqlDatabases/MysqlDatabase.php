@@ -4,7 +4,6 @@ namespace TomCan\CombellApi\Structure\MysqlDatabases;
 
 class MysqlDatabase
 {
-
     private $accountId;
     private $name;
     private $hostname;
@@ -12,17 +11,14 @@ class MysqlDatabase
     private $maxSize;
     private $actualSize;
 
-    /**
-     * MysqlDatabase constructor.
-     * @param $accountId
-     * @param $name
-     * @param $hostname
-     * @param $userCount
-     * @param $maxSize
-     * @param $actualSize
-     */
-    public function __construct($accountId = "", $name = "", $hostname = "", $userCount = "", $maxSize = "", $actualSize = "")
-    {
+    public function __construct(
+        int $accountId = 0,
+        string $name = '',
+        string $hostname = '',
+        int $userCount = 0,
+        int $maxSize = 0,
+        int $actualSize = 0
+    ) {
         $this->accountId = $accountId;
         $this->name = $name;
         $this->hostname = $hostname;
@@ -31,68 +27,43 @@ class MysqlDatabase
         $this->actualSize = $actualSize;
     }
 
-    /**
-     * @return string
-     */
     public function getAccountId(): string
     {
         return $this->accountId;
     }
 
-    /**
-     * @param string $accountId
-     */
-    public function setAccountId(string $accountId)
+    public function setAccountId(string $accountId): void
     {
         $this->accountId = $accountId;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
     public function getHostname(): string
     {
         return $this->hostname;
     }
 
-    /**
-     * @return string
-     */
     public function getUserCount(): string
     {
         return $this->userCount;
     }
 
-    /**
-     * @return string
-     */
     public function getMaxSize(): string
     {
         return $this->maxSize;
     }
 
-    /**
-     * @return string
-     */
     public function getActualSize(): string
     {
         return $this->actualSize;
     }
-
 }

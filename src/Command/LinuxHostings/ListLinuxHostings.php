@@ -7,16 +7,14 @@ use TomCan\CombellApi\Structure\LinuxHostings\LinuxHosting;
 
 class ListLinuxHostings extends AbstractCommand
 {
-
     public function __construct()
     {
-        parent::__construct("get", "/v2/linuxhostings");
+        parent::__construct('get', '/v2/linuxhostings');
     }
 
     public function processResponse($response)
     {
-
-        $hostings = array();
+        $hostings = [];
         foreach ($response['body'] as $hosting) {
             $hostings[] = new LinuxHosting($hosting->domain_name, $hosting->servicepack_id);
         }
@@ -24,5 +22,4 @@ class ListLinuxHostings extends AbstractCommand
 
         return $response;
     }
-
 }

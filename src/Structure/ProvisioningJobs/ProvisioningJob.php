@@ -2,23 +2,14 @@
 
 namespace TomCan\CombellApi\Structure\ProvisioningJobs;
 
-
 class ProvisioningJob
 {
-
     private $id;
     private $status;
     private $estimate;
     private $links;
 
-    /**
-     * ProvisioningJob constructor.
-     * @param $id
-     * @param $status
-     * @param $estimate
-     * @param $links
-     */
-    public function __construct($id, $status, $estimate = null, $links = null)
+    public function __construct(string $id, string $status, ?\DateTime $estimate = null, array $links = [])
     {
         $this->id = $id;
         $this->status = $status;
@@ -26,60 +17,38 @@ class ProvisioningJob
         $this->links = $links;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
 
-    /**
-     * @param mixed $status
-     */
-    public function setStatus($status)
+    public function setStatus(string $status): void
     {
         $this->status = $status;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getEstimate()
+    public function getEstimate(): ?\DateTime
     {
         return $this->estimate;
     }
 
-    /**
-     * @param null $estimate
-     */
-    public function setEstimate($estimate)
+    public function setEstimate(\DateTime $estimate): void
     {
         $this->estimate = $estimate;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLinks()
+    public function getLinks(): array
     {
         return $this->links;
     }
 
-    /**
-     * @param null $links
-     */
-    public function setLinks($links)
+    public function setLinks(array $links): void
     {
         $this->links = $links;
     }
-
 }

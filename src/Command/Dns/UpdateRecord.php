@@ -6,60 +6,42 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class UpdateRecord extends AbstractCommand
 {
-
     private $domainname;
     private $record;
 
-    public function __construct($domainname, $record)
+    public function __construct(string $domainname, string $record)
     {
-        parent::__construct("put", "/v2/dns/{domainname}/records/{recordid}");
+        parent::__construct('put', '/v2/dns/{domainname}/records/{recordid}');
 
         $this->setDomainname($domainname);
         $this->setRecord($record);
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-
-        $this->setEndPoint("/v2/dns/".$this->domainname."/records/".$this->record->getId());
+        $this->setEndPoint('/v2/dns/' . $this->domainname . '/records/' . $this->record->getId());
         $obj = $this->record->getObject();
 
-        $this->setBody(
-            json_encode($obj)
-        );
-
+        $this->setBody((string) json_encode($obj));
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDomainname()
+    public function getDomainname(): string
     {
         return $this->domainname;
     }
 
-    /**
-     * @param mixed $domainname
-     */
-    public function setDomainname($domainname)
+    public function setDomainname(string $domainname): void
     {
         $this->domainname = $domainname;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRecord()
+    public function getRecord(): string
     {
         return $this->record;
     }
 
-    /**
-     * @param mixed $record
-     */
-    public function setRecord($record)
+    public function setRecord(string $record): void
     {
         $this->record = $record;
     }
-
 }

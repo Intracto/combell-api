@@ -1,61 +1,35 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Tom
- * Date: 20/03/2018
- * Time: 0:27
- */
 
 namespace TomCan\CombellApi\Structure\Domains;
 
-
 class Nameserver
 {
-
     private $name;
     private $ip;
 
-    /**
-     * Nameserver constructor.
-     * @param $name
-     * @param $ip
-     */
-    public function __construct($name, $ip = null)
+    public function __construct(string $name, ?string $ip = null)
     {
         $this->name = $name;
         $this->ip = $ip;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return null
-     */
-    public function getIp()
+    public function getIp(): string
     {
         return $this->ip;
     }
 
-    /**
-     * @param null $ip
-     */
-    public function setIp($ip)
+    public function setIp(string $ip): void
     {
         $this->ip = $ip;
     }
-
 }

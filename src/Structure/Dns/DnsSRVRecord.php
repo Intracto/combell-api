@@ -2,10 +2,8 @@
 
 namespace TomCan\CombellApi\Structure\Dns;
 
-
 class DnsSRVRecord extends AbstractDnsRecord
 {
-
     private $service;
     private $target;
     private $protocol;
@@ -13,20 +11,17 @@ class DnsSRVRecord extends AbstractDnsRecord
     private $weight;
     private $priority;
 
-    /**
-     * DnsSRVRecord constructor.
-     * @param $id
-     * @param $hostname
-     * @param $ttl
-     * @param $service
-     * @param $target
-     * @param $protocol
-     * @param $priority
-     * @param $port
-     * @param $weight
-     */
-    public function __construct($id = "", $hostname = "", $ttl = 3600, $service = "", $target = "", $protocol = "TCP", $priority = 10, $port = 0, $weight = 0)
-    {
+    public function __construct(
+        string $id = '',
+        string $hostname = '',
+        int $ttl = 3600,
+        string $service = '',
+        string $target = '',
+        string $protocol = 'TCP',
+        int $priority = 10,
+        int $port = 0,
+        int $weight = 0
+    ) {
         parent::__construct($id, 'SRV', $hostname, $ttl);
         $this->service = $service;
         $this->target = $target;
@@ -36,103 +31,67 @@ class DnsSRVRecord extends AbstractDnsRecord
         $this->setPriority($priority);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getService()
+    public function getService(): string
     {
         return $this->service;
     }
 
-    /**
-     * @param mixed $service
-     */
-    public function setService($service)
+    public function setService(string $service): void
     {
         $this->service = $service;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getTarget()
+    public function getTarget(): string
     {
         return $this->target;
     }
 
-    /**
-     * @param mixed $target
-     */
-    public function setTarget($target)
+    public function setTarget(string $target): void
     {
         $this->target = $target;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getProtocol()
+    public function getProtocol(): string
     {
         return $this->protocol;
     }
 
-    /**
-     * @param mixed $protocol
-     */
-    public function setProtocol($protocol)
+    public function setProtocol(string $protocol): void
     {
         $this->protocol = $protocol;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPriority()
+    public function getPriority(): int
     {
         return $this->priority;
     }
 
-    /**
-     * @param mixed $priority
-     */
-    public function setPriority($priority)
+    public function setPriority(int $priority): void
     {
         $this->priority = $priority;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPort()
+    public function getPort(): int
     {
         return $this->port;
     }
 
-    /**
-     * @param mixed $port
-     */
-    public function setPort($port)
+    public function setPort(int $port): void
     {
         $this->port = $port;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getWeight()
+    public function getWeight(): int
     {
         return $this->weight;
     }
 
-    /**
-     * @param mixed $weight
-     */
-    public function setWeight($weight)
+    public function setWeight(int $weight): void
     {
         $this->weight = $weight;
     }
 
-    public function getObject()
+    public function getObject(): \stdClass
     {
         $obj = parent::getObject();
         $obj->service = $this->getService();
@@ -141,7 +100,7 @@ class DnsSRVRecord extends AbstractDnsRecord
         $obj->priority = $this->getPriority();
         $obj->port = $this->getPort();
         $obj->weight = $this->getWeight();
+
         return $obj;
     }
-
 }
