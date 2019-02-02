@@ -26,7 +26,7 @@ class AbstractCommand
     // Do any post-processing on the response
     public function processResponse(array $response)
     {
-        return $response;
+        return null;
     }
 
     public function processHeaders(array $headers): void
