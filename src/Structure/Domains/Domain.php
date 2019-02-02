@@ -11,7 +11,7 @@ class Domain
 
     public function __construct(
         string $domainName,
-        \DateTime $expirationDate = null,
+        \DateTime $expirationDate,
         ?bool $willRenew = null,
         array $nameServers = []
     ) {

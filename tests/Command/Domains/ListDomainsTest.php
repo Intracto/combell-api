@@ -70,5 +70,6 @@ final class ListDomainsTest extends TestCase
         $this->assertEquals('08.example.com', $domains[7]->getDomainName());
         $this->assertEquals(new \DateTime('2019-12-23T23:00:00Z'), $domains[7]->getExpirationDate());
         $this->assertTrue($domains[7]->getWillRenew());
+        $this->assertEmpty($domains[7]->getNameServers());
     }
 }

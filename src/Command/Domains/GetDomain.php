@@ -4,7 +4,7 @@ namespace TomCan\CombellApi\Command\Domains;
 
 use TomCan\CombellApi\Command\AbstractCommand;
 use TomCan\CombellApi\Structure\Domains\Domain;
-use TomCan\CombellApi\Structure\Domains\Nameserver;
+use TomCan\CombellApi\Structure\Domains\NameServer;
 
 class GetDomain extends AbstractCommand
 {
@@ -32,7 +32,7 @@ class GetDomain extends AbstractCommand
         if (isset($response['body']->name_servers)) {
             $nameServers = [];
             foreach ($response['body']->name_servers as $nameServer) {
-                $nameServers[] = new Nameserver($nameServer->name, $nameServer->ip);
+                $nameServers[] = new NameServer($nameServer->name, $nameServer->ip);
             }
             $domain->setNameServers($nameServers);
         }
