@@ -23,7 +23,7 @@ class GetProvisioningJob extends AbstractCommand
         $this->setEndPoint('/v2/provisioningjobs/' . $this->jobId);
     }
 
-    public function processResponse($response)
+    public function processResponse(array $response)
     {
         $provisioningJob = new ProvisioningJob($this->getJobId(), '');
 

@@ -12,7 +12,7 @@ class ListLinuxHostings extends AbstractCommand
         parent::__construct('get', '/v2/linuxhostings');
     }
 
-    public function processResponse($response)
+    public function processResponse(array $response)
     {
         $hostings = [];
         foreach ($response['body'] as $hosting) {

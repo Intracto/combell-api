@@ -17,21 +17,20 @@ class AbstractCommand
         $this->setMethod($method);
     }
 
-    /**
-     * Construct body and querystring
-     */
+    // Construct body and querystring
     public function prepare(): void
     {
         $this->queryString = 'skip=' . $this->skip . '&take=' . $this->take;
     }
 
-    /**
-     * Do any post-processing on the response
-     */
-    public function processResponse($response)
+    // Do any post-processing on the response
+    public function processResponse(array $response)
     {
         return $response;
     }
+
+    public function processHeaders(array $headers): void
+    {}
 
     public function getMethod(): string
     {

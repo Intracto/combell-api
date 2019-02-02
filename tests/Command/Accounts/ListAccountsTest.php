@@ -76,18 +76,8 @@ final class ListAccountsTest extends TestCase
 
         $api = new Api('', '', $stub);
 
-        $this->assertEquals(100, $api->getRateLimitLimit());
-        $this->assertEquals(0, $api->getRateLimitUsage());
-        $this->assertEquals(100, $api->getRateLimitRemaining());
-        $this->assertEquals(60, $api->getRateLimitReset());
-
         $cmd = new ListAccounts();
         $accounts = $api->executeCommand($cmd);
-
-        $this->assertEquals(100, $api->getRateLimitLimit());
-        $this->assertEquals(1, $api->getRateLimitUsage());
-        $this->assertEquals(99, $api->getRateLimitRemaining());
-        $this->assertEquals(60, $api->getRateLimitReset());
 
         $this->assertEquals(0, $cmd->getPagingSkipped());
         $this->assertEquals(25, $cmd->getPagingTake());

@@ -32,7 +32,7 @@ class ListRecords extends AbstractCommand
         $this->domainName = $domainName;
     }
 
-    public function processResponse($response)
+    public function processResponse(array $response)
     {
         $records = [];
         foreach ($response['body'] as $record) {

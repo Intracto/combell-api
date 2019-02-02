@@ -55,10 +55,8 @@ class ListAccounts extends PageableAbstractCommand
         $this->identifier = $identifier;
     }
 
-    public function processResponse($response)
+    public function processResponse(array $response)
     {
-        parent::processResponse($response);
-
         $accounts = [];
         foreach ($response['body'] as $account) {
             $accounts[] = new Account($account->id, $account->identifier);

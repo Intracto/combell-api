@@ -22,24 +22,21 @@ class GetDomain extends AbstractCommand
         $this->setEndPoint('/v2/domains/' . $this->domain);
     }
 
-    public function processResponse($response)
+    public function processResponse(array $response)
     {
-        $domains = [];
-        $domain = $response['body'];
-
-        $dom = new Domain($domain->domain_name, $domain->expiration_date, $domain->will_renew);
-        if (isset($domain->name_servers)) {
+        $domain = new Domain(
+            $response['body']->domain_name,
+            new \DateTime($response['body']->expiration_date),
+            $response['body']->will_renew
+        );
+        if (isset($response['body']->name_servers)) {
             $nameServers = [];
-            foreach ($domain->name_servers as $name_server) {
-                $nameServers[] = new Nameserver($name_server->name, $name_server->ip);
+            foreach ($response['body']->name_servers as $nameServer) {
+                $nameServers[] = new Nameserver($nameServer->name, $nameServer->ip);
             }
-            $dom->setNameServers($nameServers);
+            $domain->setNameServers($nameServers);
         }
 
-        $domains[] = $dom;
-
-        $response['response'] = $domains;
-
-        return $response;
+        return $domain;
     }
 }

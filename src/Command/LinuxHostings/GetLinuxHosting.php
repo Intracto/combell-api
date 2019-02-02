@@ -31,7 +31,7 @@ class GetLinuxHosting extends AbstractCommand
         $this->domainName = $domainName;
     }
 
-    public function processResponse($response)
+    public function processResponse(array $response)
     {
         $h = $response['body'];
         $response['response'] = new LinuxHosting(

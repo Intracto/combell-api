@@ -2,26 +2,27 @@
 
 namespace TomCan\CombellApi\Command\Domains;
 
-use TomCan\CombellApi\Command\AbstractCommand;
+use TomCan\CombellApi\Command\PageableAbstractCommand;
 use TomCan\CombellApi\Structure\Domains\Domain;
 
-class ListDomains extends AbstractCommand
+class ListDomains extends PageableAbstractCommand
 {
     public function __construct()
     {
         parent::__construct('get', '/v2/domains');
     }
 
-    public function processResponse($response)
+    public function processResponse(array $response)
     {
         $domains = [];
         foreach ($response['body'] as $domain) {
-            $dom = new Domain($domain->domain_name, $domain->expiration_date, $domain->will_renew);
-            $domains[] = $dom;
+            $domains[] = new Domain(
+                $domain->domain_name,
+                new \DateTime($domain->expiration_date),
+                $domain->will_renew
+            );
         }
 
-        $response['response'] = $domains;
-
-        return $response;
+        return $domains;
     }
 }

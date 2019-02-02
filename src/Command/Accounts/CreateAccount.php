@@ -41,7 +41,7 @@ class CreateAccount extends AbstractCommand
         $this->setBody((string) json_encode($obj));
     }
 
-    public function processResponse($response)
+    public function processResponse(array $response)
     {
         if (isset($response['headers']['Location'])) {
             $h = $response['headers']['Location'][0];

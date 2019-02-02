@@ -51,6 +51,8 @@ class Api
             $ret['body'] = \json_decode($ret['body']);
         }
 
+        $command->processHeaders($ret['headers']);
+
         return $command->processResponse($ret);
     }
 

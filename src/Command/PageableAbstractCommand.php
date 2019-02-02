@@ -8,11 +8,11 @@ class PageableAbstractCommand extends AbstractCommand
     private $pagingTake = 0;
     private $pagingTotalResults = 0;
 
-    public function processResponse($response)
+    public function processHeaders(array $headers): void
     {
-        $this->pagingSkipped = (int) current($response['headers']['X-Paging-Skipped']);
-        $this->pagingTake = (int) current($response['headers']['X-Paging-Take']);
-        $this->pagingTotalResults = (int) current($response['headers']['X-Paging-TotalResults']);
+        $this->pagingSkipped = (int) current($headers['X-Paging-Skipped']);
+        $this->pagingTake = (int) current($headers['X-Paging-Take']);
+        $this->pagingTotalResults = (int) current($headers['X-Paging-TotalResults']);
     }
 
     public function getPagingSkipped(): int

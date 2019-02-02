@@ -21,7 +21,7 @@ class GetMysqlDatabase extends AbstractCommand
         $this->setEndPoint('/v2/mysqldatabases/' . $this->databaseName);
     }
 
-    public function processResponse($response)
+    public function processResponse(array $response)
     {
         $db = $response['body'];
 

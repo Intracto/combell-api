@@ -42,7 +42,7 @@ class GetRecord extends AbstractCommand
         $this->id = $id;
     }
 
-    public function processResponse($response)
+    public function processResponse(array $response)
     {
         $record = $response['body'];
         $className = "\\TomCan\\CombellApi\\Structure\\Dns\\Dns" . $record->type . 'Record';

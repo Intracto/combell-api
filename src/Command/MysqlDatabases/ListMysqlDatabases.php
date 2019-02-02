@@ -12,7 +12,7 @@ class ListMysqlDatabases extends AbstractCommand
         parent::__construct('get', '/v2/mysqldatabases');
     }
 
-    public function processResponse($response)
+    public function processResponse(array $response)
     {
         $databases = [];
         foreach ($response['body'] as $db) {

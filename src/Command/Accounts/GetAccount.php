@@ -21,7 +21,7 @@ class GetAccount extends AbstractCommand
         $this->setEndPoint('/v2/accounts/' . $this->id);
     }
 
-    public function processResponse($response)
+    public function processResponse(array $response)
     {
         return new Account($response['body']->id, $response['body']->identifier);
     }
