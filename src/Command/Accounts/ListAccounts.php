@@ -34,13 +34,15 @@ class ListAccounts extends AbstractCommand
     {
         if ($assetType === '') {
             $this->assetType = '';
-        } else {
-            if (! \in_array($assetType, ['domain', 'linux_hosting', 'mysql', 'dns', 'mailbox'], true)) {
-                throw new \InvalidArgumentException('Invalid asset_type specified');
-            }
 
-            $this->assetType = $assetType;
+            return;
         }
+
+        if (! \in_array($assetType, ['domain', 'linux_hosting', 'mysql', 'dns', 'mailbox'], true)) {
+            throw new \InvalidArgumentException('Invalid asset type specified');
+        }
+
+        $this->assetType = $assetType;
     }
 
     public function getIdentifier(): string

@@ -7,7 +7,7 @@ class Account
     private $id;
     private $identifier;
 
-    public function __construct(int $id = 0, string $identifier = '')
+    public function __construct(int $id, string $identifier)
     {
         $this->id = $id;
         $this->identifier = $identifier;

@@ -2,6 +2,7 @@
 
 namespace TomCan\CombellApi\Common;
 
+use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Command\AbstractCommand;
 
 class Api
@@ -10,7 +11,7 @@ class Api
     private $apiSecret;
     private $adapter;
 
-    public function __construct(string $apiKey, string $apiSecret, string $adapter)
+    public function __construct(string $apiKey, string $apiSecret, AdapterInterface $adapter)
     {
         $this->apiKey = $apiKey;
         $this->apiSecret = $apiSecret;

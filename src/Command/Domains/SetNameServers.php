@@ -4,7 +4,7 @@ namespace TomCan\CombellApi\Command\Domains;
 
 use TomCan\CombellApi\Command\AbstractCommand;
 
-class SetNameservers extends AbstractCommand
+class SetNameServers extends AbstractCommand
 {
     private $domainName;
     private $nameServers;
