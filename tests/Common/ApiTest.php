@@ -31,6 +31,8 @@ final class ApiTest extends TestCase
 
         $api = new Api('', '', $stub);
 
+        $this->assertEquals(0, $api->getResponseCode());
+
         $this->assertEquals(100, $api->getRateLimitLimit());
         $this->assertEquals(0, $api->getRateLimitUsage());
         $this->assertEquals(100, $api->getRateLimitRemaining());
@@ -38,6 +40,8 @@ final class ApiTest extends TestCase
 
         $cmd = new ListAccounts();
         $api->executeCommand($cmd);
+
+        $this->assertEquals(200, $api->getResponseCode());
 
         $this->assertEquals(100, $api->getRateLimitLimit());
         $this->assertEquals(1, $api->getRateLimitUsage());
