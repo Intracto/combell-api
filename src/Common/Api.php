@@ -11,6 +11,12 @@ class Api
     private $apiSecret;
     private $adapter;
 
+    private $responseCode = 0;
+    private $rateLimitLimit = 100;
+    private $rateLimitUsage = 0;
+    private $rateLimitRemaining = 100;
+    private $rateLimitReset = 60;
+
     public function __construct(string $apiKey, string $apiSecret, AdapterInterface $adapter)
     {
         $this->apiKey = $apiKey;
@@ -35,7 +41,12 @@ class Api
             $command->getBody()
         );
 
-        // json_decode body
+        $this->responseCode = (int) $ret['status'];
+        $this->rateLimitLimit = (int) current($ret['headers']['X-RateLimit-Limit']);
+        $this->rateLimitUsage = (int) current($ret['headers']['X-RateLimit-Usage']);
+        $this->rateLimitRemaining = (int) current($ret['headers']['X-RateLimit-Remaining']);
+        $this->rateLimitReset = (int) current($ret['headers']['X-RateLimit-Reset']);
+
         if ($ret['body'] !== '') {
             $ret['body'] = \json_decode($ret['body']);
         }
@@ -56,5 +67,30 @@ class Api
         $hmac = base64_encode(hash_hmac('sha256', $input, $this->apiSecret, true));
 
         return 'hmac ' . $this->apiKey . ':' . $hmac . ':' . $nonce . ':' . $timestamp;
+    }
+
+    public function getResponseCode(): int
+    {
+        return $this->responseCode;
+    }
+
+    public function getRateLimitLimit(): int
+    {
+        return $this->rateLimitLimit;
+    }
+
+    public function getRateLimitUsage(): int
+    {
+        return $this->rateLimitUsage;
+    }
+
+    public function getRateLimitRemaining(): int
+    {
+        return $this->rateLimitRemaining;
+    }
+
+    public function getRateLimitReset(): int
+    {
+        return $this->rateLimitReset;
     }
 }

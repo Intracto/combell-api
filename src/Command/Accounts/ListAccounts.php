@@ -2,10 +2,10 @@
 
 namespace TomCan\CombellApi\Command\Accounts;
 
-use TomCan\CombellApi\Command\AbstractCommand;
+use TomCan\CombellApi\Command\PageableAbstractCommand;
 use TomCan\CombellApi\Structure\Accounts\Account;
 
-class ListAccounts extends AbstractCommand
+class ListAccounts extends PageableAbstractCommand
 {
     private $assetType;
     private $identifier;
@@ -57,12 +57,13 @@ class ListAccounts extends AbstractCommand
 
     public function processResponse($response)
     {
-        $accounts = [];
-        foreach ($response['body'] as $item) {
-            $accounts[] = new Account($item->id, $item->identifier);
-        }
-        $response['response'] = $accounts;
+        parent::processResponse($response);
 
-        return $response;
+        $accounts = [];
+        foreach ($response['body'] as $account) {
+            $accounts[] = new Account($account->id, $account->identifier);
+        }
+
+        return $accounts;
     }
 }

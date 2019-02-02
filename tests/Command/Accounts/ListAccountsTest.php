@@ -2,6 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
+use TomCan\CombellApi\Common\Api;
 use TomCan\CombellApi\Command\Accounts\ListAccounts;
 use TomCan\CombellApi\Structure\Accounts\Account;
 
@@ -35,11 +36,11 @@ final class ListAccountsTest extends TestCase
                 'X-RateLimit-Limit' => ['100'],
                 'X-RateLimit-Usage' => ['1'],
                 'X-RateLimit-Remaining' => ['99'],
-                'X-RateLimit-Reset' => '60',
-                'X-Paging-Skipped' => '0',
-                'X-Paging-Take' => '25',
-                'X-Paging-TotalResults' => '12345',
-                'Date' => 'Sat, 02 Feb 2019 20:23:35 GMT',
+                'X-RateLimit-Reset' => ['60'],
+                'X-Paging-Skipped' => ['0'],
+                'X-Paging-Take' => ['25'],
+                'X-Paging-TotalResults' => ['12345'],
+                'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode([
                 (object) [ 'id' => 999001, 'identifier' => '01012018999001.example.com' ],
@@ -73,11 +74,24 @@ final class ListAccountsTest extends TestCase
         $stub = $this->createMock(\TomCan\CombellApi\Adapter\AdapterInterface::class);
         $stub->method('call')->willReturn($returnValue);
 
-        $api = new \TomCan\CombellApi\Common\Api('', '', $stub);
+        $api = new Api('', '', $stub);
 
-        $accounts = $api->executeCommand(
-            new ListAccounts()
-        )['response'];
+        $this->assertEquals(100, $api->getRateLimitLimit());
+        $this->assertEquals(0, $api->getRateLimitUsage());
+        $this->assertEquals(100, $api->getRateLimitRemaining());
+        $this->assertEquals(60, $api->getRateLimitReset());
+
+        $cmd = new ListAccounts();
+        $accounts = $api->executeCommand($cmd);
+
+        $this->assertEquals(100, $api->getRateLimitLimit());
+        $this->assertEquals(1, $api->getRateLimitUsage());
+        $this->assertEquals(99, $api->getRateLimitRemaining());
+        $this->assertEquals(60, $api->getRateLimitReset());
+
+        $this->assertEquals(0, $cmd->getPagingSkipped());
+        $this->assertEquals(25, $cmd->getPagingTake());
+        $this->assertEquals(12345, $cmd->getPagingTotalResults());
 
         $this->assertCount(25, $accounts);
         $this->assertInstanceOf(Account::class, $accounts[7]);
