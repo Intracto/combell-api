@@ -8,16 +8,16 @@ use TomCan\CombellApi\Structure\ProvisioningJobs\ProvisioningJob;
 class CreateAccount extends AbstractCommand
 {
     private $identifier;
-    private $servicepack;
+    private $servicePack;
     private $password;
     private $provisionJob;
 
-    public function __construct(string $identifier, int $servicepack, ?string $password = null)
+    public function __construct(string $identifier, int $servicePack, ?string $password = null)
     {
         parent::__construct('post', '/v2/accounts');
 
         $this->setIdentifier($identifier);
-        $this->setServicepack($servicepack);
+        $this->setServicePack($servicePack);
         if ($password !== null) {
             $this->setPassword($password);
         }
@@ -28,10 +28,10 @@ class CreateAccount extends AbstractCommand
         $obj = new \stdClass();
         $obj->identifier = $this->identifier;
 
-        if (\is_object($this->servicepack) && isset($this->servicepack->id)) {
-            $obj->servicepack_id = $this->servicepack->id;
+        if (\is_object($this->servicePack) && isset($this->servicePack->id)) {
+            $obj->servicepack_id = $this->servicePack->id;
         } else {
-            $obj->servicepack_id = $this->servicepack;
+            $obj->servicepack_id = $this->servicePack;
         }
 
         if ($this->password !== '') {
@@ -64,14 +64,14 @@ class CreateAccount extends AbstractCommand
         $this->identifier = $identifier;
     }
 
-    public function getServicepack(): int
+    public function getServicePack(): int
     {
-        return $this->servicepack;
+        return $this->servicePack;
     }
 
-    public function setServicepack(int $servicepack): void
+    public function setServicePack(int $servicePack): void
     {
-        $this->servicepack = $servicepack;
+        $this->servicePack = $servicePack;
     }
 
     public function getPassword(): string

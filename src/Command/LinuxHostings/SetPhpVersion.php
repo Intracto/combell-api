@@ -6,44 +6,44 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class SetPhpVersion extends AbstractCommand
 {
-    private $domainname;
-    private $phpversion;
+    private $domainName;
+    private $phpVersion;
 
-    public function __construct(string $domainname, string $phpversion)
+    public function __construct(string $domainName, string $phpVersion)
     {
         parent::__construct('put', '/v2/linuxhostings/{domainname}/phpsettings/version');
 
-        $this->setDomainname($domainname);
-        $this->setPhpversion($phpversion);
+        $this->setDomainName($domainName);
+        $this->setPhpVersion($phpVersion);
     }
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainname . '/phpsettings/version');
+        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/phpsettings/version');
 
         $obj = new \stdClass();
-        $obj->version = $this->phpversion;
+        $obj->version = $this->phpVersion;
 
         $this->setBody((string) json_encode($obj));
     }
 
-    public function getDomainname(): string
+    public function getDomainName(): string
     {
-        return $this->domainname;
+        return $this->domainName;
     }
 
-    public function setDomainname(string $domainname): void
+    public function setDomainName(string $domainName): void
     {
-        $this->domainname = $domainname;
+        $this->domainName = $domainName;
     }
 
-    public function getPhpversion(): string
+    public function getPhpVersion(): string
     {
-        return $this->phpversion;
+        return $this->phpVersion;
     }
 
-    public function setPhpversion(string $phpversion): void
+    public function setPhpVersion(string $phpVersion): void
     {
-        $this->phpversion = $phpversion;
+        $this->phpVersion = $phpVersion;
     }
 }

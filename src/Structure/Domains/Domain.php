@@ -4,27 +4,31 @@ namespace TomCan\CombellApi\Structure\Domains;
 
 class Domain
 {
-    private $domainname;
+    private $domainName;
     private $expirationDate;
     private $willRenew;
-    private $nameservers;
+    private $nameServers;
 
-    public function __construct(string $domainname, \DateTime $expirationDate = null, ?bool $willRenew = null, array $nameservers = [])
-    {
-        $this->domainname = $domainname;
+    public function __construct(
+        string $domainName,
+        \DateTime $expirationDate = null,
+        ?bool $willRenew = null,
+        array $nameServers = []
+    ) {
+        $this->domainName = $domainName;
         $this->expirationDate = $expirationDate;
         $this->willRenew = $willRenew;
-        $this->nameservers = $nameservers;
+        $this->nameServers = $nameServers;
     }
 
-    public function getDomainname(): string
+    public function getDomainName(): string
     {
-        return $this->domainname;
+        return $this->domainName;
     }
 
-    public function setDomainname(string $domainname): void
+    public function setDomainName(string $domainName): void
     {
-        $this->domainname = $domainname;
+        $this->domainName = $domainName;
     }
 
     public function getExpirationDate(): \DateTime
@@ -47,13 +51,13 @@ class Domain
         $this->willRenew = $willRenew;
     }
 
-    public function getNameservers(): array
+    public function getNameServers(): array
     {
-        return $this->nameservers;
+        return $this->nameServers;
     }
 
-    public function setNameservers(array $nameservers): void
+    public function setNameServers(array $nameServers): void
     {
-        $this->nameservers = $nameservers;
+        $this->nameServers = $nameServers;
     }
 }

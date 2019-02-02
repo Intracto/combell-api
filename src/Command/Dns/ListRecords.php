@@ -6,30 +6,30 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class ListRecords extends AbstractCommand
 {
-    private $domainname;
+    private $domainName;
 
-    public function __construct($domainname)
+    public function __construct(string $domainName)
     {
         parent::__construct('get', '/v2/dns/{domainname}/records');
 
-        $this->setDomainname($domainname);
+        $this->setDomainName($domainName);
     }
 
     public function prepare(): void
     {
         parent::prepare();
 
-        $this->setEndPoint('/v2/dns/' . $this->domainname . '/records');
+        $this->setEndPoint('/v2/dns/' . $this->domainName . '/records');
     }
 
-    public function getDomainname(): string
+    public function getDomainName(): string
     {
-        return $this->domainname;
+        return $this->domainName;
     }
 
-    public function setDomainname(string $domainname): void
+    public function setDomainName(string $domainName): void
     {
-        $this->domainname = $domainname;
+        $this->domainName = $domainName;
     }
 
     public function processResponse($response)

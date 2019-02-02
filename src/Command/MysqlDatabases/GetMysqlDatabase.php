@@ -9,7 +9,7 @@ class GetMysqlDatabase extends AbstractCommand
 {
     private $databaseName;
 
-    public function __construct($databaseName)
+    public function __construct(string $databaseName)
     {
         parent::__construct('get', '/v2/mysqldatabases');
 

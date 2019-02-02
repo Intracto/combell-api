@@ -6,22 +6,22 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class SetAutoRedirect extends AbstractCommand
 {
-    private $domainname;
+    private $domainName;
     private $hostname;
     private $enabled;
 
-    public function __construct(string $domainname, string $hostname, bool $enabled)
+    public function __construct(string $domainName, string $hostname, bool $enabled)
     {
         parent::__construct('put', '/v2/linuxhostings/{domainname}/sslsettings/{hostname}/autoredirect');
 
-        $this->setDomainname($domainname);
+        $this->setDomainName($domainName);
         $this->setHostname($hostname);
         $this->setEnabled($enabled);
     }
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainname . '/sslsettings/' . $this->hostname . '/autoredirect');
+        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/sslsettings/' . $this->hostname . '/autoredirect');
 
         $obj = new \stdClass();
         $obj->enabled = $this->enabled;
@@ -29,14 +29,14 @@ class SetAutoRedirect extends AbstractCommand
         $this->setBody((string) json_encode($obj));
     }
 
-    public function getDomainname(): string
+    public function getDomainName(): string
     {
-        return $this->domainname;
+        return $this->domainName;
     }
 
-    public function setDomainname(string $domainname): void
+    public function setDomainName(string $domainName): void
     {
-        $this->domainname = $domainname;
+        $this->domainName = $domainName;
     }
 
     public function getHostname(): string

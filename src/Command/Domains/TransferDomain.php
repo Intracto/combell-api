@@ -6,43 +6,43 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class TransferDomain extends AbstractCommand
 {
-    private $domainname;
-    private $authcode;
+    private $domainName;
+    private $authCode;
 
-    public function __construct(string $domainname, string $authcode)
+    public function __construct(string $domainName, string $authCode)
     {
         parent::__construct('post', '/v2/domains/transfers');
 
-        $this->setDomainname($domainname);
-        $this->setAuthcode($authcode);
+        $this->setDomainName($domainName);
+        $this->setAuthCode($authCode);
     }
 
     public function prepare(): void
     {
         $obj = new \stdClass();
-        $obj->domain_name = $this->domainname;
-        $obj->auth_code = $this->authcode;
+        $obj->domain_name = $this->domainName;
+        $obj->auth_code = $this->authCode;
 
         $this->setBody((string) json_encode($obj));
     }
 
-    public function getDomainname(): string
+    public function getDomainName(): string
     {
-        return $this->domainname;
+        return $this->domainName;
     }
 
-    public function setDomainname(string $domainname): void
+    public function setDomainName(string $domainName): void
     {
-        $this->domainname = $domainname;
+        $this->domainName = $domainName;
     }
 
-    public function getAuthcode(): string
+    public function getAuthCode(): string
     {
-        return $this->authcode;
+        return $this->authCode;
     }
 
-    public function setAuthcode(string $authcode): void
+    public function setAuthCode(string $authCode): void
     {
-        $this->authcode = $authcode;
+        $this->authCode = $authCode;
     }
 }

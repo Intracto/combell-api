@@ -6,20 +6,20 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class SetGzipCompression extends AbstractCommand
 {
-    private $domainname;
+    private $domainName;
     private $enabled;
 
-    public function __construct(string $domainname, bool $enabled)
+    public function __construct(string $domainName, bool $enabled)
     {
         parent::__construct('put', '/v2/linuxhostings/{domainname}/settings/gzipcompression');
 
-        $this->setDomainname($domainname);
+        $this->setDomainName($domainName);
         $this->setEnabled($enabled);
     }
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainname . '/settings/gzipcompression');
+        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/settings/gzipcompression');
 
         $obj = new \stdClass();
         $obj->enabled = $this->enabled;
@@ -27,14 +27,14 @@ class SetGzipCompression extends AbstractCommand
         $this->setBody((string) json_encode($obj));
     }
 
-    public function getDomainname(): string
+    public function getDomainName(): string
     {
-        return $this->domainname;
+        return $this->domainName;
     }
 
-    public function setDomainname(string $domainname): void
+    public function setDomainName(string $domainName): void
     {
-        $this->domainname = $domainname;
+        $this->domainName = $domainName;
     }
 
     public function getEnabled(): bool

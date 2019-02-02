@@ -4,5 +4,6 @@ php:
   - 7.2
 
 script:
+  - ./vendor/bin/phpstan analyse --level=7 src
   - ./vendor/bin/phpunit
 

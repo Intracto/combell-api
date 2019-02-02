@@ -6,27 +6,27 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class GetAvailablePhpVersions extends AbstractCommand
 {
-    private $domainname;
+    private $domainName;
 
-    public function __construct($domainname)
+    public function __construct(string $domainName)
     {
         parent::__construct('get', '/v2/linuxhostings');
 
-        $this->domainname = $domainname;
+        $this->domainName = $domainName;
     }
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainname . '/phpsettings/availableversions');
+        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/phpsettings/availableversions');
     }
 
-    public function getDomainname(): string
+    public function getDomainName(): string
     {
-        return $this->domainname;
+        return $this->domainName;
     }
 
-    public function setDomainname(string $domainname): void
+    public function setDomainName(string $domainName): void
     {
-        $this->domainname = $domainname;
+        $this->domainName = $domainName;
     }
 }

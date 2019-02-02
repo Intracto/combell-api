@@ -6,44 +6,44 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class AddSshKey extends AbstractCommand
 {
-    private $domainname;
-    private $pubkey;
+    private $domainName;
+    private $pubKey;
 
-    public function __construct(string $domainname, string $pubkey)
+    public function __construct(string $domainName, string $pubKey)
     {
         parent::__construct('post', '/v2/linuxhostings/{domainname}/ssh/keys');
 
-        $this->setDomainname($domainname);
-        $this->setPubkey($pubkey);
+        $this->setDomainName($domainName);
+        $this->setPubKey($pubKey);
     }
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainname . '/ssh/keys');
+        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/ssh/keys');
 
         $obj = new \stdClass();
-        $obj->public_key = $this->pubkey;
+        $obj->public_key = $this->pubKey;
 
         $this->setBody((string) json_encode($obj));
     }
 
-    public function getDomainname(): string
+    public function getDomainName(): string
     {
-        return $this->domainname;
+        return $this->domainName;
     }
 
-    public function setDomainname(string $domainname): void
+    public function setDomainName(string $domainName): void
     {
-        $this->domainname = $domainname;
+        $this->domainName = $domainName;
     }
 
-    public function getPubkey(): string
+    public function getPubKey(): string
     {
-        return $this->pubkey;
+        return $this->pubKey;
     }
 
-    public function setPubkey(string $pubkey): void
+    public function setPubKey(string $pubKey): void
     {
-        $this->pubkey = $pubkey;
+        $this->pubKey = $pubKey;
     }
 }

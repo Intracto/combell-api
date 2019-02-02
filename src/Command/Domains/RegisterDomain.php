@@ -6,43 +6,43 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class RegisterDomain extends AbstractCommand
 {
-    private $domainname;
-    private $nameservers;
+    private $domainName;
+    private $nameServers;
 
-    public function __construct(string $domainname, array $nameservers)
+    public function __construct(string $domainName, array $nameServers)
     {
         parent::__construct('post', '/v2/domains/registrations');
 
-        $this->setDomainname($domainname);
-        $this->setNameservers($nameservers);
+        $this->setDomainName($domainName);
+        $this->setNameServers($nameServers);
     }
 
     public function prepare(): void
     {
         $obj = new \stdClass();
-        $obj->domain_name = $this->domainname;
-        $obj->name_servers = $this->nameservers;
+        $obj->domain_name = $this->domainName;
+        $obj->name_servers = $this->nameServers;
 
         $this->setBody((string) json_encode($obj));
     }
 
-    public function getDomainname(): string
+    public function getDomainName(): string
     {
-        return $this->domainname;
+        return $this->domainName;
     }
 
-    public function setDomainname(string $domainname): void
+    public function setDomainName(string $domainName): void
     {
-        $this->domainname = $domainname;
+        $this->domainName = $domainName;
     }
 
-    public function getNameservers(): array
+    public function getNameServers(): array
     {
-        return $this->nameservers;
+        return $this->nameServers;
     }
 
-    public function setNameservers(array $nameservers): void
+    public function setNameServers(array $nameServers): void
     {
-        $this->nameservers = $nameservers;
+        $this->nameServers = $nameServers;
     }
 }

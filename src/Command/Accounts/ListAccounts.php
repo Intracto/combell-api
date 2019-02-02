@@ -10,7 +10,7 @@ class ListAccounts extends AbstractCommand
     private $assetType;
     private $identifier;
 
-    public function __construct($assetType = '', $identifier = '')
+    public function __construct(string $assetType = '', string $identifier = '')
     {
         parent::__construct('get', '/v2/accounts');
         $this->setAssetType($assetType);

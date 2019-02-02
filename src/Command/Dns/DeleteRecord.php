@@ -7,14 +7,14 @@ use TomCan\CombellApi\Structure\Dns\AbstractDnsRecord;
 
 class DeleteRecord extends AbstractCommand
 {
-    private $domainname;
+    private $domainName;
     private $record;
 
-    public function __construct($domainname, $record)
+    public function __construct(string $domainName, $record)
     {
         parent::__construct('delete', '/v2/dns/{domainname}/records/{recordid}');
 
-        $this->setDomainname($domainname);
+        $this->setDomainName($domainName);
 
         if ($record instanceof AbstractDnsRecord) {
             $this->setRecord($record->getId());
@@ -25,17 +25,17 @@ class DeleteRecord extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/dns/' . $this->domainname . '/records/' . $this->record);
+        $this->setEndPoint('/v2/dns/' . $this->domainName . '/records/' . $this->record);
     }
 
-    public function getDomainname(): string
+    public function getDomainName(): string
     {
-        return $this->domainname;
+        return $this->domainName;
     }
 
-    public function setDomainname(string $domainname): void
+    public function setDomainName(string $domainName): void
     {
-        $this->domainname = $domainname;
+        $this->domainName = $domainName;
     }
 
     public function getRecord(): string

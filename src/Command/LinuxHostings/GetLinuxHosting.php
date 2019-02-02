@@ -7,28 +7,28 @@ use TomCan\CombellApi\Structure\LinuxHostings\LinuxHosting;
 
 class GetLinuxHosting extends AbstractCommand
 {
-    private $domainname;
+    private $domainName;
 
-    public function __construct($domainname)
+    public function __construct(string $domainName)
     {
         parent::__construct('get', '/v2/linuxhostings');
 
-        $this->domainname = $domainname;
+        $this->domainName = $domainName;
     }
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainname);
+        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName);
     }
 
-    public function getDomainname(): string
+    public function getDomainName(): string
     {
-        return $this->domainname;
+        return $this->domainName;
     }
 
-    public function setDomainname(string $domainname): void
+    public function setDomainName(string $domainName): void
     {
-        $this->domainname = $domainname;
+        $this->domainName = $domainName;
     }
 
     public function processResponse($response)

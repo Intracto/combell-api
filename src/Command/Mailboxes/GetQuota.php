@@ -6,27 +6,27 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class GetQuota extends AbstractCommand
 {
-    private $domainname;
+    private $domainName;
 
-    public function __construct(string $domainname)
+    public function __construct(string $domainName)
     {
         parent::__construct('get', '/v2/mailboxes/{domainname}/quota');
 
-        $this->domainname = $domainname;
+        $this->domainName = $domainName;
     }
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/mailboxes/' . $this->domainname . '/quota');
+        $this->setEndPoint('/v2/mailboxes/' . $this->domainName . '/quota');
     }
 
-    public function getDomainname(): string
+    public function getDomainName(): string
     {
-        return $this->domainname;
+        return $this->domainName;
     }
 
-    public function setDomainname(string $domainname): void
+    public function setDomainName(string $domainName): void
     {
-        $this->domainname = $domainname;
+        $this->domainName = $domainName;
     }
 }

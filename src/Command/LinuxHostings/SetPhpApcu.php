@@ -6,44 +6,44 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class SetPhpApcu extends AbstractCommand
 {
-    private $domainname;
-    private $apcusize;
+    private $domainName;
+    private $apcuSize;
 
-    public function __construct(string $domainname, int $apcusize)
+    public function __construct(string $domainName, int $apcuSize)
     {
         parent::__construct('put', '/v2/linuxhostings/{domainname}/phpsettings/apcu');
 
-        $this->setDomainname($domainname);
-        $this->setApcusize($apcusize);
+        $this->setDomainName($domainName);
+        $this->setApcuSize($apcuSize);
     }
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainname . '/phpsettings/apcu');
+        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/phpsettings/apcu');
 
         $obj = new \stdClass();
-        $obj->apcu_size = $this->apcusize;
+        $obj->apcu_size = $this->apcuSize;
 
         $this->setBody((string) json_encode($obj));
     }
 
-    public function getDomainname(): string
+    public function getDomainName(): string
     {
-        return $this->domainname;
+        return $this->domainName;
     }
 
-    public function setDomainname(string $domainname): void
+    public function setDomainName(string $domainName): void
     {
-        $this->domainname = $domainname;
+        $this->domainName = $domainName;
     }
 
-    public function getApcusize(): int
+    public function getApcuSize(): int
     {
-        return $this->apcusize;
+        return $this->apcuSize;
     }
 
-    public function setApcusize(int $apcusize): void
+    public function setApcuSize(int $apcuSize): void
     {
-        $this->apcusize = $apcusize;
+        $this->apcuSize = $apcuSize;
     }
 }

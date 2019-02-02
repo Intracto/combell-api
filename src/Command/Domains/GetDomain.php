@@ -10,7 +10,7 @@ class GetDomain extends AbstractCommand
 {
     private $domain;
 
-    public function __construct($domain)
+    public function __construct(string $domain)
     {
         parent::__construct('get', '/v2/domains/{domainname}');
 
@@ -29,11 +29,11 @@ class GetDomain extends AbstractCommand
 
         $dom = new Domain($domain->domain_name, $domain->expiration_date, $domain->will_renew);
         if (isset($domain->name_servers)) {
-            $nameservers = [];
+            $nameServers = [];
             foreach ($domain->name_servers as $name_server) {
-                $nameservers[] = new Nameserver($name_server->name, $name_server->ip);
+                $nameServers[] = new Nameserver($name_server->name, $name_server->ip);
             }
-            $dom->setNameservers($nameservers);
+            $dom->setNameServers($nameServers);
         }
 
         $domains[] = $dom;
