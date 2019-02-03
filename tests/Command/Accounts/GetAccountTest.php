@@ -31,6 +31,7 @@ final class GetAccountTest extends TestCase
         $api = new \TomCan\CombellApi\Common\Api('', '', $stub);
 
         $cmd = new GetAccount(15);
+        /** @var $account Account */
         $account = $api->executeCommand($cmd);
 
         $this->assertInstanceOf(Account::class, $account);

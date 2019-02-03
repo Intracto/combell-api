@@ -25,12 +25,7 @@ class ListAccounts extends PageableAbstractCommand
         $this->appendQueryString('identifier', $this->identifier);
     }
 
-    public function getAssetType(): string
-    {
-        return $this->assetType;
-    }
-
-    public function setAssetType(string $assetType): void
+    private function setAssetType(string $assetType): void
     {
         if ($assetType === '') {
             $this->assetType = '';
