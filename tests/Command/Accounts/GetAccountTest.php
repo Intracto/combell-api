@@ -21,7 +21,7 @@ final class GetAccountTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
-                (object) [ 'id' => 999015, 'identifier' => '01012018999015.example.com' ],
+                (object) [ 'id' => 999015, 'identifier' => '01012018999015.example.com' ]
             )
         ];
 

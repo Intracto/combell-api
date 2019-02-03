@@ -2,7 +2,7 @@
 
 namespace TomCan\CombellApi\Command;
 
-class PageableAbstractCommand extends AbstractCommand
+abstract class PageableAbstractCommand extends AbstractCommand
 {
     private $pagingSkipped = 0;
     private $pagingTake = 0;

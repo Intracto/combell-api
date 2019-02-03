@@ -2,7 +2,9 @@
 
 namespace TomCan\CombellApi\Command;
 
-class AbstractCommand
+use phpDocumentor\Reflection\Types\Mixed_;
+
+abstract class AbstractCommand
 {
     private $method;
     private $endPoint;
@@ -23,11 +25,8 @@ class AbstractCommand
         $this->queryString = 'skip=' . $this->skip . '&take=' . $this->take;
     }
 
-    // Do any post-processing on the response
-    public function processResponse(array $response)
-    {
-        return null;
-    }
+    // Do any post-processing on the response, convert to objects
+    abstract public function processResponse(array $response);
 
     public function processHeaders(array $headers): void
     {}
