@@ -25,7 +25,7 @@ class GetMysqlDatabase extends AbstractCommand
     {
         $db = $response['body'];
 
-        $response['response'] = new MysqlDatabase(
+        return new MysqlDatabase(
             $db->account_id,
             $db->name,
             $db->hostname,
@@ -33,7 +33,5 @@ class GetMysqlDatabase extends AbstractCommand
             $db->max_size,
             $db->actual_size
         );
-
-        return $response;
     }
 }

@@ -29,6 +29,11 @@ class CreateMysqlDatabase extends AbstractCommand
         $this->setBody((string) json_encode($obj));
     }
 
+    public function processResponse(array $response)
+    {
+        return explode('/', $response['headers']['Location'])[3];
+    }
+
     public function getDatabase(): string
     {
         return $this->database;
