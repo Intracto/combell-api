@@ -34,33 +34,17 @@ class CreateMysqlDatabase extends AbstractCommand
         return explode('/', $response['headers']['Location'])[3];
     }
 
-    public function getDatabase(): string
-    {
-        return $this->database;
-    }
-
-    public function setDatabase(string $database): void
+    private function setDatabase(string $database): void
     {
         $this->database = $database;
     }
 
-
-    public function getAccount(): int
-    {
-        return $this->account;
-    }
-
-    public function setAccount(int $account): void
+    private function setAccount(int $account): void
     {
         $this->account = $account;
     }
 
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): void
+    private function setPassword(string $password): void
     {
         $this->password = $password;
     }
