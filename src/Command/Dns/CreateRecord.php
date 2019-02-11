@@ -3,13 +3,16 @@
 namespace TomCan\CombellApi\Command\Dns;
 
 use TomCan\CombellApi\Command\AbstractCommand;
+use TomCan\CombellApi\Structure\Dns\AbstractDnsRecord;
+use TomCan\CombellApi\Structure\Dns\DnsCAARecord;
 
 class CreateRecord extends AbstractCommand
 {
     private $domainName;
+    /** @var AbstractDnsRecord */
     private $record;
 
-    public function __construct(string $domainName, string $record)
+    public function __construct(string $domainName, AbstractDnsRecord $record)
     {
         parent::__construct('post', '/v2/dns/{domainname}/records');
 
@@ -25,9 +28,9 @@ class CreateRecord extends AbstractCommand
         $this->setBody((string) json_encode($obj));
     }
 
-    public function getDomainName(): string
+    public function processResponse(array $response)
     {
-        return $this->domainName;
+        return explode('/', $response['headers']['Location'])[5];
     }
 
     public function setDomainName(string $domainName): void
@@ -35,13 +38,12 @@ class CreateRecord extends AbstractCommand
         $this->domainName = $domainName;
     }
 
-    public function getRecord(): string
+    public function setRecord(AbstractDnsRecord $record): void
     {
-        return $this->record;
-    }
+        if ($record instanceof DnsCAARecord) {
+            throw new \InvalidArgumentException('CAA record type is not supported by the API');
+        }
 
-    public function setRecord(string $record): void
-    {
         $this->record = $record;
     }
 }

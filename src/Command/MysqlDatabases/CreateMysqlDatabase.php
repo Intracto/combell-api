@@ -21,10 +21,11 @@ class CreateMysqlDatabase extends AbstractCommand
 
     public function prepare(): void
     {
-        $obj = new \stdClass();
-        $obj->database_name = $this->database;
-        $obj->account_id = $this->account;
-        $obj->password = $this->password;
+        $obj = [
+            'database_name' => $this->database,
+            'account_id' => $this->account,
+            'password' => $this->password,
+        ];
 
         $this->setBody((string) json_encode($obj));
     }

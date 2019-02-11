@@ -2,9 +2,9 @@
 
 namespace TomCan\CombellApi\Command\Dns;
 
-use TomCan\CombellApi\Command\AbstractCommand;
+use TomCan\CombellApi\Command\PageableAbstractCommand;
 
-class ListRecords extends AbstractCommand
+class ListRecords extends PageableAbstractCommand
 {
     private $domainName;
 
@@ -45,22 +45,44 @@ class ListRecords extends AbstractCommand
                 case 'CNAME':
                 case 'SOA':
                 case 'CAA':
-                    $rec = new $className($record->id, $record->record_name, $record->ttl, $record->content);
+                    $rec = new $className(
+                        $record->id,
+                        $record->record_name,
+                        $record->ttl,
+                        $record->content
+                    );
                     break;
+
                 case 'MX':
-                    $rec = new $className($record->id, $record->record_name, $record->ttl, $record->content, $record->priority);
+                    $rec = new $className(
+                        $record->id,
+                        $record->record_name,
+                        $record->ttl,
+                        $record->content,
+                        $record->priority
+                    );
                     break;
+
                 case 'SRV':
-                    $rec = new $className($record->id, $record->record_name, $record->ttl, $record->service, $record->target, $record->protocol, $record->priority, $record->port, $record->weight);
+                    $rec = new $className(
+                        $record->id,
+                        $record->record_name,
+                        $record->ttl,
+                        $record->service,
+                        $record->target,
+                        $record->protocol,
+                        $record->priority,
+                        $record->port,
+                        $record->weight
+                    );
                     break;
+
                 default:
                     throw new \LogicException('Unknown DNS record type ' . $record->type);
             }
             $records[] = $rec;
         }
 
-        $response['response'] = $records;
-
-        return $response;
+        return $records;
     }
 }
