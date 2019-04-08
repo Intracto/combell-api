@@ -99,6 +99,10 @@ array(3) {
 
 ## Changelog
 
+**02-04-2019 - v2.0.7**
+
+- Implement HTTP/2 setting
+
 **24-01-2019 - v2.0.6**
 
 - Implement username support from the API
