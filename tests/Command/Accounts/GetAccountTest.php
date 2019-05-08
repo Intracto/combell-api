@@ -13,7 +13,7 @@ use TomCan\CombellApi\Structure\Accounts\Account;
 
 final class GetAccountTest extends TestCase
 {
-    public function testCall(): void
+    public function testGetAccount(): void
     {
         $returnValue = [
             'status' => 200,

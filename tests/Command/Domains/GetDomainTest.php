@@ -14,7 +14,7 @@ use TomCan\CombellApi\Structure\Domains\NameServer;
 
 final class GetDomainTest extends TestCase
 {
-    public function testCall(): void
+    public function testGetDomain(): void
     {
         $returnValue = [
             'status' => 200,

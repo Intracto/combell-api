@@ -12,7 +12,7 @@ use TomCan\CombellApi\Command\MysqlDatabases\CreateMysqlDatabase;
 
 final class CreateMysqlDatabaseTest extends TestCase
 {
-    public function testCall(): void
+    public function testCreateMysqlDatabase(): void
     {
         $returnValue = [
             'status' => 202,

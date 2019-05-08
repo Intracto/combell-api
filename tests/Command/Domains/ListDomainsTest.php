@@ -13,7 +13,7 @@ use TomCan\CombellApi\Structure\Domains\Domain;
 
 final class ListDomainsTest extends TestCase
 {
-    public function testCall(): void
+    public function testListDomains(): void
     {
         $returnValue = [
             'status' => 200,

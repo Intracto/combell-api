@@ -14,7 +14,7 @@ use TomCan\CombellApi\Structure\Dns\DnsCAARecord;
 
 final class CreateRecordTest extends TestCase
 {
-    public function testCall(): void
+    public function testCreateARecord(): void
     {
         $returnValue = [
             'status' => 201,
@@ -56,13 +56,11 @@ final class CreateRecordTest extends TestCase
         );
 
         $recordId = $api->executeCommand($cmd);
-
         $this->assertEquals('1-9988776610', $recordId);
-
         $this->assertEquals('201', $api->getResponseCode());
     }
 
-    public function testCreateCAA(): void
+    public function testCreateCAARecord(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('CAA record type is not supported by the API');

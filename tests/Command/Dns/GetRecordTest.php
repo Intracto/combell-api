@@ -13,7 +13,7 @@ use TomCan\CombellApi\Structure\Dns\DnsARecord;
 
 final class GetRecordTest extends TestCase
 {
-    public function testCall(): void
+    public function testGetRecord(): void
     {
         $returnValue = [
             'status' => 200,

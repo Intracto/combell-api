@@ -13,7 +13,7 @@ use TomCan\CombellApi\Structure\MysqlDatabases\MysqlDatabase;
 
 final class GetMysqlDatabaseTest extends TestCase
 {
-    public function testCall(): void
+    public function testGetMysqlDatabase(): void
     {
         $returnValue = [
             'status' => 200,

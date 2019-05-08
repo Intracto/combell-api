@@ -31,7 +31,7 @@ final class ListAccountsTest extends TestCase
         new ListAccounts('invalid_asset_type');
     }
 
-    public function testCall(): void
+    public function testListAccounts(): void
     {
         $returnValue = [
             'status' => 200,

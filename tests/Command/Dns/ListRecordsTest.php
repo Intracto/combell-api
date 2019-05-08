@@ -21,7 +21,7 @@ use TomCan\CombellApi\Structure\Dns\DnsCAARecord;
 
 final class ListRecordsTest extends TestCase
 {
-    public function testCall(): void
+    public function testListRecords(): void
     {
         $returnValue = [
             'status' => 200,
