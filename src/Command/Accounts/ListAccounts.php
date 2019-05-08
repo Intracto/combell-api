@@ -14,15 +14,7 @@ class ListAccounts extends PageableAbstractCommand
     {
         parent::__construct('get', '/v2/accounts');
         $this->setAssetType($assetType);
-        $this->setIdentifier($identifier);
-    }
-
-    public function prepare(): void
-    {
-        parent::prepare();
-
-        $this->appendQueryString('asset_type', $this->assetType);
-        $this->appendQueryString('identifier', $this->identifier);
+        $this->identifier = $identifier;
     }
 
     private function setAssetType(string $assetType): void
@@ -40,14 +32,12 @@ class ListAccounts extends PageableAbstractCommand
         $this->assetType = $assetType;
     }
 
-    public function getIdentifier(): string
+    public function prepare(): void
     {
-        return $this->identifier;
-    }
+        parent::prepare();
 
-    public function setIdentifier(string $identifier): void
-    {
-        $this->identifier = $identifier;
+        $this->appendQueryString('asset_type', $this->assetType);
+        $this->appendQueryString('identifier', $this->identifier);
     }
 
     public function processResponse(array $response)

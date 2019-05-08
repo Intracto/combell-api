@@ -3,18 +3,19 @@
 namespace TomCan\CombellApi\Command\Dns;
 
 use TomCan\CombellApi\Command\AbstractCommand;
+use TomCan\CombellApi\Structure\Dns\AbstractDnsRecord;
 
 class UpdateRecord extends AbstractCommand
 {
     private $domainName;
     private $record;
 
-    public function __construct(string $domainName, string $record)
+    public function __construct(string $domainName, AbstractDnsRecord $record)
     {
         parent::__construct('put', '/v2/dns/{domainname}/records/{recordid}');
 
-        $this->setDomainName($domainName);
-        $this->setRecord($record);
+        $this->domainName = $domainName;
+        $this->record = $record;
     }
 
     public function prepare(): void
@@ -25,23 +26,7 @@ class UpdateRecord extends AbstractCommand
         $this->setBody((string) json_encode($obj));
     }
 
-    public function getDomainName(): string
+    public function processResponse(array $response)
     {
-        return $this->domainName;
-    }
-
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
-    }
-
-    public function getRecord(): string
-    {
-        return $this->record;
-    }
-
-    public function setRecord(string $record): void
-    {
-        $this->record = $record;
     }
 }

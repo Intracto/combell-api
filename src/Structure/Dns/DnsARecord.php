@@ -6,18 +6,13 @@ class DnsARecord extends AbstractDnsRecord
 {
     private $content;
 
-    public function __construct(string $id = '', string $hostname = '', int $ttl = 3600, string $content)
+    public function __construct(string $id = '', string $hostname = '', int $ttl = 3600, string $content = '')
     {
         parent::__construct($id, 'A', $hostname, $ttl);
         $this->setContent($content);
     }
 
-    public function getContent(): string
-    {
-        return $this->content;
-    }
-
-    public function setContent(string $content): void
+    private function setContent(string $content): void
     {
         $filtered = filter_var($content, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
 
@@ -26,6 +21,11 @@ class DnsARecord extends AbstractDnsRecord
         }
 
         $this->content = $filtered;
+    }
+
+    public function getContent(): string
+    {
+        return $this->content;
     }
 
     public function getObject(): \stdClass

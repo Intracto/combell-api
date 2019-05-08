@@ -10,41 +10,21 @@ class DeleteRecord extends AbstractCommand
     private $domainName;
     private $record;
 
-    public function __construct(string $domainName, $record)
+    public function __construct(string $domainName, AbstractDnsRecord $record)
     {
         parent::__construct('delete', '/v2/dns/{domainname}/records/{recordid}');
 
-        $this->setDomainName($domainName);
+        $this->domainName = $domainName;
 
-        if ($record instanceof AbstractDnsRecord) {
-            $this->setRecord($record->getId());
-        } else {
-            $this->setRecord($record);
-        }
+        $this->record = $record;
     }
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/dns/' . $this->domainName . '/records/' . $this->record);
+        $this->setEndPoint('/v2/dns/' . $this->domainName . '/records/' . $this->record->getId());
     }
 
-    public function getDomainName(): string
+    public function processResponse(array $response)
     {
-        return $this->domainName;
-    }
-
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
-    }
-
-    public function getRecord(): string
-    {
-        return $this->record;
-    }
-
-    public function setRecord(string $record): void
-    {
-        $this->record = $record;
     }
 }

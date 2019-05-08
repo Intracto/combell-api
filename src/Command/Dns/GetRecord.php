@@ -13,33 +13,13 @@ class GetRecord extends AbstractCommand
     {
         parent::__construct('get', '/v2/dns/{domainname}/records/{id}');
 
-        $this->setDomainName($domainName);
-        $this->setId($id);
+        $this->domainName = $domainName;
+        $this->id = $id;
     }
 
     public function prepare(): void 
     {
         $this->setEndPoint('/v2/dns/' . $this->domainName . '/records/' . $this->id);
-    }
-
-    public function getDomainName(): string
-    {
-        return $this->domainName;
-    }
-
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    public function setId(string $id): void
-    {
-        $this->id = $id;
     }
 
     public function processResponse(array $response)
@@ -49,6 +29,7 @@ class GetRecord extends AbstractCommand
 
         switch ($record->type) {
             case 'A':
+            case 'AAAA':
             case 'NS':
             case 'TXT':
             case 'CNAME':

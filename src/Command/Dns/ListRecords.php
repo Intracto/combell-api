@@ -12,7 +12,7 @@ class ListRecords extends PageableAbstractCommand
     {
         parent::__construct('get', '/v2/dns/{domainname}/records');
 
-        $this->setDomainName($domainName);
+        $this->domainName = $domainName;
     }
 
     public function prepare(): void
@@ -20,16 +20,6 @@ class ListRecords extends PageableAbstractCommand
         parent::prepare();
 
         $this->setEndPoint('/v2/dns/' . $this->domainName . '/records');
-    }
-
-    public function getDomainName(): string
-    {
-        return $this->domainName;
-    }
-
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
     }
 
     public function processResponse(array $response)

@@ -28,7 +28,7 @@ class DnsSRVRecord extends AbstractDnsRecord
         $this->protocol = $protocol;
         $this->port = $port;
         $this->weight = $weight;
-        $this->setPriority($priority);
+        $this->priority = $priority;
     }
 
     public function getService(): string
@@ -36,19 +36,9 @@ class DnsSRVRecord extends AbstractDnsRecord
         return $this->service;
     }
 
-    public function setService(string $service): void
-    {
-        $this->service = $service;
-    }
-
     public function getTarget(): string
     {
         return $this->target;
-    }
-
-    public function setTarget(string $target): void
-    {
-        $this->target = $target;
     }
 
     public function getProtocol(): string
@@ -56,19 +46,9 @@ class DnsSRVRecord extends AbstractDnsRecord
         return $this->protocol;
     }
 
-    public function setProtocol(string $protocol): void
-    {
-        $this->protocol = $protocol;
-    }
-
     public function getPriority(): int
     {
         return $this->priority;
-    }
-
-    public function setPriority(int $priority): void
-    {
-        $this->priority = $priority;
     }
 
     public function getPort(): int
@@ -76,19 +56,9 @@ class DnsSRVRecord extends AbstractDnsRecord
         return $this->port;
     }
 
-    public function setPort(int $port): void
-    {
-        $this->port = $port;
-    }
-
     public function getWeight(): int
     {
         return $this->weight;
-    }
-
-    public function setWeight(int $weight): void
-    {
-        $this->weight = $weight;
     }
 
     public function getObject(): \stdClass

@@ -14,9 +14,9 @@ class CreateMysqlDatabase extends AbstractCommand
     {
         parent::__construct('post', '/v2/mysqldatabases');
 
-        $this->setDatabase($database);
-        $this->setAccount($account);
-        $this->setPassword($password);
+        $this->database = $database;
+        $this->account = $account;
+        $this->password = $password;
     }
 
     public function prepare(): void
@@ -33,20 +33,5 @@ class CreateMysqlDatabase extends AbstractCommand
     public function processResponse(array $response)
     {
         return explode('/', $response['headers']['Location'])[3];
-    }
-
-    private function setDatabase(string $database): void
-    {
-        $this->database = $database;
-    }
-
-    private function setAccount(int $account): void
-    {
-        $this->account = $account;
-    }
-
-    private function setPassword(string $password): void
-    {
-        $this->password = $password;
     }
 }

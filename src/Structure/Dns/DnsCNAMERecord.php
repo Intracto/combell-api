@@ -6,7 +6,7 @@ class DnsCNAMERecord extends AbstractDnsRecord
 {
     private $content;
 
-    public function __construct(string $id = '', string $hostname = '', int $ttl = 3600, string $content)
+    public function __construct(string $id = '', string $hostname = '', int $ttl = 3600, string $content = '')
     {
         parent::__construct($id, 'CNAME', $hostname, $ttl);
         $this->setContent($content);

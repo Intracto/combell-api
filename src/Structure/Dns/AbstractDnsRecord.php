@@ -22,19 +22,9 @@ class AbstractDnsRecord
         return $this->id;
     }
 
-    public function setId(string $id): void
-    {
-        $this->id = $id;
-    }
-
     public function getType(): string
     {
         return $this->type;
-    }
-
-    public function setType(string $type): void
-    {
-        $this->type = $type;
     }
 
     public function getHostname(): string
@@ -42,19 +32,9 @@ class AbstractDnsRecord
         return $this->hostname;
     }
 
-    public function setHostname(string $hostname): void
-    {
-        $this->hostname = $hostname;
-    }
-
     public function getTtl(): int
     {
         return $this->ttl;
-    }
-
-    public function setTtl(int $ttl): void
-    {
-        $this->ttl = $ttl;
     }
 
     public function getObject(): \stdClass

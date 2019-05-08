@@ -6,7 +6,7 @@ class DnsSOARecord extends AbstractDnsRecord
 {
     private $content;
 
-    public function __construct(string $id = '', string $hostname = '', int $ttl = 3600, string $content)
+    public function __construct(string $id = '', string $hostname = '', int $ttl = 3600, string $content = '')
     {
         parent::__construct($id, 'SOA', $hostname, $ttl);
         $this->setContent($content);

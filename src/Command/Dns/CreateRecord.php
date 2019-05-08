@@ -16,8 +16,17 @@ class CreateRecord extends AbstractCommand
     {
         parent::__construct('post', '/v2/dns/{domainname}/records');
 
-        $this->setDomainName($domainName);
+        $this->domainName = $domainName;
         $this->setRecord($record);
+    }
+
+    private function setRecord(AbstractDnsRecord $record): void
+    {
+        if ($record instanceof DnsCAARecord) {
+            throw new \InvalidArgumentException('CAA record type is not supported by the API');
+        }
+
+        $this->record = $record;
     }
 
     public function prepare(): void
@@ -31,19 +40,5 @@ class CreateRecord extends AbstractCommand
     public function processResponse(array $response)
     {
         return explode('/', $response['headers']['Location'])[5];
-    }
-
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
-    }
-
-    public function setRecord(AbstractDnsRecord $record): void
-    {
-        if ($record instanceof DnsCAARecord) {
-            throw new \InvalidArgumentException('CAA record type is not supported by the API');
-        }
-
-        $this->record = $record;
     }
 }

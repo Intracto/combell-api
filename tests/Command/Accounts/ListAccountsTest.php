@@ -15,11 +15,11 @@ final class ListAccountsTest extends TestCase
 {
     public function testValidAssetTypes(): void
     {
-        $cmd = new ListAccounts();
-
         foreach (['domain', 'linux_hosting', 'mysql', 'dns', 'mailbox'] as $type) {
-            $cmd->setIdentifier($type);
-            $this->assertEquals($cmd->getIdentifier(), $type);
+            $this->assertInstanceOf(
+                ListAccounts::class,
+                new ListAccounts('', $type)
+            );
         }
     }
 
