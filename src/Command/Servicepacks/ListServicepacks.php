@@ -12,15 +12,17 @@ class ListServicepacks extends AbstractCommand
         parent::__construct('get', '/v2/servicepacks');
     }
 
+    public function prepare(): void
+    {
+    }
+
     public function processResponse(array $response)
     {
         $servicepacks = [];
-        foreach ($response['body'] as $sp) {
-            $servicepacks[] = new Servicepack($sp->id, $sp->name);
+        foreach ($response['body'] as $servicepack) {
+            $servicepacks[] = new Servicepack($servicepack->id, $servicepack->name);
         }
 
-        $response['response'] = $servicepacks;
-
-        return $response;
+        return $servicepacks;
     }
 }
