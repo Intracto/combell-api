@@ -26,8 +26,10 @@ require __DIR__ . '/vendor/autoload.php';
 $key = 'YOUR-API-KEY';  
 $sec = 'YOUR-API-SECRET';
 
-$adapter = new \TomCan\CombellApi\Adapter\GuzzleAdapter();  
-$api = new \TomCan\CombellApi\Common\Api($key, $sec, $adapter);  
+$api = new \TomCan\CombellApi\Common\Api(
+    new \TomCan\CombellApi\Adapter\GuzzleAdapter(),
+    new \TomCan\CombellApi\Common\HmacGenerator($key, $sec)
+);
 $cmd = new \TomCan\CombellApi\Command\Accounts\ListAccounts();
   
 var_dump($api->executeCommand($cmd));  
