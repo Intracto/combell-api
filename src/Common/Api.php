@@ -7,9 +7,8 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class Api
 {
-    private $apiKey;
-    private $apiSecret;
     private $adapter;
+    private $hmacGenerator;
 
     private $responseCode = 0;
     private $rateLimitLimit = 100;
@@ -17,11 +16,10 @@ class Api
     private $rateLimitRemaining = 100;
     private $rateLimitReset = 60;
 
-    public function __construct(string $apiKey, string $apiSecret, AdapterInterface $adapter)
+    public function __construct(AdapterInterface $adapter, HmacGenerator $hmacGenerator)
     {
-        $this->apiKey = $apiKey;
-        $this->apiSecret = $apiSecret;
         $this->adapter = $adapter;
+        $this->hmacGenerator = $hmacGenerator;
     }
 
     public function executeCommand(AbstractCommand $command)
@@ -29,7 +27,7 @@ class Api
         $command->prepare();
 
         $headers = [
-            'Authorization' => $this->getHmacHeader($command),
+            'Authorization' => $this->hmacGenerator->getHeader($command),
             'Accept' => 'application/json',
             'Content-type' => 'application/json',
         ];
@@ -54,21 +52,6 @@ class Api
         $command->processHeaders($ret['headers']);
 
         return $command->processResponse($ret);
-    }
-
-    private function getHmacHeader(AbstractCommand $command): string
-    {
-        $timestamp = time();
-        $nonce = uniqid('combell_api', true);
-        $input = $this->apiKey .
-            strtolower($command->getMethod()) .
-            urlencode($command->getEndPoint() . ($command->getQueryString() !== '' ? '?' . $command->getQueryString() : '')) .
-            $timestamp .
-            $nonce .
-            ($command->getBody() !== '' ? base64_encode(md5($command->getBody(), true)) : '');
-        $hmac = base64_encode(hash_hmac('sha256', $input, $this->apiSecret, true));
-
-        return 'hmac ' . $this->apiKey . ':' . $hmac . ':' . $nonce . ':' . $timestamp;
     }
 
     public function getResponseCode(): int

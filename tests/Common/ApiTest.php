@@ -1,8 +1,13 @@
 <?php
 
+namespace Test\Command\Common;
+
 use PHPUnit\Framework\TestCase;
 
+use TomCan\CombellApi\Adapter\AdapterInterface;
+use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
+
 use TomCan\CombellApi\Command\Accounts\ListAccounts;
 
 final class ApiTest extends TestCase
@@ -26,10 +31,20 @@ final class ApiTest extends TestCase
             'body' => json_encode([ /* not testing this */ ])
         ];
 
-        $stub = $this->createMock(\TomCan\CombellApi\Adapter\AdapterInterface::class);
-        $stub->method('call')->willReturn($returnValue);
+        $adapterStub = $this->createMock(AdapterInterface::class);
+        $headers = [
+            'Authorization' => 'hmac :mocked',
+            'Accept' => 'application/json',
+            'Content-type' => 'application/json',
+        ];
+        $adapterStub->method('call')
+            ->with('GET', 'https://api.combell.com/v2/accounts?skip=0&take=25', $headers, '')
+            ->willReturn($returnValue);
 
-        $api = new Api('', '', $stub);
+        $hmacGeneratorStub = $this->createMock(HmacGenerator::class);
+        $hmacGeneratorStub->method('getHeader')
+            ->willReturn('hmac :mocked');
+        $api = new Api($adapterStub, $hmacGeneratorStub);
 
         $this->assertEquals(0, $api->getResponseCode());
 

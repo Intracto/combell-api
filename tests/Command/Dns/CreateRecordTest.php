@@ -1,6 +1,12 @@
 <?php
 
+namespace Test\Command\Dns;
+
 use PHPUnit\Framework\TestCase;
+
+use TomCan\CombellApi\Adapter\AdapterInterface;
+use TomCan\CombellApi\Common\HmacGenerator;
+use TomCan\CombellApi\Common\Api;
 
 use TomCan\CombellApi\Command\Dns\CreateRecord;
 use TomCan\CombellApi\Structure\Dns\DnsARecord;
@@ -24,10 +30,20 @@ final class CreateRecordTest extends TestCase
             'body' => ''
         ];
 
-        $stub = $this->createMock(\TomCan\CombellApi\Adapter\AdapterInterface::class);
-        $stub->method('call')->willReturn($returnValue);
+        $adapterStub = $this->createMock(AdapterInterface::class);
+        $headers = [
+            'Authorization' => 'hmac :mocked',
+            'Accept' => 'application/json',
+            'Content-type' => 'application/json',
+        ];
+        $adapterStub->method('call')
+            ->with('POST', 'https://api.combell.com/v2/dns/example.com/records', $headers, '{"id":"","record_name":"blog","type":"A","ttl":3600,"content":"127.0.0.1"}')
+            ->willReturn($returnValue);
 
-        $api = new \TomCan\CombellApi\Common\Api('', '', $stub);
+        $hmacGeneratorStub = $this->createMock(HmacGenerator::class);
+        $hmacGeneratorStub->method('getHeader')
+            ->willReturn('hmac :mocked');
+        $api = new Api($adapterStub, $hmacGeneratorStub);
 
         $cmd = new CreateRecord(
             'example.com',
