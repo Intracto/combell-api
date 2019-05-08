@@ -33,7 +33,7 @@ final class GetAccountTest extends TestCase
 
         $adapterStub = $this->createMock(AdapterInterface::class);
         $headers = [
-            'Authorization' => 'hmac :mocked',
+            'Authorization' => 'hmac mocked',
             'Accept' => 'application/json',
             'Content-type' => 'application/json',
         ];
@@ -43,7 +43,7 @@ final class GetAccountTest extends TestCase
 
         $hmacGeneratorStub = $this->createMock(HmacGenerator::class);
         $hmacGeneratorStub->method('getHeader')
-            ->willReturn('hmac :mocked');
+            ->willReturn('hmac mocked');
         $api = new Api($adapterStub, $hmacGeneratorStub);
 
         $cmd = new GetAccount(15);

@@ -66,8 +66,6 @@ class GetRecord extends AbstractCommand
                 throw new \LogicException('Unknown DNS record type ' . $record->type);
         }
 
-        $response['response'] = $rec;
-
-        return $response;
+        return $rec;
     }
 }

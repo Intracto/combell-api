@@ -32,12 +32,21 @@ class Api
             'Content-type' => 'application/json',
         ];
 
+        var_dump(
+            strtoupper($command->getMethod()),
+            'https://api.combell.com' . $command->getEndPoint() . ($command->getQueryString() !== '' ? '?' . $command->getQueryString() : ''),
+            $headers,
+            $command->getBody()
+        );
+
         $ret = $this->adapter->call(
             strtoupper($command->getMethod()),
             'https://api.combell.com' . $command->getEndPoint() . ($command->getQueryString() !== '' ? '?' . $command->getQueryString() : ''),
             $headers,
             $command->getBody()
         );
+
+        var_dump($ret);
 
         $this->responseCode = (int) $ret['status'];
         $this->rateLimitLimit = (int) current($ret['headers']['X-RateLimit-Limit']);

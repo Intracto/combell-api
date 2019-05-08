@@ -8,9 +8,8 @@ use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
 
-use TomCan\CombellApi\Command\Domains\GetDomain;
-use TomCan\CombellApi\Structure\Domains\Domain;
-use TomCan\CombellApi\Structure\Domains\NameServer;
+use TomCan\CombellApi\Command\Dns\GetRecord;
+use TomCan\CombellApi\Structure\Dns\DnsARecord;
 
 final class GetRecordTest extends TestCase
 {
@@ -29,43 +28,43 @@ final class GetRecordTest extends TestCase
             ],
             'body' => json_encode(
                 (object)[
-                    'domain_name' => '15.example.com',
-                    'expiration_date' => '2019-12-23T23:00:00Z',
-                    'will_renew' => null,
-                    'name_servers' => [
-                        (object)['name' => 'NS3.EUROPEAN-SERVER.COM', 'ip' => '217.21.190.81'],
-                        (object)['name' => 'NS4.EUROPEAN-SERVER.COM', 'ip' => '86.39.202.67'],
-                    ],
+                    'id' => '1-1122334455',
+                    'type' => 'A',
+                    'record_name' => '',
+                    'ttl' => 3600,
+                    'content' => '127.0.0.1',
+                    'service' => null,
+                    'target' => null,
+                    'protocol' => null,
+                    'priority' => 0,
+                    'port' => null,
+                    'weight' => null,
                 ]
             )
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);
         $headers = [
-            'Authorization' => 'hmac :mocked',
+            'Authorization' => 'hmac mocked',
             'Accept' => 'application/json',
             'Content-type' => 'application/json',
         ];
         $adapterStub->method('call')
-            ->with('GET', 'https://api.combell.com/v2/domains/15.example.com', $headers, '')
+            ->with('GET', 'https://api.combell.com/v2/dns/example.com/records/1-1122334455', $headers, '')
             ->willReturn($returnValue);
 
         $hmacGeneratorStub = $this->createMock(HmacGenerator::class);
         $hmacGeneratorStub->method('getHeader')
-            ->willReturn('hmac :mocked');
+            ->willReturn('hmac mocked');
         $api = new Api($adapterStub, $hmacGeneratorStub);
 
-        $cmd = new GetDomain('15.example.com');
-        $domain = $api->executeCommand($cmd);
+        $cmd = new GetRecord('example.com', '1-1122334455');
+        /** @var DnsARecord $record */
+        $record = $api->executeCommand($cmd);
 
-        $this->assertInstanceOf(Domain::class, $domain);
-        $this->assertEquals('15.example.com', $domain->getDomainName());
-        $this->assertEquals(new \DateTime('2019-12-23T23:00:00Z'), $domain->getExpirationDate());
-        $this->assertNull($domain->getWillRenew());
-
-        $this->assertCount(2, $domain->getNameServers());
-        $this->assertInstanceOf(NameServer::class, $domain->getNameServers()[0]);
-        $this->assertEquals('NS3.EUROPEAN-SERVER.COM', $domain->getNameServers()[0]->getDomainName());
-        $this->assertEquals('217.21.190.81', $domain->getNameServers()[0]->getIp());
+        $this->assertInstanceOf(DnsARecord::class, $record);
+        $this->assertEquals('A', $record->getType());
+        $this->assertEquals(3600, $record->getTtl());
+        $this->assertEquals('127.0.0.1', $record->getContent());
     }
 }
