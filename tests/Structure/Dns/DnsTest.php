@@ -229,6 +229,57 @@ final class DnsTest extends TestCase
         $this->assertEquals($r->getContent(), $o->content);
     }
 
+    public function testDNSSRVRecord() {
+
+        // test constructor
+        $r = new \TomCan\CombellApi\Structure\Dns\DnsSRVRecord('test-123', 'example.com', 123, '_sip', 'sipserver.example.com', '_tcp', 10, 5060, 0);
+        $this->assertEquals('SRV', $r->getType());
+        $this->assertEquals('test-123', $r->getId());
+        $this->assertEquals('example.com', $r->getHostname());
+        $this->assertEquals(123, $r->getTtl());
+
+
+        $this->assertEquals('_sip', $r->getService());
+        $this->assertEquals('sipserver.example.com', $r->getTarget());
+        $this->assertEquals('_tcp', $r->getProtocol());
+        $this->assertEquals(10, $r->getPriority());
+        $this->assertEquals(5060, $r->getPort());
+        $this->assertEquals(0, $r->getWeight());
+
+        // test object
+        $o = $r->getObject();
+        $this->doStandardObjectTests($r, $o);
+        $this->assertObjectHasAttribute('service', $o);
+        $this->assertEquals($r->getService(), $o->service);
+        $this->assertObjectHasAttribute('target', $o);
+        $this->assertEquals($r->getTarget(), $o->target);
+        $this->assertObjectHasAttribute('protocol', $o);
+        $this->assertEquals($r->getProtocol(), $o->protocol);
+        $this->assertObjectHasAttribute('priority', $o);
+        $this->assertEquals($r->getPriority(), $o->priority);
+        $this->assertObjectHasAttribute('port', $o);
+        $this->assertEquals($r->getPort(), $o->port);
+        $this->assertObjectHasAttribute('weight', $o);
+        $this->assertEquals($r->getWeight(), $o->weight);
+    }
+
+    public function testDNSTXTRecord() {
+
+        // test constructor
+        $r = new \TomCan\CombellApi\Structure\Dns\DnsTXTRecord('test-123', 'example.com', 123, 'The quick brown fox jumps over the lazy dog');
+        $this->assertEquals('TXT', $r->getType());
+        $this->assertEquals('test-123', $r->getId());
+        $this->assertEquals('example.com', $r->getHostname());
+        $this->assertEquals(123, $r->getTtl());
+        $this->assertEquals('The quick brown fox jumps over the lazy dog', $r->getContent());
+
+        // test object
+        $o = $r->getObject();
+        $this->doStandardObjectTests($r, $o);
+        $this->assertObjectHasAttribute('content', $o);
+        $this->assertEquals($r->getContent(), $o->content);
+    }
+
     /** @dataProvider dataHostnameValuesNoOrigin */
     public function testSOARecordMasterValidation($value, $isValid) {
         if (!$isValid) $this->expectException(InvalidArgumentException::class);
