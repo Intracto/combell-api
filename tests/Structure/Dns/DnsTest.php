@@ -97,6 +97,23 @@ final class DnsTest extends TestCase
 
     }
 
+    public function testDNSCAARecord() {
+
+        // test constructor
+        $r = new \TomCan\CombellApi\Structure\Dns\DnsCAARecord('test-123', 'example.com', 123, '0 issue "ca.example.net"');
+        $this->assertEquals('CAA', $r->getType());
+        $this->assertEquals('test-123', $r->getId());
+        $this->assertEquals('example.com', $r->getHostname());
+        $this->assertEquals(123, $r->getTtl());
+        $this->assertEquals('0 issue "ca.example.net"', $r->getContent());
+
+        // test object
+        $o = $r->getObject();
+        $this->doStandardObjectTests($r, $o);
+        $this->assertObjectHasAttribute('content', $o);
+        $this->assertEquals($r->getContent(), $o->content);
+    }
+
 
     public function testDNSCNAMERecord() {
 
