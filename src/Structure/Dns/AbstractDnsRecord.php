@@ -20,10 +20,10 @@ class AbstractDnsRecord
      */
     public function __construct($id, $type, $hostname, $ttl)
     {
-        $this->id = $id;
-        $this->type = $type;
-        $this->hostname = $hostname;
-        $this->ttl = $ttl;
+        $this->setId($id);
+        $this->setType($type);
+        $this->setHostname($hostname);
+        $this->setTtl($ttl);
     }
 
     /**
