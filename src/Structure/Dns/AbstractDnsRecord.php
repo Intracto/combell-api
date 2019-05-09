@@ -68,10 +68,10 @@ class AbstractDnsRecord
         return $obj;
     }
 
-    protected function validateHostname(string $hostname): string
+    protected function validateHostname(string $hostname, bool $allowOrigin = true): string
     {
 
-        if (in_array($hostname, ['', '@'])) {
+        if ($allowOrigin && in_array($hostname, ['', '@'])) {
             return $hostname;
         } else {
 
