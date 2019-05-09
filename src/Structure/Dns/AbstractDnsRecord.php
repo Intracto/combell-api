@@ -71,6 +71,7 @@ class AbstractDnsRecord
      */
     public function setHostname($hostname)
     {
+
         $this->hostname = $hostname;
     }
 
@@ -87,6 +88,16 @@ class AbstractDnsRecord
      */
     public function setTtl($ttl)
     {
+
+        if (!is_int($ttl)) {
+            throw new \InvalidArgumentException('Not a valid value for TTL');
+        }
+
+        $ttl = intval($ttl);
+        if ($ttl < 0 || $ttl > 2147483647) {
+            throw  new \InvalidArgumentException('Not a valid value for TTL');
+        }
+
         $this->ttl = $ttl;
     }
 
