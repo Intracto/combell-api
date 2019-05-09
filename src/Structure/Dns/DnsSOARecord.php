@@ -116,7 +116,7 @@ class DnsSOARecord extends AbstractDnsRecord
 
     private function parseContent($content)
     {
-        $arr = preg_split('/\s+/', $content);
+        $arr = explode(' ', $content);
 
         if (count($arr) != 7) {
             throw new \InvalidArgumentException('Invalid content. Content should have exactly 7 fields. ' . print_r($arr, true));
