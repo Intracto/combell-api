@@ -35,24 +35,12 @@ class AbstractDnsRecord
     public function setHostname(string $hostname): void
     {
 
-        if (in_array($hostname, ['', '@'])) {
-            $filtered = $hostname;
-        } else {
-
-            // remove leading underscores from labels, as we considder them valid, then send through filter_var
-            $filtered = preg_replace('(^_|\._)', '', $hostname);
-            $filtered = filter_var($filtered, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME);
-
-            // did the check pass and did we removed leading underscores? if so, use original value;
-            if ($filtered !== false && $filtered != $hostname) $filtered = $hostname;
-
-        }
-
-        if ($filtered === false) {
+        try {
+            $filtered = $this->validateHostname($hostname);
+            $this->hostname = $filtered;
+        } catch (\Exception $exception) {
             throw new \InvalidArgumentException('Invalid value for hostname: "'.$hostname.'"');
         }
-
-        $this->hostname = $filtered;
 
     }
 
@@ -76,5 +64,29 @@ class AbstractDnsRecord
         $obj->ttl = $this->getTtl();
 
         return $obj;
+    }
+
+    protected function validateHostname(string $hostname): string
+    {
+
+        if (in_array($hostname, ['', '@'])) {
+            return $hostname;
+        } else {
+
+            // remove leading underscores from labels, as we considder them valid, then send through filter_var
+            $filtered = preg_replace('(^_|\._)', '', $hostname);
+            $filtered = filter_var($filtered, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME);
+
+            // did the check pass and did we removed leading underscores? if so, use original value;
+            if ($filtered !== false && $filtered != $hostname) $filtered = $hostname;
+
+            if ($filtered !== false) {
+                return $filtered;
+            } else {
+                throw new \InvalidArgumentException();
+            }
+
+        }
+
     }
 }
