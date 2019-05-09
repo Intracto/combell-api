@@ -39,7 +39,7 @@ class DnsSOARecord extends AbstractDnsRecord
 
     public function setMaster(string $master, bool $buildContent = true): void
     {
-        $this->master = $master;
+        $this->master = $this->validateHostname($master, false);
         if ($buildContent) $this->buildContent();
     }
 
@@ -50,7 +50,7 @@ class DnsSOARecord extends AbstractDnsRecord
 
     public function setResponsible(string $responsible, bool $buildContent = true): void
     {
-        $this->responsible = $responsible;
+        $this->responsible = $this->validateHostname($responsible, false);
         if ($buildContent) $this->buildContent();
     }
 
