@@ -19,7 +19,12 @@ class DnsCNAMERecord extends AbstractDnsRecord
 
     public function setContent(string $content): void
     {
-        $this->content = $content;
+        try {
+            $filtered = $this->validateHostname($content);
+            $this->content = $filtered;
+        } catch (\Exception $exception) {
+            throw new \InvalidArgumentException('Invalid value for content: "'.$content.'"');
+        }
     }
 
     public function getObject(): \stdClass
