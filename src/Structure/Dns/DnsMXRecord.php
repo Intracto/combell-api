@@ -38,10 +38,7 @@ class DnsMXRecord extends AbstractDnsRecord
 
     public function setPriority(int $priority): void
     {
-        if ($priority < 0 || $priority > 65535) {
-            throw new \InvalidArgumentException('Invalid value for priority: "'.$priority.'"');
-        }
-        $this->priority = $priority;
+        $this->priority = $this->validateUInt16($priority);
     }
 
     public function getObject(): \stdClass
