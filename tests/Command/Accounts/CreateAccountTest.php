@@ -53,6 +53,8 @@ final class CreateAccountTest extends TestCase
         /** @var ProvisioningJob $provisionJob */
         $provisionJobLink = $api->executeCommand($cmd);
         $this->assertEquals('8ds73fds-fc0d-783s-b092-beec98322200', $provisionJobLink);
+
+        $this->assertEquals('202', $api->getResponseCode());
     }
 
     public function testAccountPasswordSpecialCharacters(): void

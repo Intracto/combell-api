@@ -16,7 +16,7 @@ final class UpdateRecordTest extends TestCase
     public function testUpdateRecord(): void
     {
         $returnValue = [
-            'status' => 201,
+            'status' => 200,
             'headers' => [
                 'Transfer-Encoding' => ['chunked'],
                 'X-RateLimit-Limit' => ['100'],
@@ -55,5 +55,7 @@ final class UpdateRecordTest extends TestCase
 
         $response = $api->executeCommand($cmd);
         $this->assertNull($response);
+
+        $this->assertEquals('200', $api->getResponseCode());
     }
 }

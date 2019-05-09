@@ -5,3 +5,7 @@ all:
 | php-7.2-latest -dzend_extension=xdebug ~/Tools/phpunit-8.1.3.phar 
 | firefox tests/_reports/coverage/index.html
 
+debug:
+| DEBUG_DUMPS=1 php-7.2-latest -dzend_extension=xdebug ~/Tools/phpunit-8.1.3.phar
+| firefox tests/_reports/coverage/index.html
+

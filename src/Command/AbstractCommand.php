@@ -2,8 +2,6 @@
 
 namespace TomCan\CombellApi\Command;
 
-use phpDocumentor\Reflection\Types\Mixed_;
-
 abstract class AbstractCommand
 {
     private $method;

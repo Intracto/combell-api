@@ -16,7 +16,7 @@ final class DeleteRecordTest extends TestCase
     public function testDeleteRecord(): void
     {
         $returnValue = [
-            'status' => 201,
+            'status' => 204,
             'headers' => [
                 'Transfer-Encoding' => ['chunked'],
                 'X-RateLimit-Limit' => ['100'],
@@ -55,5 +55,7 @@ final class DeleteRecordTest extends TestCase
 
         $response = $api->executeCommand($cmd);
         $this->assertNull($response);
+
+        $this->assertEquals('204', $api->getResponseCode());
     }
 }
