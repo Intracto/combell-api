@@ -31,7 +31,6 @@ final class DnsTest extends TestCase
     }
 
     /** @dataProvider dataUInt32Values */
-
     public function testAbstractDnsRecordTTLValidation($value, $isValid) {
 
         if (!$isValid) $this->expectException(InvalidArgumentException::class);
@@ -40,8 +39,6 @@ final class DnsTest extends TestCase
         $this->assertTrue($isValid);
 
     }
-
-
 
     public function testDNSAAAARecord() {
 
