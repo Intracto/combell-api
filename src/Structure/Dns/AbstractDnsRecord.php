@@ -100,11 +100,11 @@ class AbstractDnsRecord
 
     protected function validateUInt16(int $value): int
     {
-        return $this->validateUInt($value, 0, 65535);
+        return $this->validateInt($value, 0, 65535);
     }
     protected function validateUInt32(int $value): int
     {
-        return $this->validateUInt($value, 0, 2147483647);
+        return $this->validateInt($value, 0, 2147483647);
     }
 
 }
