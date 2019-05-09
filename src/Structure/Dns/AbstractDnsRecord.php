@@ -36,8 +36,7 @@ class AbstractDnsRecord
     {
 
         try {
-            $filtered = $this->validateHostname($hostname);
-            $this->hostname = $filtered;
+            $this->hostname = $this->validateHostname($hostname);
         } catch (\Exception $exception) {
             throw new \InvalidArgumentException('Invalid value for hostname: "'.$hostname.'"');
         }
@@ -51,8 +50,11 @@ class AbstractDnsRecord
 
     public function setTtl(int $ttl): void
     {
-        if ($ttl < 0 || $ttl > 2147483647) throw new \InvalidArgumentException('Invalid value for TTL: "' . $ttl . '"');
-        $this->ttl = $ttl;
+        try {
+            $this->ttl = $this->validateUInt32($ttl);
+        } catch (\Exception $exception) {
+            throw new \InvalidArgumentException('Invalid value for TTL: "' . $ttl . '"');
+        }
     }
 
     public function getObject(): \stdClass
