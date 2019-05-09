@@ -152,17 +152,15 @@ final class DnsTest extends TestCase
         $this->assertTrue($isValid);
     }
 
-    //** @dataProvider dataUInt16Values */
-    /*
-        public function testDNSMXRecordPriorityValidation($value, $isValid) {
+    /** @dataProvider dataUInt16Values */
+    public function testDNSMXRecordPriorityValidation($value, $isValid) {
 
-            if (!$isValid) $this->expectException(InvalidArgumentException::class);
-            $r = new \TomCan\CombellApi\Structure\Dns\DnsMXRecord('test-123', 'example.com', 123, 'mail.example.com', $value);
+        if (!$isValid) $this->expectException(InvalidArgumentException::class);
+        $r = new \TomCan\CombellApi\Structure\Dns\DnsMXRecord('test-123', 'example.com', 123, 'mail.example.com', $value);
 
-            $this->assertTrue($isValid);
+        $this->assertTrue($isValid);
 
-        }
-    */
+    }
 
     public function testSOARecord() {
 
