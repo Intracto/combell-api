@@ -18,6 +18,9 @@ final class DnsTest extends TestCase
         $this->assertEquals('example.com', $r->getHostname());
         $this->assertEquals(123, $r->getTtl());
 
+        // test object
+        $o = $r->getObject();
+        $this->doStandardObjectTests($r, $o);
     }
 
     /** @dataProvider dataHostnameValues */
@@ -50,10 +53,11 @@ final class DnsTest extends TestCase
         $this->assertEquals(123, $r->getTtl());
         $this->assertEquals('::1', $r->getContent());
 
-        // test validation of ipv6 record
-        $this->expectException(InvalidArgumentException::class);
-        $r->setContent('127.0.0.1');
-
+        // test object
+        $o = $r->getObject();
+        $this->doStandardObjectTests($r, $o);
+        $this->assertObjectHasAttribute('content', $o);
+        $this->assertEquals($r->getContent(), $o->content);
     }
 
     /** @dataProvider dataIpv6Values */
@@ -76,6 +80,11 @@ final class DnsTest extends TestCase
         $this->assertEquals(123, $r->getTtl());
         $this->assertEquals('127.0.0.1', $r->getContent());
 
+        // test object
+        $o = $r->getObject();
+        $this->doStandardObjectTests($r, $o);
+        $this->assertObjectHasAttribute('content', $o);
+        $this->assertEquals($r->getContent(), $o->content);
     }
 
     /** @dataProvider dataIpv4Values */
@@ -99,6 +108,11 @@ final class DnsTest extends TestCase
         $this->assertEquals(123, $r->getTtl());
         $this->assertEquals('valid.example.com', $r->getContent());
 
+        // test object
+        $o = $r->getObject();
+        $this->doStandardObjectTests($r, $o);
+        $this->assertObjectHasAttribute('content', $o);
+        $this->assertEquals($r->getContent(), $o->content);
     }
 
     //** @dataProvider dataHostnameValues */
@@ -125,20 +139,13 @@ final class DnsTest extends TestCase
         $this->assertEquals('mail.example.com', $r->getContent());
         $this->assertEquals(5, $r->getPriority());
 
-        /*
-        // test validation of hostname record
-        $this->expectException(InvalidArgumentException::class);
-        $r->setContent('_invalid.example.com');
-
-        // test validation of priority
-        $r->setPriority(0);
-        $r->setPriority(65535);
-        $this->expectException(InvalidArgumentException::class);
-        $r->setPriority(65536);
-        $this->expectException(InvalidArgumentException::class);
-        $r->setPriority('banana');
-        */
-
+        // test object
+        $o = $r->getObject();
+        $this->doStandardObjectTests($r, $o);
+        $this->assertObjectHasAttribute('content', $o);
+        $this->assertEquals($r->getContent(), $o->content);
+        $this->assertObjectHasAttribute('priority', $o);
+        $this->assertEquals($r->getPriority(), $o->priority);
     }
 
     //** @dataProvider dataUInt16Values */
@@ -163,22 +170,11 @@ final class DnsTest extends TestCase
         $this->assertEquals(123, $r->getTtl());
         $this->assertEquals('ns1.example.com hostmaster.example.com 123 456 789 012', $r->getContent());
 
-        /*
-        // test validation of content fields record
-        $this->expectException(InvalidArgumentException::class);
-        $r->setMaster('_invalid.example.com');
-        $this->expectException(InvalidArgumentException::class);
-        $r->setResponsible('_invalid.example.com');
-
-        // test validation of priority
-        $this->expectException(null);
-        $r->setSerial(0);
-        $r->setSerial(2147483647);
-        $this->expectException(InvalidArgumentException::class);
-        $r->setSerial(2147483648);
-        $r->setSerial('banana');
-        */
-
+        // test object
+        $o = $r->getObject();
+        $this->doStandardObjectTests($r, $o);
+        $this->assertObjectHasAttribute('content', $o);
+        $this->assertEquals($r->getContent(), $o->content);
     }
 
 //    /** @dataProvider dataHostnameValues */
@@ -254,6 +250,21 @@ final class DnsTest extends TestCase
 
     }
 */
+
+    private function doStandardObjectTests(\TomCan\CombellApi\Structure\Dns\AbstractDnsRecord $record, stdClass $object): void
+    {
+        // check if attributes exist
+        $this->assertObjectHasAttribute('id', $object);
+        $this->assertObjectHasAttribute('record_name', $object);
+        $this->assertObjectHasAttribute('type', $object);
+        $this->assertObjectHasAttribute('ttl', $object);
+
+        // check if attribute values equal record values
+        $this->assertEquals($record->getId(), $object->id);
+        $this->assertEquals($record->getHostname(), $object->record_name);
+        $this->assertEquals($record->getType(), $object->type);
+        $this->assertEquals($record->getTtl(), $object->ttl);
+    }
 
     public function dataIpv4Values() {
         return [
