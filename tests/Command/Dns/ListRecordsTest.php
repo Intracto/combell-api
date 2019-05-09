@@ -222,4 +222,62 @@ final class ListRecordsTest extends TestCase
         $this->assertEquals('', $domains[8]->getHostName());
         $this->assertEquals('128 issue "letsencrypt.org"', $domains[8]->getContent());
     }
+
+    public function testListRecordsWithUnknownType(): void
+    {
+        $returnValue = [
+            'status' => 200,
+            'headers' => [
+                'Transfer-Encoding' => ['chunked'],
+                'Content-Type' => ['application/json; charset=utf-8'],
+                'X-RateLimit-Limit' => ['100'],
+                'X-RateLimit-Usage' => ['1'],
+                'X-RateLimit-Remaining' => ['99'],
+                'X-RateLimit-Reset' => ['60'],
+                'X-Paging-Skipped' => ['0'],
+                'X-Paging-Take' => ['9'],
+                'X-Paging-TotalResults' => ['9'],
+                'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
+            ],
+            'body' => json_encode([
+                (object) [
+                    'id' => '1-9988776601',
+                    'type' => 'TOM',
+                    'record_name' => 'www',
+                    'ttl' => 3600,
+                    'content' => '127.0.0.1',
+                    'service' => null,
+                    'target' => null,
+                    'protocol' => null,
+                    'priority' => null,
+                    'port' => null,
+                    'weight' => null,
+                ],
+            ]),
+        ];
+
+        $adapterStub = $this->createMock(AdapterInterface::class);
+        $headers = [
+            'Authorization' => 'hmac mocked',
+            'Accept' => 'application/json',
+            'Content-type' => 'application/json',
+        ];
+        $adapterStub->method('call')
+            ->with('GET', 'https://api.combell.com/v2/dns/example.com/records?skip=0&take=25', $headers, '')
+            ->willReturn($returnValue);
+
+        $hmacGeneratorStub = $this->createMock(HmacGenerator::class);
+        $hmacGeneratorStub->method('getHeader')
+            ->willReturn('hmac mocked');
+        $api = new Api($adapterStub, $hmacGeneratorStub);
+
+        $cmd = new ListRecords('example.com');
+
+        $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage('Unknown DNS record type TOM');
+
+        $domains = $api->executeCommand($cmd);
+
+    }
+
 }
