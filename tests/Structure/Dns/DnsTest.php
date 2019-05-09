@@ -115,18 +115,13 @@ final class DnsTest extends TestCase
         $this->assertEquals($r->getContent(), $o->content);
     }
 
-    //** @dataProvider dataHostnameValues */
-    /*
+    /** @dataProvider dataHostnameValues */
     public function testDNSCNAMERecordContentValidation($address, $isValid) {
 
         if (!$isValid) $this->expectException(InvalidArgumentException::class);
         $r = new \TomCan\CombellApi\Structure\Dns\DnsCNAMERecord('test-123', 'example.com', 123, $address);
-        $r->setContent($address);
-
         $this->assertTrue($isValid);
-
     }
-    */
 
     public function testMXRecord() {
 
@@ -146,6 +141,15 @@ final class DnsTest extends TestCase
         $this->assertEquals($r->getContent(), $o->content);
         $this->assertObjectHasAttribute('priority', $o);
         $this->assertEquals($r->getPriority(), $o->priority);
+    }
+
+    /** @dataProvider dataHostnameValues */
+    public function testDnsMXRecordContentValidation($address, $isValid) {
+
+        if (!$isValid) $this->expectException(InvalidArgumentException::class);
+        $r = new \TomCan\CombellApi\Structure\Dns\DnsMXRecord('test-123', 'example.com', 123, $address, 10);
+
+        $this->assertTrue($isValid);
     }
 
     //** @dataProvider dataUInt16Values */
