@@ -9,14 +9,16 @@ class CreateMailbox extends AbstractCommand
     private $domainName;
     private $email;
     private $password;
+    private $accountId;
 
-    public function __construct(string $domainName, string $email, string $password)
+    public function __construct(string $domainName, string $email, string $password, int $accountId)
     {
         parent::__construct('post', '/v2/mailboxes/{domainname}');
 
-        $this->setDomainName($domainName);
-        $this->setEmail($email);
-        $this->setPassword($password);
+        $this->domainName = $domainName;
+        $this->email = $email;
+        $this->password = $password;
+        $this->accountId = $accountId;
     }
 
     public function prepare(): void
@@ -26,37 +28,12 @@ class CreateMailbox extends AbstractCommand
         $obj = new \stdClass();
         $obj->email = $this->email;
         $obj->password = $this->password;
+        $obj->account_id = $this->accountId;
 
         $this->setBody((string) json_encode($obj));
     }
 
-    public function getDomainName(): string
+    public function processResponse(array $response)
     {
-        return $this->domainName;
-    }
-
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): void
-    {
-        $this->email = $email;
-    }
-
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): void
-    {
-        $this->password = $password;
     }
 }
