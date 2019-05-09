@@ -83,7 +83,7 @@ class Domain
     /**
      * @return array
      */
-    public function getNameservers(): array
+    public function getNameservers()
     {
         return $this->nameservers;
     }

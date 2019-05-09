@@ -28,7 +28,7 @@ class Account
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -44,7 +44,7 @@ class Account
     /**
      * @return string
      */
-    public function getIdentifier(): string
+    public function getIdentifier()
     {
         return $this->identifier;
     }

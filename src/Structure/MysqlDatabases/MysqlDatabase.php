@@ -34,7 +34,7 @@ class MysqlDatabase
     /**
      * @return string
      */
-    public function getAccountId(): string
+    public function getAccountId()
     {
         return $this->accountId;
     }
@@ -50,7 +50,7 @@ class MysqlDatabase
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -66,7 +66,7 @@ class MysqlDatabase
     /**
      * @return string
      */
-    public function getHostname(): string
+    public function getHostname()
     {
         return $this->hostname;
     }
@@ -74,7 +74,7 @@ class MysqlDatabase
     /**
      * @return string
      */
-    public function getUserCount(): string
+    public function getUserCount()
     {
         return $this->userCount;
     }
@@ -82,7 +82,7 @@ class MysqlDatabase
     /**
      * @return string
      */
-    public function getMaxSize(): string
+    public function getMaxSize()
     {
         return $this->maxSize;
     }
@@ -90,7 +90,7 @@ class MysqlDatabase
     /**
      * @return string
      */
-    public function getActualSize(): string
+    public function getActualSize()
     {
         return $this->actualSize;
     }

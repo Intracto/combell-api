@@ -75,7 +75,7 @@ class GetProvisioningJob extends AbstractCommand
     /**
      * @return array
      */
-    public function getResourceLinks(): array
+    public function getResourceLinks()
     {
         return $this->resource_links;
     }
