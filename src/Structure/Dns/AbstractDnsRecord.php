@@ -13,8 +13,8 @@ class AbstractDnsRecord
     {
         $this->id = $id;
         $this->type = $type;
-        $this->hostname = $hostname;
-        $this->ttl = $ttl;
+        $this->setHostname($hostname);
+        $this->setTtl($ttl);
     }
 
     public function getId(): string
@@ -32,9 +32,39 @@ class AbstractDnsRecord
         return $this->hostname;
     }
 
+    public function setHostname(string $hostname): void
+    {
+
+        if (in_array($hostname, ['', '@'])) {
+            $filtered = $hostname;
+        } else {
+
+            // remove leading underscores from labels, as we considder them valid, then send through filter_var
+            $filtered = preg_replace('(^_|\._)', '', $hostname);
+            $filtered = filter_var($filtered, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME);
+
+            // did the check pass and did we removed leading underscores? if so, use original value;
+            if ($filtered !== false && $filtered != $hostname) $filtered = $hostname;
+
+        }
+
+        if ($filtered === false) {
+            throw new \InvalidArgumentException('Invalid value for hostname: "'.$hostname.'"');
+        }
+
+        $this->hostname = $filtered;
+
+    }
+
     public function getTtl(): int
     {
         return $this->ttl;
+    }
+
+    public function setTtl(int $ttl): void
+    {
+        if ($ttl < 0 || $ttl > 2147483647) throw new \InvalidArgumentException('Invalid value for TTL: "' . $ttl . '"');
+        $this->ttl = $ttl;
     }
 
     public function getObject(): \stdClass
