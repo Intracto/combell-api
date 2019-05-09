@@ -162,6 +162,32 @@ final class DnsTest extends TestCase
 
     }
 
+    public function testDNSNSRecord() {
+
+        // test constructor
+        $r = new \TomCan\CombellApi\Structure\Dns\DnsNSRecord('test-123', 'example.com', 123, 'ns1.example.com');
+        $this->assertEquals('NS', $r->getType());
+        $this->assertEquals('test-123', $r->getId());
+        $this->assertEquals('example.com', $r->getHostname());
+        $this->assertEquals(123, $r->getTtl());
+        $this->assertEquals('ns1.example.com', $r->getContent());
+
+        // test object
+        $o = $r->getObject();
+        $this->doStandardObjectTests($r, $o);
+        $this->assertObjectHasAttribute('content', $o);
+        $this->assertEquals($r->getContent(), $o->content);
+    }
+
+    /** @dataProvider dataHostnameValues */
+    public function testDnsNSRecordContentValidation($value, $isValid) {
+
+        if (!$isValid) $this->expectException(InvalidArgumentException::class);
+        $r = new \TomCan\CombellApi\Structure\Dns\DnsNSRecord('test-123', 'example.com', 123, $value, 10);
+
+        $this->assertTrue($isValid);
+    }
+
     public function testSOARecord() {
 
         // test constructor
