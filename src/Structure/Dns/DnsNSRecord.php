@@ -19,7 +19,7 @@ class DnsNSRecord extends AbstractDnsRecord
 
     public function setContent(string $content): void
     {
-        $this->content = $content;
+        $this->content = $this->validateHostname($content);
     }
 
     public function getObject(): \stdClass
