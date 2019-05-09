@@ -89,4 +89,20 @@ class AbstractDnsRecord
         }
 
     }
+
+    private function validateInt(int $value, int $min, int $max): int
+    {
+        if ($value < $min || $value > $max) throw new \InvalidArgumentException('Invalid value for range '.$min.' - '.$max.': "' . $value . '"');
+        return $value;
+    }
+
+    protected function validateUInt16(int $value): int
+    {
+        return $this->validateUInt($value, 0, 65535);
+    }
+    protected function validateUInt32(int $value): int
+    {
+        return $this->validateUInt($value, 0, 2147483647);
+    }
+
 }
