@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-final class StructureTest extends TestCase
+final class DnsTest extends TestCase
 {
 
     /**
