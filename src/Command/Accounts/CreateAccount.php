@@ -10,76 +10,19 @@ class CreateAccount extends AbstractCommand
     private $identifier;
     private $servicePack;
     private $password;
-    private $provisionJob;
 
     public function __construct(string $identifier, int $servicePack, ?string $password = null)
     {
         parent::__construct('post', '/v2/accounts');
 
-        $this->setIdentifier($identifier);
-        $this->setServicePack($servicePack);
+        $this->identifier = $identifier;
+        $this->servicePack = $servicePack;
         if ($password !== null) {
             $this->setPassword($password);
         }
     }
 
-    public function prepare(): void
-    {
-        $obj = new \stdClass();
-        $obj->identifier = $this->identifier;
-
-        if (\is_object($this->servicePack) && isset($this->servicePack->id)) {
-            $obj->servicepack_id = $this->servicePack->id;
-        } else {
-            $obj->servicepack_id = $this->servicePack;
-        }
-
-        if ($this->password !== '') {
-            $obj->ftp_password = $this->password;
-        }
-
-        $this->setBody((string) json_encode($obj));
-    }
-
-    public function processResponse(array $response)
-    {
-        if (isset($response['headers']['Location'])) {
-            $h = $response['headers']['Location'][0];
-            $link = substr($h, strrpos($h, '/') + 1);
-            $this->provisionJob = $link;
-            $job = new ProvisioningJob($link, 'unknown');
-            $response['response'] = $job;
-        }
-
-        return $response;
-    }
-
-    public function getIdentifier(): string
-    {
-        return $this->identifier;
-    }
-
-    public function setIdentifier($identifier): void
-    {
-        $this->identifier = $identifier;
-    }
-
-    public function getServicePack(): int
-    {
-        return $this->servicePack;
-    }
-
-    public function setServicePack(int $servicePack): void
-    {
-        $this->servicePack = $servicePack;
-    }
-
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): void
+    private function setPassword(string $password): void
     {
         $uppers = \strlen((string) preg_replace('/[^A-Z]/', '', $password));
         $lowers = \strlen((string) preg_replace('/[^a-z]/', '', $password));
@@ -101,8 +44,24 @@ class CreateAccount extends AbstractCommand
         $this->password = $password;
     }
 
-    public function getProvisionJob()
+    public function prepare(): void
     {
-        return $this->provisionJob;
+        $obj = new \stdClass();
+        $obj->identifier = $this->identifier;
+        $obj->servicepack_id = $this->servicePack;
+
+        if (! empty($this->password)) {
+            $obj->ftp_password = $this->password;
+        }
+
+        $this->setBody((string) json_encode($obj));
+    }
+
+    public function processResponse(array $response)
+    {
+        $link = $response['headers']['Location'][0];
+        $id = substr($link, strrpos($link, '/') + 1);
+
+        return $id;
     }
 }
