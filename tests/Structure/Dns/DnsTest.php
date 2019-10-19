@@ -2,17 +2,26 @@
 
 use PHPUnit\Framework\TestCase;
 
+use TomCan\CombellApi\Structure\Dns\AbstractDnsRecord;
+use TomCan\CombellApi\Structure\Dns\DnsAAAARecord;
+use TomCan\CombellApi\Structure\Dns\DnsARecord;
+use TomCan\CombellApi\Structure\Dns\DnsCAARecord;
+use TomCan\CombellApi\Structure\Dns\DnsCNAMERecord;
+use TomCan\CombellApi\Structure\Dns\DnsMXRecord;
+use TomCan\CombellApi\Structure\Dns\DnsNSRecord;
+use TomCan\CombellApi\Structure\Dns\DnsSOARecord;
+use TomCan\CombellApi\Structure\Dns\DnsSRVRecord;
+use TomCan\CombellApi\Structure\Dns\DnsTXTRecord;
+
 final class DnsTest extends TestCase
 {
-
     /**
      * Test the logic that is contained withing structures
      */
-
-    public function testAbstractDnsRecord() {
-
+    public function testAbstractDnsRecord()
+    {
         // test constructor
-        $r = new \TomCan\CombellApi\Structure\Dns\AbstractDnsRecord('test-123', 'A', 'example.com', 123);
+        $r = new AbstractDnsRecord('test-123', 'A', 'example.com', 123);
         $this->assertEquals('A', $r->getType());
         $this->assertEquals('test-123', $r->getId());
         $this->assertEquals('example.com', $r->getHostname());
@@ -23,30 +32,49 @@ final class DnsTest extends TestCase
         $this->doStandardObjectTests($r, $o);
     }
 
-    /** @dataProvider dataHostnameValues */
-    public function testAbstractDnsRecordHostnameValidation($value, $isValid) {
+    private function doStandardObjectTests(AbstractDnsRecord $record, stdClass $object): void
+    {
+        // check if attributes exist
+        $this->assertObjectHasAttribute('id', $object);
+        $this->assertObjectHasAttribute('record_name', $object);
+        $this->assertObjectHasAttribute('type', $object);
+        $this->assertObjectHasAttribute('ttl', $object);
 
-        if (!$isValid) $this->expectException(\InvalidArgumentException::class);
-        $r = new \TomCan\CombellApi\Structure\Dns\AbstractDnsRecord('test-123', 'A', $value, 3600);
+        // check if attribute values equal record values
+        $this->assertEquals($record->getId(), $object->id);
+        $this->assertEquals($record->getHostname(), $object->record_name);
+        $this->assertEquals($record->getType(), $object->type);
+        $this->assertEquals($record->getTtl(), $object->ttl);
+    }
+
+    /** @dataProvider dataHostnameValues */
+    public function testAbstractDnsRecordHostnameValidation($value, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        new AbstractDnsRecord('test-123', 'A', $value, 3600);
 
         $this->assertTrue($isValid);
-
     }
 
     /** @dataProvider dataUInt32Values */
-    public function testAbstractDnsRecordTTLValidation($value, $isValid) {
+    public function testAbstractDnsRecordTTLValidation($value, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
 
-        if (!$isValid) $this->expectException(InvalidArgumentException::class);
-        $r = new \TomCan\CombellApi\Structure\Dns\AbstractDnsRecord('test-123', 'A', 'example.com', $value);
+        new AbstractDnsRecord('test-123', 'A', 'example.com', $value);
 
         $this->assertTrue($isValid);
-
     }
 
-    public function testDNSAAAARecord() {
-
+    public function testDNSAAAARecord()
+    {
         // test constructor
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsAAAARecord('test-123', 'example.com', 123, '::1');
+        $r = new DnsAAAARecord('test-123', 'example.com', 123, '::1');
         $this->assertEquals('AAAA', $r->getType());
         $this->assertEquals('test-123', $r->getId());
         $this->assertEquals('example.com', $r->getHostname());
@@ -61,19 +89,21 @@ final class DnsTest extends TestCase
     }
 
     /** @dataProvider dataIpv6Values */
-    public function testDNSAAAARecordContentValidation($address, $isValid) {
+    public function testDNSAAAARecordContentValidation($address, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
 
-        if (!$isValid) $this->expectException(InvalidArgumentException::class);
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsAAAARecord('test-123', 'example.com', 123, $address);
+        new DnsAAAARecord('test-123', 'example.com', 123, $address);
 
         $this->assertTrue($isValid);
-
     }
 
-    public function testDNSARecord() {
-
+    public function testDNSARecord()
+    {
         // test constructor
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsARecord('test-123', 'example.com', 123, '127.0.0.1');
+        $r = new DnsARecord('test-123', 'example.com', 123, '127.0.0.1');
         $this->assertEquals('A', $r->getType());
         $this->assertEquals('test-123', $r->getId());
         $this->assertEquals('example.com', $r->getHostname());
@@ -88,19 +118,21 @@ final class DnsTest extends TestCase
     }
 
     /** @dataProvider dataIpv4Values */
-    public function testDNSARecordContentValidation($address, $isValid) {
+    public function testDNSARecordContentValidation($address, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
 
-        if (!$isValid) $this->expectException(InvalidArgumentException::class);
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsARecord('test-123', 'example.com', 123, $address);
+        new DnsARecord('test-123', 'example.com', 123, $address);
 
         $this->assertTrue($isValid);
-
     }
 
-    public function testDNSCAARecord() {
-
+    public function testDNSCAARecord()
+    {
         // test constructor
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsCAARecord('test-123', 'example.com', 123, '0 issue "ca.example.net"');
+        $r = new DnsCAARecord('test-123', 'example.com', 123, '0 issue "ca.example.net"');
         $this->assertEquals('CAA', $r->getType());
         $this->assertEquals('test-123', $r->getId());
         $this->assertEquals('example.com', $r->getHostname());
@@ -114,11 +146,10 @@ final class DnsTest extends TestCase
         $this->assertEquals($r->getContent(), $o->content);
     }
 
-
-    public function testDNSCNAMERecord() {
-
+    public function testDNSCNAMERecord()
+    {
         // test constructor
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsCNAMERecord('test-123', 'example.com', 123, 'valid.example.com');
+        $r = new DnsCNAMERecord('test-123', 'example.com', 123, 'valid.example.com');
         $this->assertEquals('CNAME', $r->getType());
         $this->assertEquals('test-123', $r->getId());
         $this->assertEquals('example.com', $r->getHostname());
@@ -133,17 +164,21 @@ final class DnsTest extends TestCase
     }
 
     /** @dataProvider dataHostnameValues */
-    public function testDNSCNAMERecordContentValidation($address, $isValid) {
+    public function testDNSCNAMERecordContentValidation($address, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
 
-        if (!$isValid) $this->expectException(InvalidArgumentException::class);
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsCNAMERecord('test-123', 'example.com', 123, $address);
+        new DnsCNAMERecord('test-123', 'example.com', 123, $address);
+
         $this->assertTrue($isValid);
     }
 
-    public function testMXRecord() {
-
+    public function testMXRecord()
+    {
         // test constructor
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsMXRecord('test-123', 'example.com', 123, 'mail.example.com', 5);
+        $r = new DnsMXRecord('test-123', 'example.com', 123, 'mail.example.com', 5);
         $this->assertEquals('MX', $r->getType());
         $this->assertEquals('test-123', $r->getId());
         $this->assertEquals('example.com', $r->getHostname());
@@ -161,28 +196,33 @@ final class DnsTest extends TestCase
     }
 
     /** @dataProvider dataHostnameValues */
-    public function testDnsMXRecordContentValidation($address, $isValid) {
+    public function testDnsMXRecordContentValidation($address, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
 
-        if (!$isValid) $this->expectException(InvalidArgumentException::class);
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsMXRecord('test-123', 'example.com', 123, $address, 10);
+        new DnsMXRecord('test-123', 'example.com', 123, $address, 10);
 
         $this->assertTrue($isValid);
     }
 
     /** @dataProvider dataUInt16Values */
-    public function testDNSMXRecordPriorityValidation($value, $isValid) {
+    public function testDNSMXRecordPriorityValidation($value, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
 
-        if (!$isValid) $this->expectException(InvalidArgumentException::class);
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsMXRecord('test-123', 'example.com', 123, 'mail.example.com', $value);
+        new DnsMXRecord('test-123', 'example.com', 123, 'mail.example.com', $value);
 
         $this->assertTrue($isValid);
-
     }
 
-    public function testDNSNSRecord() {
-
+    public function testDNSNSRecord()
+    {
         // test constructor
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsNSRecord('test-123', 'example.com', 123, 'ns1.example.com');
+        $r = new DnsNSRecord('test-123', 'example.com', 123, 'ns1.example.com');
         $this->assertEquals('NS', $r->getType());
         $this->assertEquals('test-123', $r->getId());
         $this->assertEquals('example.com', $r->getHostname());
@@ -197,18 +237,21 @@ final class DnsTest extends TestCase
     }
 
     /** @dataProvider dataHostnameValues */
-    public function testDnsNSRecordContentValidation($value, $isValid) {
+    public function testDnsNSRecordContentValidation($value, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
 
-        if (!$isValid) $this->expectException(InvalidArgumentException::class);
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsNSRecord('test-123', 'example.com', 123, $value, 10);
+        new DnsNSRecord('test-123', 'example.com', 123, $value, 10);
 
         $this->assertTrue($isValid);
     }
 
-    public function testSOARecord() {
-
+    public function testSOARecord()
+    {
         // test constructor
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com hostmaster.example.com 123 456 789 012 345');
+        $r = new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com hostmaster.example.com 123 456 789 012 345');
         $this->assertEquals('SOA', $r->getType());
         $this->assertEquals('test-123', $r->getId());
         $this->assertEquals('example.com', $r->getHostname());
@@ -246,15 +289,14 @@ final class DnsTest extends TestCase
         $this->assertEquals($r->getContent(), $o->content);
     }
 
-    public function testDNSSRVRecord() {
-
+    public function testDNSSRVRecord()
+    {
         // test constructor
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsSRVRecord('test-123', 'example.com', 123, '_sip', 'sipserver.example.com', '_tcp', 10, 5060, 0);
+        $r = new DnsSRVRecord('test-123', 'example.com', 123, '_sip', 'sipserver.example.com', '_tcp', 10, 5060, 0);
         $this->assertEquals('SRV', $r->getType());
         $this->assertEquals('test-123', $r->getId());
         $this->assertEquals('example.com', $r->getHostname());
         $this->assertEquals(123, $r->getTtl());
-
 
         $this->assertEquals('_sip', $r->getService());
         $this->assertEquals('sipserver.example.com', $r->getTarget());
@@ -280,10 +322,10 @@ final class DnsTest extends TestCase
         $this->assertEquals($r->getWeight(), $o->weight);
     }
 
-    public function testDNSTXTRecord() {
-
+    public function testDNSTXTRecord()
+    {
         // test constructor
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsTXTRecord('test-123', 'example.com', 123, 'The quick brown fox jumps over the lazy dog');
+        $r = new DnsTXTRecord('test-123', 'example.com', 123, 'The quick brown fox jumps over the lazy dog');
         $this->assertEquals('TXT', $r->getType());
         $this->assertEquals('test-123', $r->getId());
         $this->assertEquals('example.com', $r->getHostname());
@@ -298,70 +340,91 @@ final class DnsTest extends TestCase
     }
 
     /** @dataProvider dataHostnameValuesNoOrigin */
-    public function testSOARecordMasterValidation($value, $isValid) {
-        if (!$isValid) $this->expectException(InvalidArgumentException::class);
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsSOARecord('test-123', 'example.com', 123, $value . ' dnsmaster.example.com 123 456 789 012 345');
+    public function testSOARecordMasterValidation($value, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        new DnsSOARecord('test-123', 'example.com', 123, $value . ' dnsmaster.example.com 123 456 789 012 345');
+
         $this->assertTrue($isValid);
     }
 
     /** @dataProvider dataHostnameValuesNoOrigin */
-    public function testSOARecordResponsibleValidation($value, $isValid) {
-        if (!$isValid) $this->expectException(InvalidArgumentException::class);
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com '.$value.' 123 456 789 012 345');
-        $this->assertTrue($isValid);
-    }
-
-    /** @dataProvider dataUInt32Values */
-    public function testSOARecordSerialValidation($value, $isValid) {
-        if (!$isValid) $this->expectException(InvalidArgumentException::class);
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com '.$value.' 456 789 012 345');
-        $this->assertTrue($isValid);
-    }
-
-    /** @dataProvider dataUInt32Values */
-    public function testSOARecordRefreshValidation($value, $isValid) {
-        if (!$isValid) $this->expectException(InvalidArgumentException::class);
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com 123 '.$value.' 789 012 345');
-        $this->assertTrue($isValid);
-    }
-
-    /** @dataProvider dataUInt32Values */
-    public function testSOARecordRetryValidation($value, $isValid) {
-        if (!$isValid) $this->expectException(InvalidArgumentException::class);
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com 123 456 '.$value.' 012 345');
-        $this->assertTrue($isValid);
-    }
-
-    /** @dataProvider dataUInt32Values */
-    public function testSOARecordExpireValidation($value, $isValid) {
-        if (!$isValid) $this->expectException(InvalidArgumentException::class);
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com 123 456 789 '.$value.' 345');
-        $this->assertTrue($isValid);
-    }
-
-    /** @dataProvider dataUInt32Values */
-    public function testSOARecordMinimalValidation($value, $isValid) {
-        if (!$isValid) $this->expectException(InvalidArgumentException::class);
-        $r = new \TomCan\CombellApi\Structure\Dns\DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com 123 456 789 012 '.$value);
-        $this->assertTrue($isValid);
-    }
-
-    private function doStandardObjectTests(\TomCan\CombellApi\Structure\Dns\AbstractDnsRecord $record, stdClass $object): void
+    public function testSOARecordResponsibleValidation($value, $isValid)
     {
-        // check if attributes exist
-        $this->assertObjectHasAttribute('id', $object);
-        $this->assertObjectHasAttribute('record_name', $object);
-        $this->assertObjectHasAttribute('type', $object);
-        $this->assertObjectHasAttribute('ttl', $object);
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
 
-        // check if attribute values equal record values
-        $this->assertEquals($record->getId(), $object->id);
-        $this->assertEquals($record->getHostname(), $object->record_name);
-        $this->assertEquals($record->getType(), $object->type);
-        $this->assertEquals($record->getTtl(), $object->ttl);
+        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com ' . $value . ' 123 456 789 012 345');
+
+        $this->assertTrue($isValid);
     }
 
-    public function dataIpv4Values() {
+    /** @dataProvider dataUInt32Values */
+    public function testSOARecordSerialValidation($value, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com ' . $value . ' 456 789 012 345');
+
+        $this->assertTrue($isValid);
+    }
+
+    /** @dataProvider dataUInt32Values */
+    public function testSOARecordRefreshValidation($value, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com 123 ' . $value . ' 789 012 345');
+
+        $this->assertTrue($isValid);
+    }
+
+    /** @dataProvider dataUInt32Values */
+    public function testSOARecordRetryValidation($value, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com 123 456 ' . $value . ' 012 345');
+
+        $this->assertTrue($isValid);
+    }
+
+    /** @dataProvider dataUInt32Values */
+    public function testSOARecordExpireValidation($value, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com 123 456 789 ' . $value . ' 345');
+
+        $this->assertTrue($isValid);
+    }
+
+    /** @dataProvider dataUInt32Values */
+    public function testSOARecordMinimalValidation($value, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com 123 456 789 012 ' . $value);
+
+        $this->assertTrue($isValid);
+    }
+
+    public function dataIpv4Values()
+    {
         return [
             ['', false],
             ['127.0.0.1', true],
@@ -372,7 +435,8 @@ final class DnsTest extends TestCase
         ];
     }
 
-    public function dataIpv6Values() {
+    public function dataIpv6Values()
+    {
         return [
             ['', false],
             ['::', true],
@@ -384,7 +448,8 @@ final class DnsTest extends TestCase
         ];
     }
 
-    public function dataHostnameValues() {
+    public function dataHostnameValues()
+    {
         return [
             ['', true],
             ['@', true],
@@ -402,7 +467,8 @@ final class DnsTest extends TestCase
         ];
     }
 
-    public function dataHostnameValuesNoOrigin() {
+    public function dataHostnameValuesNoOrigin()
+    {
         return [
             ['example', true],
             ['example.com', true],
@@ -418,7 +484,8 @@ final class DnsTest extends TestCase
         ];
     }
 
-    public function dataUInt16Values() {
+    public function dataUInt16Values()
+    {
         return [
             [0, true],
             [-1, false],
@@ -427,7 +494,8 @@ final class DnsTest extends TestCase
         ];
     }
 
-    public function dataUInt32Values() {
+    public function dataUInt32Values()
+    {
         return [
             [0, true],
             [-1, false],
@@ -435,6 +503,4 @@ final class DnsTest extends TestCase
             [2147483648, false],
         ];
     }
-
 }
- 
