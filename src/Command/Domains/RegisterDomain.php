@@ -13,8 +13,8 @@ class RegisterDomain extends AbstractCommand
     {
         parent::__construct('post', '/v2/domains/registrations');
 
-        $this->setDomainName($domainName);
-        $this->setNameServers($nameServers);
+        $this->domainName = $domainName;
+        $this->nameServers = $nameServers;
     }
 
     public function prepare(): void
@@ -26,23 +26,8 @@ class RegisterDomain extends AbstractCommand
         $this->setBody((string) json_encode($obj));
     }
 
-    public function getDomainName(): string
+    public function processResponse(array $response)
     {
-        return $this->domainName;
-    }
-
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
-    }
-
-    public function getNameServers(): array
-    {
-        return $this->nameServers;
-    }
-
-    public function setNameServers(array $nameServers): void
-    {
-        $this->nameServers = $nameServers;
+        return explode('/', $response['headers']['Location'][0])[3];
     }
 }
