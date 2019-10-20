@@ -18,7 +18,7 @@ final class CreateMysqlDatabaseTest extends TestCase
             'status' => 202,
             'headers' => [
                 'Content-Length' => ['0'],
-                'Location' => '/v2/provisioningjobs/d7cbf26f-9c7f-4851-bd0a-317acfb4bf4d',
+                'Location' => ['/v2/provisioningjobs/d7cbf26f-9c7f-4851-bd0a-317acfb4bf4d'],
                 'Retry-After' => '5',
                 'X-RateLimit-Limit' => ['100'],
                 'X-RateLimit-Usage' => ['1'],

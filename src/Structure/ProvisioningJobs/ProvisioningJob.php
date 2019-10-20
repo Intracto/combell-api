@@ -7,14 +7,14 @@ class ProvisioningJob
     private $id;
     private $status;
     private $estimate;
-    private $links;
+    private $resourceLinks;
 
-    public function __construct(string $id, string $status, ?\DateTime $estimate = null, array $links = [])
+    public function __construct(string $id, string $status, ?\DateTime $estimate = null, array $resourceLinks = [])
     {
         $this->id = $id;
         $this->status = $status;
         $this->estimate = $estimate;
-        $this->links = $links;
+        $this->resourceLinks = $resourceLinks;
     }
 
     public function getId(): string
@@ -27,28 +27,13 @@ class ProvisioningJob
         return $this->status;
     }
 
-    public function setStatus(string $status): void
-    {
-        $this->status = $status;
-    }
-
     public function getEstimate(): ?\DateTime
     {
         return $this->estimate;
     }
 
-    public function setEstimate(\DateTime $estimate): void
+    public function getResourceLinks(): array
     {
-        $this->estimate = $estimate;
-    }
-
-    public function getLinks(): array
-    {
-        return $this->links;
-    }
-
-    public function setLinks(array $links): void
-    {
-        $this->links = $links;
+        return $this->resourceLinks;
     }
 }

@@ -47,19 +47,9 @@ class LinuxHosting
         return $this->domainName;
     }
 
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
-    }
-
     public function getServicepackId(): int
     {
         return $this->servicepackId;
-    }
-
-    public function setServicepackId(int $servicepackId): void
-    {
-        $this->servicepackId = $servicepackId;
     }
 
     public function getMaxWebspaceSize(): ?int
@@ -67,19 +57,9 @@ class LinuxHosting
         return $this->maxWebspaceSize;
     }
 
-    public function setMaxWebspaceSize(int $maxWebspaceSize): void
-    {
-        $this->maxWebspaceSize = $maxWebspaceSize;
-    }
-
     public function getMaxSize(): ?int
     {
         return $this->maxSize;
-    }
-
-    public function setMaxSize(int $maxSize): void
-    {
-        $this->maxSize = $maxSize;
     }
 
     public function getWebspaceUsage(): ?int
@@ -87,19 +67,9 @@ class LinuxHosting
         return $this->webspaceUsage;
     }
 
-    public function setWebspaceUsage(int $webspaceUsage): void
-    {
-        $this->webspaceUsage = $webspaceUsage;
-    }
-
     public function getActualSize(): ?int
     {
         return $this->actualSize;
-    }
-
-    public function setActualSize(int $actualSize): void
-    {
-        $this->actualSize = $actualSize;
     }
 
     public function getIp(): ?string
@@ -107,29 +77,14 @@ class LinuxHosting
         return $this->ip;
     }
 
-    public function setIp(string $ip): void
-    {
-        $this->ip = $ip;
-    }
-
     public function getIpType(): ?string
     {
         return $this->ipType;
     }
 
-    public function setIpType(string $ipType): void
-    {
-        $this->ipType = $ipType;
-    }
-
     public function getSshHost(): ?string
     {
         return $this->sshHost;
-    }
-
-    public function setSshHost(string $sshHost): void
-    {
-        $this->sshHost = $sshHost;
     }
 
     public function getFtpHost(): ?string
@@ -142,19 +97,9 @@ class LinuxHosting
         return $this->ftpUserName;
     }
 
-    public function setFtpUserName(string $ftpUserName): void
-    {
-        $this->ftpUserName = $ftpUserName;
-    }
-
     public function getSshUserName(): ?string
     {
         return $this->sshUserName;
-    }
-
-    public function setSshUserName(string $sshUserName): void
-    {
-        $this->sshUserName = $sshUserName;
     }
 }
 
