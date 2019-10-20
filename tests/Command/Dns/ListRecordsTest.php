@@ -185,7 +185,7 @@ final class ListRecordsTest extends TestCase
         $this->assertInstanceOf(DnsARecord::class, $domains[0]);
         $this->assertEquals('www', $domains[0]->getHostName());
         $this->assertEquals('127.0.0.1', $domains[0]->getContent());
-        $this->assertEquals(3600, $domains[1]->getTtl());
+        $this->assertEquals(3600, $domains[0]->getTtl());
 
         $this->assertInstanceOf(DnsMXRecord::class, $domains[1]);
         $this->assertEquals('', $domains[1]->getHostName());
