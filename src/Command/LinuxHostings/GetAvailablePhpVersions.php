@@ -20,13 +20,13 @@ class GetAvailablePhpVersions extends AbstractCommand
         $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/phpsettings/availableversions');
     }
 
-    public function getDomainName(): string
+    public function processResponse(array $response)
     {
-        return $this->domainName;
-    }
+        $phpVersions = [];
+        foreach ($response['body'] as $phpVersion) {
+            $phpVersions[] = $phpVersion->version;
+        }
 
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
+        return $phpVersions;
     }
 }

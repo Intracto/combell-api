@@ -21,33 +21,22 @@ class GetLinuxHosting extends AbstractCommand
         $this->setEndPoint('/v2/linuxhostings/' . $this->domainName);
     }
 
-    public function getDomainName(): string
-    {
-        return $this->domainName;
-    }
-
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
-    }
-
     public function processResponse(array $response)
     {
-        $h = $response['body'];
-        $response['response'] = new LinuxHosting(
-            $h->domain_name,
-            $h->servicepack_id,
-            $h->max_webspace_size,
-            $h->max_size,
-            $h->webspace_usage,
-            $h->actual_size,
-            $h->ip,
-            $h->ip_type,
-            $h->ssh_host,
-            $h->ftp_username,
-            $h->ssh_username
-        );
+        $linuxHosting = $response['body'];
 
-        return $response;
+        return new LinuxHosting(
+            $linuxHosting->domain_name,
+            $linuxHosting->servicepack_id,
+            $linuxHosting->max_webspace_size,
+            $linuxHosting->max_size,
+            $linuxHosting->webspace_usage,
+            $linuxHosting->actual_size,
+            $linuxHosting->ip,
+            $linuxHosting->ip_type,
+            $linuxHosting->ssh_host,
+            $linuxHosting->ftp_username,
+            $linuxHosting->ssh_username
+        );
     }
 }
