@@ -4,24 +4,22 @@ namespace TomCan\CombellApi\Command\LinuxHostings;
 
 use TomCan\CombellApi\Command\AbstractCommand;
 
-class SetHttp2 extends AbstractCommand
+class ConfigureFtp extends AbstractCommand
 {
     private $domainname;
-    private $sitename;
     private $enabled;
 
-    public function __construct($domainname, $sitename, $enabled)
+    public function __construct($domainname, $enabled)
     {
-        parent::__construct("put", "/v2/linuxhostings/{domainname}/sites/{sitename}/http2/configuration");
+        parent::__construct("put", "/v2/linuxhostings/{domainname}/ftp/configuration");
 
         $this->setDomainname($domainname);
-        $this->setSitename($sitename);
         $this->setEnabled($enabled);
     }
 
     public function prepare()
     {
-        $this->setEndPoint("/v2/linuxhostings/".$this->domainname."/sites/".$this->sitename."/http2/configuration");
+        $this->setEndPoint("/v2/linuxhostings/".$this->domainname."/ftp/configuration");
 
         $obj = new \stdClass();
         $obj->enabled = $this->enabled;
@@ -45,22 +43,6 @@ class SetHttp2 extends AbstractCommand
     public function setDomainname($domainname)
     {
         $this->domainname = $domainname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSitename()
-    {
-        return $this->sitename;
-    }
-
-    /**
-     * @param mixed $sitename
-     */
-    public function setSitename($sitename)
-    {
-        $this->sitename = $sitename;
     }
 
     /**
