@@ -32,7 +32,7 @@ class Api
             'Content-type' => 'application/json',
         ];
 
-        if (getenv('DEBUG_DUMPS', 1)) {
+        if (getenv('DEBUG_DUMPS', true)) {
             var_dump(
                 strtoupper($command->getMethod()),
                 'https://api.combell.com' . $command->getEndPoint() . ($command->getQueryString() !== '' ? '?' . $command->getQueryString() : ''),
@@ -48,7 +48,7 @@ class Api
             $command->getBody()
         );
 
-        if (getenv('DEBUG_DUMPS', 1)) {
+        if (getenv('DEBUG_DUMPS', true)) {
             var_dump($ret);
         }
 

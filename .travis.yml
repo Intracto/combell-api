@@ -2,9 +2,10 @@ language: php
 
 php:
   - 7.2
+  - 7.3
+  - 7.4snapshot
 
 script:
   - composer install
-  - ./vendor/bin/phpstan analyse --level=7 src
-  - ./vendor/bin/phpunit
+  - make test
 
