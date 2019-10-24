@@ -27,12 +27,12 @@ class MysqlDatabase
         $this->actualSize = $actualSize;
     }
 
-    public function getAccountId(): string
+    public function getAccountId(): int
     {
         return $this->accountId;
     }
 
-    public function setAccountId(string $accountId): void
+    public function setAccountId(int $accountId): void
     {
         $this->accountId = $accountId;
     }
@@ -52,17 +52,17 @@ class MysqlDatabase
         return $this->hostname;
     }
 
-    public function getUserCount(): string
+    public function getUserCount(): int
     {
         return $this->userCount;
     }
 
-    public function getMaxSize(): string
+    public function getMaxSize(): int
     {
         return $this->maxSize;
     }
 
-    public function getActualSize(): string
+    public function getActualSize(): int
     {
         return $this->actualSize;
     }
