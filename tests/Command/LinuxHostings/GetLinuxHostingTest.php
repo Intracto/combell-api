@@ -66,7 +66,7 @@ final class GetLinuxHostingTest extends TestCase
                     'mysql_database_names' => [
                         'ID12345_examplecom',
                     ],
-                ],
+                ]
             )
         ];
 
