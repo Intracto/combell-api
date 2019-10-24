@@ -4,22 +4,24 @@ namespace TomCan\CombellApi\Command\LinuxHostings;
 
 use TomCan\CombellApi\Command\AbstractCommand;
 
-class SetGzipCompression extends AbstractCommand
+class SetAutoRedirectSsl extends AbstractCommand
 {
     private $domainName;
+    private $hostname;
     private $enabled;
 
-    public function __construct(string $domainName, bool $enabled)
+    public function __construct(string $domainName, string $hostname, bool $enabled)
     {
-        parent::__construct('put', '/v2/linuxhostings/{domainName}/settings/gzipcompression');
+        parent::__construct('put', '/v2/linuxhostings/{domainName}/sslsettings/{hostname}/autoredirect');
 
         $this->domainName = $domainName;
+        $this->hostname = $hostname;
         $this->enabled = $enabled;
     }
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/settings/gzipcompression');
+        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/sslsettings/' . $this->hostname . '/autoredirect');
 
         $obj = new \stdClass();
         $obj->enabled = $this->enabled;

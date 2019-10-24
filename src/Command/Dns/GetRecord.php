@@ -11,7 +11,7 @@ class GetRecord extends AbstractCommand
 
     public function __construct(string $domainName, string $id)
     {
-        parent::__construct('get', '/v2/dns/{domainname}/records/{id}');
+        parent::__construct('get', '/v2/dns/{domainName}/records/{recordId}');
 
         $this->domainName = $domainName;
         $this->id = $id;

@@ -11,10 +11,10 @@ class SetPhpMemoryLimit extends AbstractCommand
 
     public function __construct(string $domainName, int $memoryLimit)
     {
-        parent::__construct('put', '/v2/linuxhostings/{domainname}/phpsettings/memorylimit');
+        parent::__construct('put', '/v2/linuxhostings/{domainName}/phpsettings/memorylimit');
 
-        $this->setDomainName($domainName);
-        $this->setMemoryLimit($memoryLimit);
+        $this->domainName = $domainName;
+        $this->memoryLimit = $memoryLimit;
     }
 
     public function prepare(): void
@@ -27,23 +27,7 @@ class SetPhpMemoryLimit extends AbstractCommand
         $this->setBody((string) json_encode($obj));
     }
 
-    public function getDomainName(): string
+    public function processResponse(array $response)
     {
-        return $this->domainName;
-    }
-
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
-    }
-
-    public function getMemoryLimit(): int
-    {
-        return $this->memoryLimit;
-    }
-
-    public function setMemoryLimit(int $memoryLimit): void
-    {
-        $this->memoryLimit = $memoryLimit;
     }
 }

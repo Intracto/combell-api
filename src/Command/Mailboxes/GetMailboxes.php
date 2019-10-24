@@ -18,7 +18,9 @@ class GetMailboxes extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/mailboxes/?domain_name=' . $this->domainName);
+        $this->setEndPoint('/v2/mailboxes/');
+
+        $this->appendQueryString('domain_name', $this->domainName);
     }
 
     public function processResponse(array $response)

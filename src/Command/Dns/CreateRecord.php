@@ -14,7 +14,7 @@ class CreateRecord extends AbstractCommand
 
     public function __construct(string $domainName, AbstractDnsRecord $record)
     {
-        parent::__construct('post', '/v2/dns/{domainname}/records');
+        parent::__construct('post', '/v2/dns/{domainName}/records');
 
         $this->domainName = $domainName;
         $this->setRecord($record);

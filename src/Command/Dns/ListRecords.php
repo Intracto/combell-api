@@ -10,7 +10,7 @@ class ListRecords extends PageableAbstractCommand
 
     public function __construct(string $domainName)
     {
-        parent::__construct('get', '/v2/dns/{domainname}/records');
+        parent::__construct('get', '/v2/dns/{domainName}/records');
 
         $this->domainName = $domainName;
     }

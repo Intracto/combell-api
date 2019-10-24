@@ -8,13 +8,15 @@ class SetPhpApcu extends AbstractCommand
 {
     private $domainName;
     private $apcuSize;
+    private $enabled;
 
-    public function __construct(string $domainName, int $apcuSize)
+    public function __construct(string $domainName, int $apcuSize, bool $enabled)
     {
-        parent::__construct('put', '/v2/linuxhostings/{domainname}/phpsettings/apcu');
+        parent::__construct('put', '/v2/linuxhostings/{domainName}/phpsettings/apcu');
 
-        $this->setDomainName($domainName);
-        $this->setApcuSize($apcuSize);
+        $this->domainName = $domainName;
+        $this->apcuSize = $apcuSize;
+        $this->enabled = $enabled;
     }
 
     public function prepare(): void
@@ -23,27 +25,12 @@ class SetPhpApcu extends AbstractCommand
 
         $obj = new \stdClass();
         $obj->apcu_size = $this->apcuSize;
+        $obj->enabled = $this->enabled;
 
         $this->setBody((string) json_encode($obj));
     }
 
-    public function getDomainName(): string
+    public function processResponse(array $response)
     {
-        return $this->domainName;
-    }
-
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
-    }
-
-    public function getApcuSize(): int
-    {
-        return $this->apcuSize;
-    }
-
-    public function setApcuSize(int $apcuSize): void
-    {
-        $this->apcuSize = $apcuSize;
     }
 }

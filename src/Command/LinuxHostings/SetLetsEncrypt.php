@@ -12,11 +12,11 @@ class SetLetsEncrypt extends AbstractCommand
 
     public function __construct(string $domainName, string $hostname, bool $enabled)
     {
-        parent::__construct('put', '/v2/linuxhostings/{domainname}/sslsettings/{hostname}/letsencrypt');
+        parent::__construct('put', '/v2/linuxhostings/{domainName}/sslsettings/{hostname}/letsencrypt');
 
-        $this->setDomainName($domainName);
-        $this->setHostname($hostname);
-        $this->setEnabled($enabled);
+        $this->domainName = $domainName;
+        $this->hostname = $hostname;
+        $this->enabled = $enabled;
     }
 
     public function prepare(): void
@@ -29,33 +29,7 @@ class SetLetsEncrypt extends AbstractCommand
         $this->setBody((string) json_encode($obj));
     }
 
-    public function getDomainName(): string
+    public function processResponse(array $response)
     {
-        return $this->domainName;
-    }
-
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
-    }
-
-    public function getHostname(): string
-    {
-        return $this->hostname;
-    }
-
-    public function setHostname(string $hostname): void
-    {
-        $this->hostname = $hostname;
-    }
-
-    public function getEnabled(): bool
-    {
-        return $this->enabled;
-    }
-
-    public function setEnabled(bool $enabled): void
-    {
-        $this->enabled = $enabled;
     }
 }

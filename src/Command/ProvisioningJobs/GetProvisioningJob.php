@@ -12,7 +12,7 @@ class GetProvisioningJob extends AbstractCommand
 
     public function __construct(string $jobId)
     {
-        parent::__construct('get', '/v2/provisioningjobs/{jobid}');
+        parent::__construct('get', '/v2/provisioningjobs/{jobId}');
 
         $this->jobId = $jobId;
     }

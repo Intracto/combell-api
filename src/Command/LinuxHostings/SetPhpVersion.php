@@ -11,10 +11,10 @@ class SetPhpVersion extends AbstractCommand
 
     public function __construct(string $domainName, string $phpVersion)
     {
-        parent::__construct('put', '/v2/linuxhostings/{domainname}/phpsettings/version');
+        parent::__construct('put', '/v2/linuxhostings/{domainName}/phpsettings/version');
 
-        $this->setDomainName($domainName);
-        $this->setPhpVersion($phpVersion);
+        $this->domainName = $domainName;
+        $this->phpVersion = $phpVersion;
     }
 
     public function prepare(): void
@@ -27,23 +27,7 @@ class SetPhpVersion extends AbstractCommand
         $this->setBody((string) json_encode($obj));
     }
 
-    public function getDomainName(): string
+    public function processResponse(array $response)
     {
-        return $this->domainName;
-    }
-
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
-    }
-
-    public function getPhpVersion(): string
-    {
-        return $this->phpVersion;
-    }
-
-    public function setPhpVersion(string $phpVersion): void
-    {
-        $this->phpVersion = $phpVersion;
     }
 }

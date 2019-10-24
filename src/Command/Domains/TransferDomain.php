@@ -13,8 +13,8 @@ class TransferDomain extends AbstractCommand
     {
         parent::__construct('post', '/v2/domains/transfers');
 
-        $this->setDomainName($domainName);
-        $this->setAuthCode($authCode);
+        $this->domainName = $domainName;
+        $this->authCode = $authCode;
     }
 
     public function prepare(): void
@@ -26,23 +26,7 @@ class TransferDomain extends AbstractCommand
         $this->setBody((string) json_encode($obj));
     }
 
-    public function getDomainName(): string
+    public function processResponse(array $response)
     {
-        return $this->domainName;
-    }
-
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
-    }
-
-    public function getAuthCode(): string
-    {
-        return $this->authCode;
-    }
-
-    public function setAuthCode(string $authCode): void
-    {
-        $this->authCode = $authCode;
     }
 }

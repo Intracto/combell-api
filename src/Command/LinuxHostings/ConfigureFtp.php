@@ -4,25 +4,25 @@ namespace TomCan\CombellApi\Command\LinuxHostings;
 
 use TomCan\CombellApi\Command\AbstractCommand;
 
-class AddSshKey extends AbstractCommand
+class ConfigureFtp extends AbstractCommand
 {
     private $domainName;
-    private $pubKey;
+    private $enabled;
 
-    public function __construct(string $domainName, string $pubKey)
+    public function __construct(string $domainName, bool $enabled)
     {
-        parent::__construct('post', '/v2/linuxhostings/{domainName}/ssh/keys');
+        parent::__construct('put', '/v2/linuxhostings/{domainName}/ftp/configuration');
 
         $this->domainName = $domainName;
-        $this->pubKey = $pubKey;
+        $this->enabled = $enabled;
     }
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/ssh/keys');
+        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/ftp/configuration');
 
         $obj = new \stdClass();
-        $obj->public_key = $this->pubKey;
+        $obj->enabled = $this->enabled;
 
         $this->setBody((string) json_encode($obj));
     }

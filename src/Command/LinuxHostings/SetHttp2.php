@@ -4,22 +4,24 @@ namespace TomCan\CombellApi\Command\LinuxHostings;
 
 use TomCan\CombellApi\Command\AbstractCommand;
 
-class SetGzipCompression extends AbstractCommand
+class SetHttp2 extends AbstractCommand
 {
     private $domainName;
+    private $siteName;
     private $enabled;
 
-    public function __construct(string $domainName, bool $enabled)
+    public function __construct(string $domainName, string $siteName, bool $enabled)
     {
-        parent::__construct('put', '/v2/linuxhostings/{domainName}/settings/gzipcompression');
+        parent::__construct('put', '/v2/linuxhostings/{domainName}/sites/{siteName}/http2/configuration');
 
         $this->domainName = $domainName;
+        $this->siteName = $siteName;
         $this->enabled = $enabled;
     }
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/settings/gzipcompression');
+        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/sites/' . $this->siteName . '/http2/configuration');
 
         $obj = new \stdClass();
         $obj->enabled = $this->enabled;

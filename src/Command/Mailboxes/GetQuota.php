@@ -12,7 +12,7 @@ class GetQuota extends AbstractCommand
 
     public function __construct(string $domainName)
     {
-        parent::__construct('get', '/v2/mailboxes/{domainname}/quota');
+        parent::__construct('get', '/v2/mailboxes/{domainName}/quota');
 
         $this->domainName = $domainName;
     }

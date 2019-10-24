@@ -12,7 +12,7 @@ class DeleteRecord extends AbstractCommand
 
     public function __construct(string $domainName, AbstractDnsRecord $record)
     {
-        parent::__construct('delete', '/v2/dns/{domainname}/records/{recordid}');
+        parent::__construct('delete', '/v2/dns/{domainName}/records/{recordId}');
 
         $this->domainName = $domainName;
 

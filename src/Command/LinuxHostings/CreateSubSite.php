@@ -12,11 +12,11 @@ class CreateSubSite extends AbstractCommand
 
     public function __construct(string $domainName, string $subSiteDomainName, string $path = '')
     {
-        parent::__construct('post', '/v2/linuxhostings/{domainname}/subsites');
+        parent::__construct('post', '/v2/linuxhostings/{domainName}/subsites');
 
-        $this->setDomainName($domainName);
-        $this->setSubSiteDomainName($subSiteDomainName);
-        $this->setPath($path);
+        $this->domainName = $domainName;
+        $this->subSiteDomainName = $subSiteDomainName;
+        $this->path = $path;
     }
 
     public function prepare(): void
@@ -30,33 +30,7 @@ class CreateSubSite extends AbstractCommand
         $this->setBody((string) json_encode($obj));
     }
 
-    public function getDomainName(): string
+    public function processResponse(array $response)
     {
-        return $this->domainName;
-    }
-
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
-    }
-
-    public function getSubSiteDomainName(): string
-    {
-        return $this->subSiteDomainName;
-    }
-
-    public function setSubSiteDomainName(string $subSiteDomainName): void
-    {
-        $this->subSiteDomainName = $subSiteDomainName;
-    }
-
-    public function getPath(): string
-    {
-        return $this->path;
-    }
-
-    public function setPath(string $path): void
-    {
-        $this->path = $path;
     }
 }

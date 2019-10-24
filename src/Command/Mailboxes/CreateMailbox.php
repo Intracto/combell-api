@@ -13,7 +13,7 @@ class CreateMailbox extends AbstractCommand
 
     public function __construct(string $domainName, string $email, string $password, int $accountId)
     {
-        parent::__construct('post', '/v2/mailboxes/{domainname}');
+        parent::__construct('post', '/v2/mailboxes/{domainName}');
 
         $this->domainName = $domainName;
         $this->email = $email;

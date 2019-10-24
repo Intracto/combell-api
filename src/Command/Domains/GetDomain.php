@@ -12,7 +12,7 @@ class GetDomain extends AbstractCommand
 
     public function __construct(string $domain)
     {
-        parent::__construct('get', '/v2/domains/{domainname}');
+        parent::__construct('get', '/v2/domains/{domainName}');
 
         $this->domain = $domain;
     }
