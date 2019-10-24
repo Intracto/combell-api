@@ -99,6 +99,10 @@ array(3) {
 
 ## Changelog
 
+**25-10-2019 - v2.0.8**
+
+- Implement configure FTP
+
 **02-04-2019 - v2.0.7**
 
 - Implement HTTP/2 setting
