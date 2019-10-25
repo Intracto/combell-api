@@ -54,6 +54,7 @@ final class GetDomainTest extends TestCase
         $api = new Api($adapterStub, $hmacGeneratorStub);
 
         $cmd = new GetDomain('15.example.com');
+        /** @var Domain $domain */
         $domain = $api->executeCommand($cmd);
 
         $this->assertInstanceOf(Domain::class, $domain);

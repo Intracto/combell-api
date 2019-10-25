@@ -72,6 +72,7 @@ final class ListDomainsTest extends TestCase
         $api = new Api($adapterStub, $hmacGeneratorStub);
 
         $cmd = new ListDomains();
+        /** @var Domain[] $domains */
         $domains = $api->executeCommand($cmd);
 
         $this->assertEquals(0, $cmd->getPagingSkipped());

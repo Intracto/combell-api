@@ -15,19 +15,25 @@ class LinuxHosting
     private $sshHost;
     private $ftpUserName;
     private $sshUserName;
+    private $phpVersion;
+    private $sites;
+    private $mysqlDatabaseNames;
 
     public function __construct(
         string $domainName,
         int $servicepackId,
-        ?int $maxWebspaceSize = null,
-        ?int $maxSize = null,
-        ?int $webspaceUsage = null,
-        ?int $actualSize = null,
-        ?string $ip = null,
-        ?string $ipType = null,
-        ?string $sshHost = null,
-        ?string $ftpUserName = null,
-        ?string $sshUserName = null
+        int $maxWebspaceSize,
+        int $maxSize,
+        int $webspaceUsage,
+        int $actualSize,
+        string $ip,
+        string $ipType,
+        string $ftpUserName,
+        string $sshHost,
+        string $sshUserName,
+        string $phpVersion,
+        array $sites,
+        array $mysqlDatabaseNames
     ) {
         $this->domainName = $domainName;
         $this->servicepackId = $servicepackId;
@@ -37,9 +43,12 @@ class LinuxHosting
         $this->actualSize = $actualSize;
         $this->ip = $ip;
         $this->ipType = $ipType;
-        $this->sshHost = $sshHost;
         $this->ftpUserName = $ftpUserName;
+        $this->sshHost = $sshHost;
         $this->sshUserName = $sshUserName;
+        $this->phpVersion = $phpVersion;
+        $this->sites = $sites;
+        $this->mysqlDatabaseNames = $mysqlDatabaseNames;
     }
 
     public function getDomainName(): string
@@ -52,53 +61,68 @@ class LinuxHosting
         return $this->servicepackId;
     }
 
-    public function getMaxWebspaceSize(): ?int
+    public function getMaxWebspaceSize(): int
     {
         return $this->maxWebspaceSize;
     }
 
-    public function getMaxSize(): ?int
+    public function getMaxSize(): int
     {
         return $this->maxSize;
     }
 
-    public function getWebspaceUsage(): ?int
+    public function getWebspaceUsage(): int
     {
         return $this->webspaceUsage;
     }
 
-    public function getActualSize(): ?int
+    public function getActualSize(): int
     {
         return $this->actualSize;
     }
 
-    public function getIp(): ?string
+    public function getIp(): string
     {
         return $this->ip;
     }
 
-    public function getIpType(): ?string
+    public function getIpType(): string
     {
         return $this->ipType;
     }
 
-    public function getSshHost(): ?string
+    public function getSshHost(): string
     {
         return $this->sshHost;
     }
 
-    public function getFtpHost(): ?string
+    public function getFtpHost(): string
     {
-        return is_null($this->sshUserName) ? null : $this->sshUserName.'.webhosting.be';
+        return $this->sshUserName.'.webhosting.be';
     }
 
-    public function getFtpUserName(): ?string
+    public function getFtpUserName(): string
     {
         return $this->ftpUserName;
     }
 
-    public function getSshUserName(): ?string
+    public function getSshUserName(): string
     {
         return $this->sshUserName;
+    }
+
+    public function getPhpVersion(): string
+    {
+        return $this->phpVersion;
+    }
+
+    public function getSites(): array
+    {
+        return $this->sites;
+    }
+
+    public function getMysqlDatabaseNames(): array
+    {
+        return $this->mysqlDatabaseNames;
     }
 }

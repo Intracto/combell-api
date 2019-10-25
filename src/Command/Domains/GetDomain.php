@@ -24,19 +24,18 @@ class GetDomain extends AbstractCommand
 
     public function processResponse(array $response)
     {
-        $domain = new Domain(
-            $response['body']->domain_name,
-            new \DateTime($response['body']->expiration_date),
-            $response['body']->will_renew
-        );
+        $nameServers = [];
         if (isset($response['body']->name_servers)) {
-            $nameServers = [];
             foreach ($response['body']->name_servers as $nameServer) {
                 $nameServers[] = new NameServer($nameServer->name, $nameServer->ip);
             }
-            $domain->setNameServers($nameServers);
         }
 
-        return $domain;
+        return new Domain(
+            $response['body']->domain_name,
+            new \DateTime($response['body']->expiration_date),
+            $response['body']->will_renew,
+            $nameServers
+        );
     }
 }

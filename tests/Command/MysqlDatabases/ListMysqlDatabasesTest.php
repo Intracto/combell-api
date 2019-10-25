@@ -72,6 +72,7 @@ final class ListMysqlDatabasesTest extends TestCase
         $api = new Api($adapterStub, $hmacGeneratorStub);
 
         $cmd = new ListMysqlDatabases();
+        /** @var MysqlDatabase[] $databases */
         $databases = $api->executeCommand($cmd);
 
         $this->assertEquals(0, $cmd->getPagingSkipped());

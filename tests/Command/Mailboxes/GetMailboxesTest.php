@@ -53,6 +53,7 @@ final class GetMailboxesTest extends TestCase
         $api = new Api($adapterStub, $hmacGeneratorStub);
 
         $cmd = new GetMailboxes('example.com');
+        /** @var Mailbox[] $mailboxes */
         $mailboxes = $api->executeCommand($cmd);
 
         $this->assertCount(2, $mailboxes);

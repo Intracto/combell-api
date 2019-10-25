@@ -46,6 +46,7 @@ final class GetQuotaTest extends TestCase
         $api = new Api($adapterStub, $hmacGeneratorStub);
 
         $cmd = new GetQuota('example.com');
+        /** @var Quota[] $quotas */
         $quotas = $api->executeCommand($cmd);
 
         $this->assertInstanceOf(Quota::class, $quotas[0]);

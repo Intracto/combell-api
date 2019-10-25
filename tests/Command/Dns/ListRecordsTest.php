@@ -7,6 +7,7 @@ use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
 use TomCan\CombellApi\Command\Dns\ListRecords;
+use TomCan\CombellApi\Structure\Dns\AbstractDnsRecord;
 use TomCan\CombellApi\Structure\Dns\DnsARecord;
 use TomCan\CombellApi\Structure\Dns\DnsMXRecord;
 use TomCan\CombellApi\Structure\Dns\DnsNSRecord;
@@ -172,6 +173,7 @@ final class ListRecordsTest extends TestCase
         $api = new Api($adapterStub, $hmacGeneratorStub);
 
         $cmd = new ListRecords('example.com');
+        /** @var AbstractDnsRecord[] $domains */
         $domains = $api->executeCommand($cmd);
 
         $this->assertEquals(0, $cmd->getPagingSkipped());

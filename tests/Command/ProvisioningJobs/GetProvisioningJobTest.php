@@ -48,6 +48,7 @@ final class GetProvisioningJobTest extends TestCase
         $api = new Api($adapterStub, $hmacGeneratorStub);
 
         $cmd = new GetProvisioningJob('12345678-90ab-cdef-1234-567890abcde0');
+        /** @var ProvisioningJob $provisionJob */
         $provisionJob = $api->executeCommand($cmd);
 
         $this->assertInstanceOf(ProvisioningJob::class, $provisionJob);
@@ -94,6 +95,7 @@ final class GetProvisioningJobTest extends TestCase
         $api = new Api($adapterStub, $hmacGeneratorStub);
 
         $cmd = new GetProvisioningJob('12345678-90ab-cdef-1234-567890abcde1');
+        /** @var ProvisioningJob $provisionJob */
         $provisionJob = $api->executeCommand($cmd);
 
         $this->assertInstanceOf(ProvisioningJob::class, $provisionJob);
@@ -142,6 +144,7 @@ final class GetProvisioningJobTest extends TestCase
         $api = new Api($adapterStub, $hmacGeneratorStub);
 
         $cmd = new GetProvisioningJob('12345678-90ab-cdef-1234-567890abcde2');
+        /** @var ProvisioningJob $provisionJob */
         $provisionJob = $api->executeCommand($cmd);
 
         $this->assertInstanceOf(ProvisioningJob::class, $provisionJob);

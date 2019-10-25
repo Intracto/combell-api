@@ -8,6 +8,7 @@ use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
 use TomCan\CombellApi\Command\LinuxHostings\ListLinuxHostings;
 use TomCan\CombellApi\Structure\LinuxHostings\LinuxHosting;
+use TomCan\CombellApi\Structure\LinuxHostings\LinuxHostingSummary;
 
 final class ListLinuxHostingsTest extends TestCase
 {
@@ -72,6 +73,7 @@ final class ListLinuxHostingsTest extends TestCase
         $api = new Api($adapterStub, $hmacGeneratorStub);
 
         $cmd = new ListLinuxHostings();
+        /** @var LinuxHostingSummary[] $linuxHostings */
         $linuxHostings = $api->executeCommand($cmd);
 
         $this->assertEquals(0, $cmd->getPagingSkipped());
@@ -79,7 +81,7 @@ final class ListLinuxHostingsTest extends TestCase
         $this->assertEquals(1244, $cmd->getPagingTotalResults());
 
         $this->assertCount(25, $linuxHostings);
-        $this->assertInstanceOf(LinuxHosting::class, $linuxHostings[7]);
+        $this->assertInstanceOf(LinuxHostingSummary::class, $linuxHostings[7]);
         $this->assertEquals('example-08.com', $linuxHostings[7]->getDomainName());
         $this->assertEquals('1001', $linuxHostings[7]->getServicepackId());
     }

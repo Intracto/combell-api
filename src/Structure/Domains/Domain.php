@@ -40,9 +40,4 @@ class Domain
     {
         return $this->nameServers;
     }
-
-    public function setNameServers(array $nameServers): void
-    {
-        $this->nameServers = $nameServers;
-    }
 }

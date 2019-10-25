@@ -8,6 +8,8 @@ use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
 use TomCan\CombellApi\Command\LinuxHostings\GetLinuxHosting;
 use TomCan\CombellApi\Structure\LinuxHostings\LinuxHosting;
+use TomCan\CombellApi\Structure\LinuxHostings\Site;
+use TomCan\CombellApi\Structure\LinuxHostings\HostHeader;
 
 final class GetLinuxHostingTest extends TestCase
 {
@@ -100,5 +102,21 @@ final class GetLinuxHostingTest extends TestCase
         $this->assertEquals('examplecom.webhosting.be', $linuxHosting->getFtpHost());
         $this->assertEquals('examplecom@examplecom', $linuxHosting->getFtpUserName());
         $this->assertEquals('examplecom', $linuxHosting->getSshUserName());
+        $this->assertEquals('7.4', $linuxHosting->getPhpVersion());
+        $this->assertCount(1, $linuxHosting->getMysqlDatabaseNames());
+        $this->assertEquals('ID12345_examplecom', $linuxHosting->getMysqlDatabaseNames()[0]);
+        /** @var Site[] $sites */
+        $sites = $linuxHosting->getSites();
+        $this->assertCount(1, $sites);
+        $this->assertEquals('example.com', $sites[0]->getName());
+        $this->assertEquals('/www', $sites[0]->getPath());
+        $this->assertTrue($sites[0]->isSslEnabled());
+        $this->assertTrue($sites[0]->isHttpsRedirectEnabled());
+        $this->assertFalse($sites[0]->isHttp2Enabled());
+        /** @var Hostheader[] $hostHeaders */
+        $hostHeaders = $sites[0]->getHostHeaders();
+        $this->assertCount(3, $hostHeaders);
+        $this->assertEquals('examplecom.webhosting.be', $hostHeaders[2]->getName());
+        $this->assertTrue($hostHeaders[2]->isEnabled());
     }
 }

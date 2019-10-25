@@ -3,7 +3,7 @@
 namespace TomCan\CombellApi\Command\LinuxHostings;
 
 use TomCan\CombellApi\Command\PageableAbstractCommand;
-use TomCan\CombellApi\Structure\LinuxHostings\LinuxHosting;
+use TomCan\CombellApi\Structure\LinuxHostings\LinuxHostingSummary;
 
 class ListLinuxHostings extends PageableAbstractCommand
 {
@@ -16,7 +16,7 @@ class ListLinuxHostings extends PageableAbstractCommand
     {
         $hostings = [];
         foreach ($response['body'] as $hosting) {
-            $hostings[] = new LinuxHosting($hosting->domain_name, $hosting->servicepack_id);
+            $hostings[] = new LinuxHostingSummary($hosting->domain_name, $hosting->servicepack_id);
         }
 
         return $hostings;

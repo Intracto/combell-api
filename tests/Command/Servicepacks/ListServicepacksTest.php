@@ -47,6 +47,7 @@ final class ListServicepacksTest extends TestCase
         $api = new Api($adapterStub, $hmacGeneratorStub);
 
         $cmd = new ListServicepacks();
+        /** @var Servicepack[] $servicepacks */
         $servicepacks = $api->executeCommand($cmd);
 
         $this->assertCount(3, $servicepacks);
