@@ -102,4 +102,3 @@ class LinuxHosting
         return $this->sshUserName;
     }
 }
-

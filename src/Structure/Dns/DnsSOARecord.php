@@ -40,7 +40,9 @@ class DnsSOARecord extends AbstractDnsRecord
     public function setMaster(string $master, bool $buildContent = true): void
     {
         $this->master = $this->validateHostname($master, false);
-        if ($buildContent) $this->buildContent();
+        if ($buildContent) {
+            $this->buildContent();
+        }
     }
 
     public function getResponsible(): string
@@ -51,7 +53,9 @@ class DnsSOARecord extends AbstractDnsRecord
     public function setResponsible(string $responsible, bool $buildContent = true): void
     {
         $this->responsible = $this->validateHostname($responsible, false);
-        if ($buildContent) $this->buildContent();
+        if ($buildContent) {
+            $this->buildContent();
+        }
     }
 
     public function getSerial()
@@ -62,7 +66,9 @@ class DnsSOARecord extends AbstractDnsRecord
     public function setSerial($serial, bool $buildContent = true): void
     {
         $this->serial = $this->validateUInt32($serial);
-        if ($buildContent) $this->buildContent();
+        if ($buildContent) {
+            $this->buildContent();
+        }
     }
 
     public function getRefresh()
@@ -73,7 +79,9 @@ class DnsSOARecord extends AbstractDnsRecord
     public function setRefresh($refresh, bool $buildContent = true): void
     {
         $this->refresh = $this->validateUInt32($refresh);
-        if ($buildContent) $this->buildContent();
+        if ($buildContent) {
+            $this->buildContent();
+        }
     }
 
     public function getRetry()
@@ -84,7 +92,9 @@ class DnsSOARecord extends AbstractDnsRecord
     public function setRetry($retry, bool $buildContent = true): void
     {
         $this->retry = $this->validateUInt32($retry);
-        if ($buildContent) $this->buildContent();
+        if ($buildContent) {
+            $this->buildContent();
+        }
     }
 
     public function getExpire()
@@ -95,7 +105,9 @@ class DnsSOARecord extends AbstractDnsRecord
     public function setExpire($expire, bool $buildContent = true): void
     {
         $this->expire = $this->validateUInt32($expire);
-        if ($buildContent) $this->buildContent();
+        if ($buildContent) {
+            $this->buildContent();
+        }
     }
 
     public function getMinimum()
@@ -106,7 +118,9 @@ class DnsSOARecord extends AbstractDnsRecord
     public function setMinimum($minimum, bool $buildContent = true): void
     {
         $this->minimum = $this->validateUInt32($minimum);
-        if ($buildContent) $this->buildContent();
+        if ($buildContent) {
+            $this->buildContent();
+        }
     }
 
     private function buildContent(): void
@@ -144,7 +158,6 @@ class DnsSOARecord extends AbstractDnsRecord
                 // bubble up exception
                 throw $exception;
             }
-
         }
     }
 

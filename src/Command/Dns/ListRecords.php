@@ -26,7 +26,7 @@ class ListRecords extends PageableAbstractCommand
     {
         $records = [];
         foreach ($response['body'] as $record) {
-            $className = "\\TomCan\\CombellApi\\Structure\\Dns\\Dns" . $record->type . 'Record';
+            $className = '\\TomCan\\CombellApi\\Structure\\Dns\\Dns' . $record->type . 'Record';
             switch ($record->type) {
                 case 'A':
                 case 'AAAA':

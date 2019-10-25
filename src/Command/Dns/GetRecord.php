@@ -17,7 +17,7 @@ class GetRecord extends AbstractCommand
         $this->id = $id;
     }
 
-    public function prepare(): void 
+    public function prepare(): void
     {
         $this->setEndPoint('/v2/dns/' . $this->domainName . '/records/' . $this->id);
     }

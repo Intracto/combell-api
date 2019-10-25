@@ -27,7 +27,8 @@ abstract class AbstractCommand
     abstract public function processResponse(array $response);
 
     public function processHeaders(array $headers): void
-    {}
+    {
+    }
 
     public function getMethod(): string
     {

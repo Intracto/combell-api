@@ -34,13 +34,11 @@ class AbstractDnsRecord
 
     public function setHostname(string $hostname): void
     {
-
         try {
             $this->hostname = $this->validateHostname($hostname);
         } catch (\Exception $exception) {
             throw new \InvalidArgumentException('Invalid value for hostname: "'.$hostname.'"');
         }
-
     }
 
     public function getTtl(): int
@@ -70,7 +68,6 @@ class AbstractDnsRecord
 
     protected function validateHostname(string $hostname, bool $allowOrigin = true): string
     {
-
         if ($allowOrigin && in_array($hostname, ['', '@'])) {
             return $hostname;
         } else {
@@ -80,21 +77,23 @@ class AbstractDnsRecord
             $filtered = filter_var($filtered, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME);
 
             // did the check pass and did we removed leading underscores? if so, use original value;
-            if ($filtered !== false && $filtered != $hostname) $filtered = $hostname;
+            if ($filtered !== false && $filtered != $hostname) {
+                $filtered = $hostname;
+            }
 
             if ($filtered !== false) {
                 return $filtered;
             } else {
                 throw new \InvalidArgumentException();
             }
-
         }
-
     }
 
     private function validateInt(int $value, int $min, int $max): int
     {
-        if ($value < $min || $value > $max) throw new \InvalidArgumentException('Invalid value for range '.$min.' - '.$max.': "' . $value . '"');
+        if ($value < $min || $value > $max) {
+            throw new \InvalidArgumentException('Invalid value for range '.$min.' - '.$max.': "' . $value . '"');
+        }
         return $value;
     }
 
@@ -106,5 +105,4 @@ class AbstractDnsRecord
     {
         return $this->validateInt($value, 0, 2147483647);
     }
-
 }
