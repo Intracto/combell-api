@@ -3,11 +3,9 @@
 namespace Test\Command\MysqlDatabases;
 
 use PHPUnit\Framework\TestCase;
-
 use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
-
 use TomCan\CombellApi\Command\LinuxHostings\AddSshKey;
 
 final class AddSshKeyTest extends TestCase
@@ -37,7 +35,7 @@ final class AddSshKeyTest extends TestCase
             'Content-type' => 'application/json',
         ];
         $adapterStub->method('call')
-            ->with('POST', 'https://api.combell.com/v2/linuxhostings/example.com/ssh/keys', $headers, '{"public_key":"' . $sshKey . '"}')
+            ->with('POST', 'https://api.combell.com/v2/linuxhostings/example.com/ssh/keys', $headers, '{"public_key":"'.$sshKey.'"}')
             ->willReturn($returnValue);
 
         $hmacGeneratorStub = $this->createMock(HmacGenerator::class);

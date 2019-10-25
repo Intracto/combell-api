@@ -31,7 +31,7 @@ class CreateRecord extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/dns/' . $this->domainName . '/records');
+        $this->setEndPoint('/v2/dns/'.$this->domainName.'/records');
         $obj = $this->record->getObject();
 
         $this->setBody((string) json_encode($obj));

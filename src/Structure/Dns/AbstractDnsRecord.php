@@ -51,7 +51,7 @@ class AbstractDnsRecord
         try {
             $this->ttl = $this->validateUInt32($ttl);
         } catch (\Exception $exception) {
-            throw new \InvalidArgumentException('Invalid value for TTL: "' . $ttl . '"');
+            throw new \InvalidArgumentException('Invalid value for TTL: "'.$ttl.'"');
         }
     }
 
@@ -71,17 +71,16 @@ class AbstractDnsRecord
         if ($allowOrigin && in_array($hostname, ['', '@'])) {
             return $hostname;
         } else {
-
             // remove leading underscores from labels, as we considder them valid, then send through filter_var
             $filtered = preg_replace('(^_|\._)', '', $hostname);
             $filtered = filter_var($filtered, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME);
 
             // did the check pass and did we removed leading underscores? if so, use original value;
-            if ($filtered !== false && $filtered != $hostname) {
+            if (false !== $filtered && $filtered !== $hostname) {
                 $filtered = $hostname;
             }
 
-            if ($filtered !== false) {
+            if (false !== $filtered) {
                 return $filtered;
             } else {
                 throw new \InvalidArgumentException();
@@ -92,7 +91,7 @@ class AbstractDnsRecord
     private function validateInt(int $value, int $min, int $max): int
     {
         if ($value < $min || $value > $max) {
-            throw new \InvalidArgumentException('Invalid value for range '.$min.' - '.$max.': "' . $value . '"');
+            throw new \InvalidArgumentException('Invalid value for range '.$min.' - '.$max.': "'.$value.'"');
         }
         return $value;
     }
@@ -101,6 +100,7 @@ class AbstractDnsRecord
     {
         return $this->validateInt($value, 0, 65535);
     }
+
     protected function validateUInt32(int $value): int
     {
         return $this->validateInt($value, 0, 2147483647);

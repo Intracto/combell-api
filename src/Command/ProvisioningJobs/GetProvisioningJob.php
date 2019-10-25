@@ -19,7 +19,7 @@ class GetProvisioningJob extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/provisioningjobs/' . $this->jobId);
+        $this->setEndPoint('/v2/provisioningjobs/'.$this->jobId);
     }
 
     public function processResponse(array $response)
@@ -28,12 +28,12 @@ class GetProvisioningJob extends AbstractCommand
         $estimate = null;
         $resourceLinks = [];
 
-        if ((int) $response['status'] === 200) {
+        if (200 === (int) $response['status']) {
             $status = $response['body']->status;
             $estimate = new \DateTime($response['body']->completion->estimation);
         }
 
-        if ((int) $response['status'] === 201) {
+        if (201 === (int) $response['status']) {
             $status = 'finished';
             foreach ($response['body']->resource_links as $link) {
                 $linkData = [];

@@ -19,7 +19,7 @@ class SetNameServers extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/domains/' . $this->domainName . '/nameservers');
+        $this->setEndPoint('/v2/domains/'.$this->domainName.'/nameservers');
 
         $obj = new \stdClass();
         $obj->domain_name = $this->domainName;

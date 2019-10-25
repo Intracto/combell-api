@@ -19,7 +19,7 @@ class AddSshKey extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/ssh/keys');
+        $this->setEndPoint('/v2/linuxhostings/'.$this->domainName.'/ssh/keys');
 
         $obj = new \stdClass();
         $obj->public_key = $this->pubKey;

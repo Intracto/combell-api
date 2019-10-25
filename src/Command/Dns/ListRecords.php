@@ -19,14 +19,14 @@ class ListRecords extends PageableAbstractCommand
     {
         parent::prepare();
 
-        $this->setEndPoint('/v2/dns/' . $this->domainName . '/records');
+        $this->setEndPoint('/v2/dns/'.$this->domainName.'/records');
     }
 
     public function processResponse(array $response)
     {
         $records = [];
         foreach ($response['body'] as $record) {
-            $className = '\\TomCan\\CombellApi\\Structure\\Dns\\Dns' . $record->type . 'Record';
+            $className = '\\TomCan\\CombellApi\\Structure\\Dns\\Dns'.$record->type.'Record';
             switch ($record->type) {
                 case 'A':
                 case 'AAAA':
@@ -68,7 +68,7 @@ class ListRecords extends PageableAbstractCommand
                     break;
 
                 default:
-                    throw new \LogicException('Unknown DNS record type ' . $record->type);
+                    throw new \LogicException('Unknown DNS record type '.$record->type);
             }
             $records[] = $rec;
         }

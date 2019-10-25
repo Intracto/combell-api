@@ -50,13 +50,12 @@ class GuzzleAdapter implements AdapterInterface
                     );
                     $response = $httpException->getResponse();
                     $body = '';
-                    if ($response !== null) {
+                    if (null !== $response) {
                         $body = $response->getBody()->getContents();
                     }
                     $clientException->setBody($body);
 
                     throw $clientException;
-
                 default:
                     throw new ClientException(
                         $httpException->getMessage(),

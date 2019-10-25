@@ -3,11 +3,9 @@
 namespace Test\Command\Dns;
 
 use PHPUnit\Framework\TestCase;
-
 use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
-
 use TomCan\CombellApi\Command\Dns\GetRecord;
 use TomCan\CombellApi\Structure\Dns\DnsARecord;
 use TomCan\CombellApi\Structure\Dns\DnsAAAARecord;
@@ -35,7 +33,7 @@ final class GetRecordTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
-                (object)[
+                (object) [
                     'id' => '1-1122334455',
                     'type' => 'A',
                     'record_name' => '',
@@ -48,7 +46,7 @@ final class GetRecordTest extends TestCase
                     'port' => null,
                     'weight' => null,
                 ]
-            )
+            ),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);
@@ -90,7 +88,7 @@ final class GetRecordTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
-                (object)[
+                (object) [
                     'id' => '1-1122334454',
                     'type' => 'AAAA',
                     'record_name' => '',
@@ -103,7 +101,7 @@ final class GetRecordTest extends TestCase
                     'port' => null,
                     'weight' => null,
                 ]
-            )
+            ),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);
@@ -145,7 +143,7 @@ final class GetRecordTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
-                (object)[
+                (object) [
                     'id' => '1-1122334456',
                     'type' => 'NS',
                     'record_name' => '',
@@ -158,7 +156,7 @@ final class GetRecordTest extends TestCase
                     'port' => null,
                     'weight' => null,
                 ]
-            )
+            ),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);
@@ -200,7 +198,7 @@ final class GetRecordTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
-                (object)[
+                (object) [
                     'id' => '1-1122334457',
                     'type' => 'TXT',
                     'record_name' => '',
@@ -213,7 +211,7 @@ final class GetRecordTest extends TestCase
                     'port' => null,
                     'weight' => null,
                 ]
-            )
+            ),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);
@@ -255,7 +253,7 @@ final class GetRecordTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
-                (object)[
+                (object) [
                     'id' => '1-1122334458',
                     'type' => 'CNAME',
                     'record_name' => '',
@@ -268,7 +266,7 @@ final class GetRecordTest extends TestCase
                     'port' => null,
                     'weight' => null,
                 ]
-            )
+            ),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);
@@ -310,7 +308,7 @@ final class GetRecordTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
-                (object)[
+                (object) [
                     'id' => '1-1122334459',
                     'type' => 'SOA',
                     'record_name' => '',
@@ -323,7 +321,7 @@ final class GetRecordTest extends TestCase
                     'port' => null,
                     'weight' => null,
                 ]
-            )
+            ),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);
@@ -365,7 +363,7 @@ final class GetRecordTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
-                (object)[
+                (object) [
                     'id' => '1-1122334460',
                     'type' => 'CAA',
                     'record_name' => '',
@@ -378,7 +376,7 @@ final class GetRecordTest extends TestCase
                     'port' => null,
                     'weight' => null,
                 ]
-            )
+            ),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);
@@ -420,7 +418,7 @@ final class GetRecordTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
-                (object)[
+                (object) [
                     'id' => '1-1122334461',
                     'type' => 'MX',
                     'record_name' => '',
@@ -433,7 +431,7 @@ final class GetRecordTest extends TestCase
                     'port' => null,
                     'weight' => null,
                 ]
-            )
+            ),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);
@@ -476,7 +474,7 @@ final class GetRecordTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
-                (object)[
+                (object) [
                     'id' => '1-1122334462',
                     'type' => 'SRV',
                     'record_name' => '_autodiscover._tcp',
@@ -489,7 +487,7 @@ final class GetRecordTest extends TestCase
                     'port' => 443,
                     'weight' => 1,
                 ]
-            )
+            ),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);
@@ -537,7 +535,7 @@ final class GetRecordTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
-                (object)[
+                (object) [
                     'id' => '1-1122334462',
                     'type' => 'XXX',
                     'record_name' => '',
@@ -550,7 +548,7 @@ final class GetRecordTest extends TestCase
                     'port' => null,
                     'weight' => null,
                 ]
-            )
+            ),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);
@@ -573,7 +571,7 @@ final class GetRecordTest extends TestCase
         $this->expectException(\LogicException::class);
         $this->expectExceptionMessage('Unknown DNS record type XXX');
 
-        /** @var DnsSRVRecord $record */
+        /* @var DnsSRVRecord $record */
         $api->executeCommand($cmd);
     }
 }

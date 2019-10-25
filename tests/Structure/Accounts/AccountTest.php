@@ -3,7 +3,6 @@
 namespace Test\Command\Accounts;
 
 use PHPUnit\Framework\TestCase;
-
 use TomCan\CombellApi\Structure\Accounts\Account;
 
 final class AccountTest extends TestCase

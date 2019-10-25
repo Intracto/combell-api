@@ -21,7 +21,7 @@ class SetHttp2 extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/sites/' . $this->siteName . '/http2/configuration');
+        $this->setEndPoint('/v2/linuxhostings/'.$this->domainName.'/sites/'.$this->siteName.'/http2/configuration');
 
         $obj = new \stdClass();
         $obj->enabled = $this->enabled;

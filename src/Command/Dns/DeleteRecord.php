@@ -21,7 +21,7 @@ class DeleteRecord extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/dns/' . $this->domainName . '/records/' . $this->record->getId());
+        $this->setEndPoint('/v2/dns/'.$this->domainName.'/records/'.$this->record->getId());
     }
 
     public function processResponse(array $response)

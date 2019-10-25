@@ -19,7 +19,7 @@ class SetPhpVersion extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/phpsettings/version');
+        $this->setEndPoint('/v2/linuxhostings/'.$this->domainName.'/phpsettings/version');
 
         $obj = new \stdClass();
         $obj->version = $this->phpVersion;

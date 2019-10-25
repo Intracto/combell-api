@@ -19,13 +19,13 @@ class ListAccounts extends PageableAbstractCommand
 
     private function setAssetType(string $assetType): void
     {
-        if ($assetType === '') {
+        if ('' === $assetType) {
             $this->assetType = '';
 
             return;
         }
 
-        if (! \in_array($assetType, ['domain', 'linux_hosting', 'mysql', 'dns', 'mailbox'], true)) {
+        if (!\in_array($assetType, ['domain', 'linux_hosting', 'mysql', 'dns', 'mailbox'], true)) {
             throw new \InvalidArgumentException('Invalid asset type specified');
         }
 

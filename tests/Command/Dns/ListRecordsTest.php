@@ -3,11 +3,9 @@
 namespace Test\Command\Dns;
 
 use PHPUnit\Framework\TestCase;
-
 use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
-
 use TomCan\CombellApi\Command\Dns\ListRecords;
 use TomCan\CombellApi\Structure\Dns\DnsARecord;
 use TomCan\CombellApi\Structure\Dns\DnsMXRecord;
@@ -277,7 +275,5 @@ final class ListRecordsTest extends TestCase
         $this->expectExceptionMessage('Unknown DNS record type TOM');
 
         $domains = $api->executeCommand($cmd);
-
     }
-
 }

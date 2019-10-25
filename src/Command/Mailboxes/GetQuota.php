@@ -3,7 +3,6 @@
 namespace TomCan\CombellApi\Command\Mailboxes;
 
 use TomCan\CombellApi\Command\AbstractCommand;
-
 use TomCan\CombellApi\Structure\Mailbox\Quota;
 
 class GetQuota extends AbstractCommand
@@ -19,7 +18,7 @@ class GetQuota extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/mailboxes/' . $this->domainName . '/quota');
+        $this->setEndPoint('/v2/mailboxes/'.$this->domainName.'/quota');
     }
 
     public function processResponse(array $response)

@@ -21,7 +21,7 @@ class CreateSubSite extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/subsites');
+        $this->setEndPoint('/v2/linuxhostings/'.$this->domainName.'/subsites');
 
         $obj = new \stdClass();
         $obj->domain_name = $this->subSiteDomainName;

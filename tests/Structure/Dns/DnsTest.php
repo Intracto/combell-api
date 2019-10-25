@@ -1,7 +1,6 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-
 use TomCan\CombellApi\Structure\Dns\AbstractDnsRecord;
 use TomCan\CombellApi\Structure\Dns\DnsAAAARecord;
 use TomCan\CombellApi\Structure\Dns\DnsARecord;
@@ -16,7 +15,7 @@ use TomCan\CombellApi\Structure\Dns\DnsTXTRecord;
 final class DnsTest extends TestCase
 {
     /**
-     * Test the logic that is contained withing structures
+     * Test the logic that is contained withing structures.
      */
     public function testAbstractDnsRecord()
     {
@@ -346,7 +345,7 @@ final class DnsTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        new DnsSOARecord('test-123', 'example.com', 123, $value . ' dnsmaster.example.com 123 456 789 012 345');
+        new DnsSOARecord('test-123', 'example.com', 123, $value.' dnsmaster.example.com 123 456 789 012 345');
 
         $this->assertTrue($isValid);
     }
@@ -358,7 +357,7 @@ final class DnsTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com ' . $value . ' 123 456 789 012 345');
+        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com '.$value.' 123 456 789 012 345');
 
         $this->assertTrue($isValid);
     }
@@ -370,7 +369,7 @@ final class DnsTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com ' . $value . ' 456 789 012 345');
+        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com '.$value.' 456 789 012 345');
 
         $this->assertTrue($isValid);
     }
@@ -382,7 +381,7 @@ final class DnsTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com 123 ' . $value . ' 789 012 345');
+        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com 123 '.$value.' 789 012 345');
 
         $this->assertTrue($isValid);
     }
@@ -394,7 +393,7 @@ final class DnsTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com 123 456 ' . $value . ' 012 345');
+        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com 123 456 '.$value.' 012 345');
 
         $this->assertTrue($isValid);
     }
@@ -406,7 +405,7 @@ final class DnsTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com 123 456 789 ' . $value . ' 345');
+        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com 123 456 789 '.$value.' 345');
 
         $this->assertTrue($isValid);
     }
@@ -418,7 +417,7 @@ final class DnsTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com 123 456 789 012 ' . $value);
+        new DnsSOARecord('test-123', 'example.com', 123, 'ns1.example.com dnsmaster.example.com 123 456 789 012 '.$value);
 
         $this->assertTrue($isValid);
     }

@@ -19,13 +19,13 @@ class GetRecord extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/dns/' . $this->domainName . '/records/' . $this->id);
+        $this->setEndPoint('/v2/dns/'.$this->domainName.'/records/'.$this->id);
     }
 
     public function processResponse(array $response)
     {
         $record = $response['body'];
-        $className = "\\TomCan\\CombellApi\\Structure\\Dns\\Dns" . $record->type . 'Record';
+        $className = '\\TomCan\\CombellApi\\Structure\\Dns\\Dns'.$record->type.'Record';
 
         switch ($record->type) {
             case 'A':
@@ -44,7 +44,7 @@ class GetRecord extends AbstractCommand
                 $rec = new $className($record->id, $record->record_name, $record->ttl, $record->service, $record->target, $record->protocol, $record->priority, $record->port, $record->weight);
                 break;
             default:
-                throw new \LogicException('Unknown DNS record type ' . $record->type);
+                throw new \LogicException('Unknown DNS record type '.$record->type);
         }
 
         return $rec;

@@ -25,7 +25,6 @@ class DnsSOARecord extends AbstractDnsRecord
         return $this->content;
     }
 
-
     public function setContent(string $content): void
     {
         $this->parseContent($content);
@@ -125,19 +124,18 @@ class DnsSOARecord extends AbstractDnsRecord
 
     private function buildContent(): void
     {
-        $this->content = $this->master . ' ' . $this->responsible . ' ' . $this->serial . ' ' . $this->refresh . ' ' . $this->retry . ' ' . $this->expire . ' ' . $this->minimum;
+        $this->content = $this->master.' '.$this->responsible.' '.$this->serial.' '.$this->refresh.' '.$this->retry.' '.$this->expire.' '.$this->minimum;
     }
 
     private function parseContent($content)
     {
         $arr = explode(' ', $content);
 
-        if (count($arr) != 7) {
-            throw new \InvalidArgumentException('Invalid content. Content should have exactly 7 fields. ' . print_r($arr, true));
+        if (7 !== count($arr)) {
+            throw new \InvalidArgumentException('Invalid content. Content should have exactly 7 fields. '.print_r($arr, true));
         } else {
-
             // store original values for rollback
-            $org = [ $this->master, $this->responsible, $this->serial, $this->refresh, $this->retry, $this->expire, $this->minimum ];
+            $org = [$this->master, $this->responsible, $this->serial, $this->refresh, $this->retry, $this->expire, $this->minimum];
             try {
                 $this->setMaster($arr[0], false);
                 $this->setResponsible($arr[1], false);

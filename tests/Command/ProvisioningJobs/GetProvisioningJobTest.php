@@ -3,11 +3,9 @@
 namespace Test\Command\Domains;
 
 use PHPUnit\Framework\TestCase;
-
 use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
-
 use TomCan\CombellApi\Command\ProvisioningJobs\GetProvisioningJob;
 use TomCan\CombellApi\Structure\ProvisioningJobs\ProvisioningJob;
 
@@ -26,12 +24,12 @@ final class GetProvisioningJobTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
-                (object)[
+                (object) [
                     'id' => '12345678-90ab-cdef-1234-567890abcde0',
                     'status' => 'ongoing',
-                    'completion' => (object)['estimation' => '2019-10-20T18:43:54.007'],
+                    'completion' => (object) ['estimation' => '2019-10-20T18:43:54.007'],
                 ]
-            )
+            ),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);
@@ -72,12 +70,12 @@ final class GetProvisioningJobTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
-                (object)[
+                (object) [
                     'id' => '12345678-90ab-cdef-1234-567890abcde1',
                     'status' => 'failed',
-                    'completion' => (object)['estimation' => '2019-10-20T14:48:24.7446134Z'],
+                    'completion' => (object) ['estimation' => '2019-10-20T14:48:24.7446134Z'],
                 ]
-            )
+            ),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);
@@ -119,13 +117,13 @@ final class GetProvisioningJobTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
-                (object)[
+                (object) [
                     'id' => '12345678-90ab-cdef-1234-567890abcde2',
                     'resource_links' => [
                         '/v2/mysqldatabases/ID909001_tests',
                     ],
                 ]
-            )
+            ),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);

@@ -11,7 +11,7 @@ class CurlAdapter implements AdapterInterface
         // prepare headers
         $requestHeaders = [];
         foreach ($headers as $key => $value) {
-            $requestHeaders[] = $key . ': ' . $value;
+            $requestHeaders[] = $key.': '.$value;
         }
 
         // prepare request
@@ -26,8 +26,8 @@ class CurlAdapter implements AdapterInterface
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $output = curl_exec($curl);
 
-        if ($output === false) {
-            throw new \RuntimeException('Curl call failed: ' . curl_error($curl));
+        if (false === $output) {
+            throw new \RuntimeException('Curl call failed: '.curl_error($curl));
         }
 
         // split headers and body

@@ -17,7 +17,7 @@ class GetAvailablePhpVersions extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/phpsettings/availableversions');
+        $this->setEndPoint('/v2/linuxhostings/'.$this->domainName.'/phpsettings/availableversions');
     }
 
     public function processResponse(array $response)

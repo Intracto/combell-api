@@ -3,11 +3,9 @@
 namespace Test\Command\MysqlDatabases;
 
 use PHPUnit\Framework\TestCase;
-
 use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
-
 use TomCan\CombellApi\Command\MysqlDatabases\GetMysqlDatabase;
 use TomCan\CombellApi\Structure\MysqlDatabases\MysqlDatabase;
 
@@ -27,7 +25,7 @@ final class GetMysqlDatabaseTest extends TestCase
                 'Content-Length' => ['165'],
             ],
             'body' => json_encode(
-                (object)[
+                (object) [
                     'name' => 'ID111125_tests',
                     'hostname' => 'ID111125_tests.db.webhosting.be',
                     'user_count' => 2,
@@ -35,7 +33,7 @@ final class GetMysqlDatabaseTest extends TestCase
                     'actual_size' => 5,
                     'account_id' => 123456,
                 ]
-            )
+            ),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);

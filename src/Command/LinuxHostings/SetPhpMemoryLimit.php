@@ -19,7 +19,7 @@ class SetPhpMemoryLimit extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/phpsettings/memorylimit');
+        $this->setEndPoint('/v2/linuxhostings/'.$this->domainName.'/phpsettings/memorylimit');
 
         $obj = new \stdClass();
         $obj->memory_limit = $this->memoryLimit;

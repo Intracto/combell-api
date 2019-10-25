@@ -19,7 +19,7 @@ class ConfigureFtp extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/ftp/configuration');
+        $this->setEndPoint('/v2/linuxhostings/'.$this->domainName.'/ftp/configuration');
 
         $obj = new \stdClass();
         $obj->enabled = $this->enabled;

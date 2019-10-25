@@ -19,7 +19,7 @@ class GetDomain extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/domains/' . $this->domain);
+        $this->setEndPoint('/v2/domains/'.$this->domain);
     }
 
     public function processResponse(array $response)

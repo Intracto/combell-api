@@ -3,11 +3,9 @@
 namespace Test\Command\MysqlDatabases;
 
 use PHPUnit\Framework\TestCase;
-
 use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
-
 use TomCan\CombellApi\Command\LinuxHostings\GetLinuxHosting;
 use TomCan\CombellApi\Structure\LinuxHostings\LinuxHosting;
 
@@ -27,7 +25,7 @@ final class GetLinuxHostingTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
-                (object)[
+                (object) [
                     'domain_name' => 'example.com',
                     'servicepack_id' => '1001',
                     'max_webspace_size' => 150000,
@@ -41,19 +39,19 @@ final class GetLinuxHostingTest extends TestCase
                     'ssh_username' => 'examplecom',
                     'php_version' => '7.4',
                     'sites' => [
-                        (object)[
+                        (object) [
                             'name' => 'example.com',
                             'path' => '/www',
                             'host_headers' => [
-                                (object)[
+                                (object) [
                                     'name' => 'example.com',
                                     'enabled' => true,
                                 ],
-                                (object)[
+                                (object) [
                                     'name' => 'www.example.com',
                                     'enabled' => true,
                                 ],
-                                (object)[
+                                (object) [
                                     'name' => 'examplecom.webhosting.be',
                                     'enabled' => true,
                                 ],
@@ -67,7 +65,7 @@ final class GetLinuxHostingTest extends TestCase
                         'ID12345_examplecom',
                     ],
                 ]
-            )
+            ),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);

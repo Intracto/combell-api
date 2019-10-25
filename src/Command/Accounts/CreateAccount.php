@@ -16,7 +16,7 @@ class CreateAccount extends AbstractCommand
 
         $this->identifier = $identifier;
         $this->servicePack = $servicePack;
-        if ($password !== null) {
+        if (null !== $password) {
             $this->setPassword($password);
         }
     }
@@ -36,7 +36,7 @@ class CreateAccount extends AbstractCommand
             throw  new \InvalidArgumentException('Password must be between 8-20 characters long');
         }
 
-        if (($uppers + $lowers) === 0 || $numbers === 0) {
+        if (0 === ($uppers + $lowers) || 0 === $numbers) {
             throw new \InvalidArgumentException('Password must be a mix of letters and digits');
         }
 
@@ -49,7 +49,7 @@ class CreateAccount extends AbstractCommand
         $obj->identifier = $this->identifier;
         $obj->servicepack_id = $this->servicePack;
 
-        if (! empty($this->password)) {
+        if (!empty($this->password)) {
             $obj->ftp_password = $this->password;
         }
 

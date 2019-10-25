@@ -20,7 +20,7 @@ abstract class AbstractCommand
     // Construct body and querystring
     public function prepare(): void
     {
-        $this->queryString = 'skip=' . $this->skip . '&take=' . $this->take;
+        $this->queryString = 'skip='.$this->skip.'&take='.$this->take;
     }
 
     // Do any post-processing on the response, convert to objects
@@ -62,11 +62,11 @@ abstract class AbstractCommand
 
     public function appendQueryString($key, $value, $blank = false): void
     {
-        if ($blank || (!$blank && $value !== '')) {
-            if ($this->queryString !== '') {
-                $this->queryString .= '&' . $key . '=' . urlencode($value);
+        if ($blank || (!$blank && '' !== $value)) {
+            if ('' !== $this->queryString) {
+                $this->queryString .= '&'.$key.'='.urlencode($value);
             } else {
-                $this->queryString = $key . '=' . urlencode($value);
+                $this->queryString = $key.'='.urlencode($value);
             }
         }
     }

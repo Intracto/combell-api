@@ -20,7 +20,7 @@ class UpdateRecord extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/dns/' . $this->domainName . '/records/' . $this->record->getId());
+        $this->setEndPoint('/v2/dns/'.$this->domainName.'/records/'.$this->record->getId());
         $obj = $this->record->getObject();
 
         $this->setBody((string) json_encode($obj));

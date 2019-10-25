@@ -18,7 +18,7 @@ class GetAccount extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/accounts/' . $this->id);
+        $this->setEndPoint('/v2/accounts/'.$this->id);
     }
 
     public function processResponse(array $response)

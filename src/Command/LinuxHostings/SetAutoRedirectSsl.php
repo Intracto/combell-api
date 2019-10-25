@@ -21,7 +21,7 @@ class SetAutoRedirectSsl extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/sslsettings/' . $this->hostname . '/autoredirect');
+        $this->setEndPoint('/v2/linuxhostings/'.$this->domainName.'/sslsettings/'.$this->hostname.'/autoredirect');
 
         $obj = new \stdClass();
         $obj->enabled = $this->enabled;

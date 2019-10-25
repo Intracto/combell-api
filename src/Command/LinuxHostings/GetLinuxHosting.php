@@ -18,7 +18,7 @@ class GetLinuxHosting extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName);
+        $this->setEndPoint('/v2/linuxhostings/'.$this->domainName);
     }
 
     public function processResponse(array $response)

@@ -21,7 +21,7 @@ class SetLetsEncrypt extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/sslsettings/' . $this->hostname . '/letsencrypt');
+        $this->setEndPoint('/v2/linuxhostings/'.$this->domainName.'/sslsettings/'.$this->hostname.'/letsencrypt');
 
         $obj = new \stdClass();
         $obj->enabled = $this->enabled;

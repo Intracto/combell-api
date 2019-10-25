@@ -3,11 +3,9 @@
 namespace Test\Command\Accounts;
 
 use PHPUnit\Framework\TestCase;
-
 use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
-
 use TomCan\CombellApi\Command\Accounts\GetAccount;
 use TomCan\CombellApi\Structure\Accounts\Account;
 
@@ -32,16 +30,16 @@ final class GetAccountTest extends TestCase
                     'identifier' => 'example.com',
                     'servicepack' => (object) [
                         'id' => 1040,
-                        'name' => 'Basic E-Mail'
+                        'name' => 'Basic E-Mail',
                     ],
                     'addons' => [
                         (object) [
                             'id' => 1099,
                             'name' => 'Basic 1-pack addon',
-                        ]
-                    ]
+                        ],
+                    ],
                 ]
-            )
+            ),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);

@@ -89,7 +89,7 @@ class LinuxHosting
 
     public function getFtpHost(): ?string
     {
-        return is_null($this->sshUserName) ? null : $this->sshUserName . '.webhosting.be';
+        return is_null($this->sshUserName) ? null : $this->sshUserName.'.webhosting.be';
     }
 
     public function getFtpUserName(): ?string

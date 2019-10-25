@@ -21,7 +21,7 @@ class DnsAAAARecord extends AbstractDnsRecord
     {
         $filtered = filter_var($content, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
 
-        if ($filtered === false) {
+        if (false === $filtered) {
             throw new \InvalidArgumentException('Not a valid IPv6 address');
         }
 

@@ -21,7 +21,7 @@ class SetPhpApcu extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/phpsettings/apcu');
+        $this->setEndPoint('/v2/linuxhostings/'.$this->domainName.'/phpsettings/apcu');
 
         $obj = new \stdClass();
         $obj->apcu_size = $this->apcuSize;

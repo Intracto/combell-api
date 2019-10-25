@@ -3,11 +3,9 @@
 namespace Test\Command\MysqlDatabases;
 
 use PHPUnit\Framework\TestCase;
-
 use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
-
 use TomCan\CombellApi\Command\LinuxHostings\CreateSubSite;
 
 final class CreateSubSiteTest extends TestCase

@@ -3,11 +3,9 @@
 namespace Test\Command\Common;
 
 use PHPUnit\Framework\TestCase;
-
 use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
-
 use TomCan\CombellApi\Command\Accounts\ListAccounts;
 
 final class ApiTest extends TestCase
@@ -28,7 +26,7 @@ final class ApiTest extends TestCase
                 'X-Paging-TotalResults' => ['12345'],
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
-            'body' => json_encode([ /* not testing this */ ])
+            'body' => json_encode([/* not testing this */]),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);

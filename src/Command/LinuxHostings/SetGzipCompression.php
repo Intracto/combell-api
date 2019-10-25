@@ -19,7 +19,7 @@ class SetGzipCompression extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/linuxhostings/' . $this->domainName . '/settings/gzipcompression');
+        $this->setEndPoint('/v2/linuxhostings/'.$this->domainName.'/settings/gzipcompression');
 
         $obj = new \stdClass();
         $obj->enabled = $this->enabled;

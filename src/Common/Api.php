@@ -35,7 +35,7 @@ class Api
         if (getenv('DEBUG_DUMPS', true)) {
             var_dump(
                 strtoupper($command->getMethod()),
-                'https://api.combell.com' . $command->getEndPoint() . ($command->getQueryString() !== '' ? '?' . $command->getQueryString() : ''),
+                'https://api.combell.com'.$command->getEndPoint().('' !== $command->getQueryString() ? '?'.$command->getQueryString() : ''),
                 $headers,
                 $command->getBody()
             );
@@ -43,7 +43,7 @@ class Api
 
         $ret = $this->adapter->call(
             strtoupper($command->getMethod()),
-            'https://api.combell.com' . $command->getEndPoint() . ($command->getQueryString() !== '' ? '?' . $command->getQueryString() : ''),
+            'https://api.combell.com'.$command->getEndPoint().('' !== $command->getQueryString() ? '?'.$command->getQueryString() : ''),
             $headers,
             $command->getBody()
         );
@@ -58,7 +58,7 @@ class Api
         $this->rateLimitRemaining = (int) current($ret['headers']['X-RateLimit-Remaining']);
         $this->rateLimitReset = (int) current($ret['headers']['X-RateLimit-Reset']);
 
-        if ($ret['body'] !== '') {
+        if ('' !== $ret['body']) {
             $ret['body'] = \json_decode($ret['body']);
         }
 

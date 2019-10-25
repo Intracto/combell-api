@@ -3,11 +3,9 @@
 namespace Test\Command\MysqlDatabases;
 
 use PHPUnit\Framework\TestCase;
-
 use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
-
 use TomCan\CombellApi\Command\LinuxHostings\GetAvailablePhpVersions;
 
 final class GetAvailablePhpVersionsTest extends TestCase
@@ -26,17 +24,17 @@ final class GetAvailablePhpVersionsTest extends TestCase
                 'Content-Length' => ['300'],
             ],
             'body' => json_encode([
-                (object)['version' => '5.2'],
-                (object)['version' => '5.3'],
-                (object)['version' => '5.4'],
-                (object)['version' => '5.5'],
-                (object)['version' => '5.6'],
-                (object)['version' => '7.0'],
-                (object)['version' => '7.1'],
-                (object)['version' => '7.2'],
-                (object)['version' => '7.3'],
-                (object)['version' => '7.4'],
-            ])
+                (object) ['version' => '5.2'],
+                (object) ['version' => '5.3'],
+                (object) ['version' => '5.4'],
+                (object) ['version' => '5.5'],
+                (object) ['version' => '5.6'],
+                (object) ['version' => '7.0'],
+                (object) ['version' => '7.1'],
+                (object) ['version' => '7.2'],
+                (object) ['version' => '7.3'],
+                (object) ['version' => '7.4'],
+            ]),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);

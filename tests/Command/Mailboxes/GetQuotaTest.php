@@ -3,11 +3,9 @@
 namespace Test\Command\Mailboxes;
 
 use PHPUnit\Framework\TestCase;
-
 use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
-
 use TomCan\CombellApi\Command\Mailboxes\GetQuota;
 use TomCan\CombellApi\Structure\Mailbox\Quota;
 
@@ -27,9 +25,9 @@ final class GetQuotaTest extends TestCase
                 'Content-Length' => ['115'],
             ],
             'body' => json_encode([
-                (object)['size' => '1000', 'account_id' => '123456'],
-                (object)['size' => '1000', 'account_id' => '123457'],
-            ])
+                (object) ['size' => '1000', 'account_id' => '123456'],
+                (object) ['size' => '1000', 'account_id' => '123457'],
+            ]),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);

@@ -3,11 +3,9 @@
 namespace Test\Command\Mailboxes;
 
 use PHPUnit\Framework\TestCase;
-
 use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
-
 use TomCan\CombellApi\Command\Mailboxes\CreateMailbox;
 
 final class CreateMailboxTest extends TestCase
@@ -24,7 +22,7 @@ final class CreateMailboxTest extends TestCase
                 'X-RateLimit-Reset' => ['60'],
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
-            'body' => ''
+            'body' => '',
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);

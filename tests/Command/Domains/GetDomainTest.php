@@ -3,11 +3,9 @@
 namespace Test\Command\Domains;
 
 use PHPUnit\Framework\TestCase;
-
 use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
-
 use TomCan\CombellApi\Command\Domains\GetDomain;
 use TomCan\CombellApi\Structure\Domains\Domain;
 use TomCan\CombellApi\Structure\Domains\NameServer;
@@ -28,16 +26,16 @@ final class GetDomainTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
-                (object)[
+                (object) [
                     'domain_name' => '15.example.com',
                     'expiration_date' => '2019-12-23T23:00:00Z',
                     'will_renew' => null,
                     'name_servers' => [
-                        (object)['name' => 'NS3.EUROPEAN-SERVER.COM', 'ip' => '217.21.190.81'],
-                        (object)['name' => 'NS4.EUROPEAN-SERVER.COM', 'ip' => '86.39.202.67'],
+                        (object) ['name' => 'NS3.EUROPEAN-SERVER.COM', 'ip' => '217.21.190.81'],
+                        (object) ['name' => 'NS4.EUROPEAN-SERVER.COM', 'ip' => '86.39.202.67'],
                     ],
                 ]
-            )
+            ),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);

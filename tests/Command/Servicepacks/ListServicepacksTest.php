@@ -3,11 +3,9 @@
 namespace Test\Command\Accounts;
 
 use PHPUnit\Framework\TestCase;
-
 use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
-
 use TomCan\CombellApi\Command\Servicepacks\ListServicepacks;
 use TomCan\CombellApi\Structure\Servicepacks\Servicepack;
 
@@ -27,10 +25,10 @@ final class ListServicepacksTest extends TestCase
                 'Content-Length' => ['1024'],
             ],
             'body' => json_encode([
-                (object) [ 'id' => 1000, 'name' => 'Linux start' ],
-                (object) [ 'id' => 1001, 'name' => 'Linux advanced' ],
-                (object) [ 'id' => 1002, 'name' => 'Linux pro' ],
-            ])
+                (object) ['id' => 1000, 'name' => 'Linux start'],
+                (object) ['id' => 1001, 'name' => 'Linux advanced'],
+                (object) ['id' => 1002, 'name' => 'Linux pro'],
+            ]),
         ];
 
         $adapterStub = $this->createMock(AdapterInterface::class);

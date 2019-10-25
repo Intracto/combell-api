@@ -23,7 +23,7 @@ class CreateMailbox extends AbstractCommand
 
     public function prepare(): void
     {
-        $this->setEndPoint('/v2/mailboxes/' . $this->domainName);
+        $this->setEndPoint('/v2/mailboxes/'.$this->domainName);
 
         $obj = new \stdClass();
         $obj->email = $this->email;
