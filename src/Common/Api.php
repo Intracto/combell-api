@@ -33,12 +33,14 @@ class Api
         ];
 
         if (getenv('DEBUG_DUMPS', true)) {
+            // @codeCoverageIgnoreStart
             var_dump(
                 strtoupper($command->getMethod()),
                 'https://api.combell.com'.$command->getEndPoint().('' !== $command->getQueryString() ? '?'.$command->getQueryString() : ''),
                 $headers,
                 $command->getBody()
             );
+            // @codeCoverageIgnoreEnd
         }
 
         $ret = $this->adapter->call(
@@ -49,7 +51,9 @@ class Api
         );
 
         if (getenv('DEBUG_DUMPS', true)) {
+            // @codeCoverageIgnoreStart
             var_dump($ret);
+            // @codeCoverageIgnoreEnd
         }
 
         $this->responseCode = (int) $ret['status'];
