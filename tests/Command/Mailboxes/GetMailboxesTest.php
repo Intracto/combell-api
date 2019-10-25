@@ -11,7 +11,7 @@ use TomCan\CombellApi\Structure\Mailbox\Mailbox;
 
 final class GetMailboxesTest extends TestCase
 {
-    public function testListRecords(): void
+    public function testGetMailboxes(): void
     {
         $returnValue = [
             'status' => 200,

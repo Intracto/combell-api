@@ -10,7 +10,7 @@ use TomCan\CombellApi\Command\Domains\SetNameServers;
 
 final class SetNameServersTest extends TestCase
 {
-    public function testConfigureFtp(): void
+    public function testSetNameServers(): void
     {
         $returnValue = [
             'status' => 204,

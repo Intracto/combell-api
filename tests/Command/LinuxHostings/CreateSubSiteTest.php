@@ -10,7 +10,7 @@ use TomCan\CombellApi\Command\LinuxHostings\CreateSubSite;
 
 final class CreateSubSiteTest extends TestCase
 {
-    public function testSetHttp2(): void
+    public function testCreateSubSite(): void
     {
         $returnValue = [
             'status' => 201,

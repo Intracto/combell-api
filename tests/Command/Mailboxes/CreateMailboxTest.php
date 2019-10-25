@@ -10,7 +10,7 @@ use TomCan\CombellApi\Command\Mailboxes\CreateMailbox;
 
 final class CreateMailboxTest extends TestCase
 {
-    public function testGetMailboxes(): void
+    public function testCreateMailbox(): void
     {
         $returnValue = [
             'status' => 201,
