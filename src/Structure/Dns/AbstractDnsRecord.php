@@ -32,7 +32,7 @@ class AbstractDnsRecord
         return $this->hostname;
     }
 
-    public function setHostname(string $hostname): void
+    private function setHostname(string $hostname): void
     {
         try {
             $this->hostname = $this->validateHostname($hostname);
@@ -46,7 +46,7 @@ class AbstractDnsRecord
         return $this->ttl;
     }
 
-    public function setTtl(int $ttl): void
+    private function setTtl(int $ttl): void
     {
         try {
             $this->ttl = $this->validateUInt32($ttl);

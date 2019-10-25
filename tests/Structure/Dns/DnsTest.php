@@ -265,22 +265,6 @@ final class DnsTest extends TestCase
         $this->assertEquals(12, $r->getExpire());
         $this->assertEquals(345, $r->getMinimum());
 
-        // test if updating individual fields updates the content
-        $r->setMaster('ns2.example.com');
-        $this->assertEquals('ns2.example.com hostmaster.example.com 123 456 789 12 345', $r->getContent());
-        $r->setResponsible('dnsmaster.example.com');
-        $this->assertEquals('ns2.example.com dnsmaster.example.com 123 456 789 12 345', $r->getContent());
-        $r->setSerial(111);
-        $this->assertEquals('ns2.example.com dnsmaster.example.com 111 456 789 12 345', $r->getContent());
-        $r->setRefresh(222);
-        $this->assertEquals('ns2.example.com dnsmaster.example.com 111 222 789 12 345', $r->getContent());
-        $r->setRetry(333);
-        $this->assertEquals('ns2.example.com dnsmaster.example.com 111 222 333 12 345', $r->getContent());
-        $r->setExpire(444);
-        $this->assertEquals('ns2.example.com dnsmaster.example.com 111 222 333 444 345', $r->getContent());
-        $r->setMinimum(555);
-        $this->assertEquals('ns2.example.com dnsmaster.example.com 111 222 333 444 555', $r->getContent());
-
         // test object
         $o = $r->getObject();
         $this->doStandardObjectTests($r, $o);

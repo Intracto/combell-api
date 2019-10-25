@@ -17,7 +17,7 @@ class DnsCNAMERecord extends AbstractDnsRecord
         return $this->content;
     }
 
-    public function setContent(string $content): void
+    private function setContent(string $content): void
     {
         try {
             $filtered = $this->validateHostname($content);

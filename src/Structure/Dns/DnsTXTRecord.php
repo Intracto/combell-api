@@ -17,7 +17,7 @@ class DnsTXTRecord extends AbstractDnsRecord
         return $this->content;
     }
 
-    public function setContent(string $content): void
+    private function setContent(string $content): void
     {
         $this->content = $content;
     }

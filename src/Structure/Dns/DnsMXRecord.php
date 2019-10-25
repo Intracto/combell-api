@@ -19,7 +19,7 @@ class DnsMXRecord extends AbstractDnsRecord
         return $this->content;
     }
 
-    public function setContent(string $content): void
+    private function setContent(string $content): void
     {
         try {
             $filtered = $this->validateHostname($content);
@@ -34,7 +34,7 @@ class DnsMXRecord extends AbstractDnsRecord
         return $this->priority;
     }
 
-    public function setPriority(int $priority): void
+    private function setPriority(int $priority): void
     {
         $this->priority = $this->validateUInt16($priority);
     }

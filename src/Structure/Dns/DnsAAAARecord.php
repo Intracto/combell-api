@@ -17,7 +17,7 @@ class DnsAAAARecord extends AbstractDnsRecord
         return $this->content;
     }
 
-    public function setContent(string $content): void
+    private function setContent(string $content): void
     {
         $filtered = filter_var($content, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
 

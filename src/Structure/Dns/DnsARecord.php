@@ -12,6 +12,11 @@ class DnsARecord extends AbstractDnsRecord
         $this->setContent($content);
     }
 
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
     private function setContent(string $content): void
     {
         $filtered = filter_var($content, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
@@ -21,11 +26,6 @@ class DnsARecord extends AbstractDnsRecord
         }
 
         $this->content = $filtered;
-    }
-
-    public function getContent(): string
-    {
-        return $this->content;
     }
 
     public function getObject(): \stdClass
