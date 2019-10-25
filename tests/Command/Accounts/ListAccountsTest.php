@@ -16,7 +16,7 @@ final class ListAccountsTest extends TestCase
         foreach (['domain', 'linux_hosting', 'mysql', 'dns', 'mailbox'] as $type) {
             $this->assertInstanceOf(
                 ListAccounts::class,
-                new ListAccounts('', $type)
+                new ListAccounts($type, 'id.example.com')
             );
         }
     }
@@ -81,7 +81,7 @@ final class ListAccountsTest extends TestCase
             'Content-type' => 'application/json',
         ];
         $adapterStub->method('call')
-            ->with('GET', 'https://api.combell.com/v2/accounts?skip=0&take=25', $headers, '')
+            ->with('GET', 'https://api.combell.com/v2/accounts?skip=0&take=25&asset_type=linux_hosting', $headers, '')
             ->willReturn($returnValue);
 
         $hmacGeneratorStub = $this->createMock(HmacGenerator::class);
@@ -89,7 +89,7 @@ final class ListAccountsTest extends TestCase
             ->willReturn('hmac mocked');
         $api = new Api($adapterStub, $hmacGeneratorStub);
 
-        $cmd = new ListAccounts();
+        $cmd = new ListAccounts('linux_hosting');
         /** @var Account[] $accounts */
         $accounts = $api->executeCommand($cmd);
 

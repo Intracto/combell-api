@@ -32,19 +32,9 @@ class MysqlDatabase
         return $this->accountId;
     }
 
-    public function setAccountId(int $accountId): void
-    {
-        $this->accountId = $accountId;
-    }
-
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function setName(string $name): void
-    {
-        $this->name = $name;
     }
 
     public function getHostname(): string

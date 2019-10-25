@@ -14,7 +14,7 @@ abstract class AbstractCommand
     public function __construct(string $method, string $endPoint)
     {
         $this->setEndPoint($endPoint);
-        $this->setMethod($method);
+        $this->method = $method;
     }
 
     // Construct body and querystring
@@ -35,17 +35,12 @@ abstract class AbstractCommand
         return $this->method;
     }
 
-    public function setMethod(string $method): void
-    {
-        $this->method = $method;
-    }
-
     public function getEndPoint(): string
     {
         return $this->endPoint;
     }
 
-    public function setEndPoint(string $endPoint): void
+    protected function setEndPoint(string $endPoint): void
     {
         $this->endPoint = $endPoint;
     }
@@ -55,20 +50,17 @@ abstract class AbstractCommand
         return $this->queryString;
     }
 
-    public function setQueryString(string $queryString): void
+    public function appendQueryString(string $key, string $value): void
     {
-        $this->queryString = $queryString;
-    }
-
-    public function appendQueryString($key, $value, $blank = false): void
-    {
-        if ($blank || (!$blank && '' !== $value)) {
-            if ('' !== $this->queryString) {
-                $this->queryString .= '&'.$key.'='.urlencode($value);
-            } else {
-                $this->queryString = $key.'='.urlencode($value);
-            }
+        if (empty($value)) {
+            return;
         }
+
+        if ('' !== $this->queryString) {
+            $this->queryString .= '&';
+        }
+
+        $this->queryString .= $key.'='.urlencode($value);
     }
 
     public function getBody(): string
@@ -81,19 +73,9 @@ abstract class AbstractCommand
         $this->body = $body;
     }
 
-    public function getSkip(): int
-    {
-        return $this->skip;
-    }
-
     public function setSkip(int $skip): void
     {
         $this->skip = $skip;
-    }
-
-    public function getTake(): int
-    {
-        return $this->take;
     }
 
     public function setTake(int $take): void

@@ -26,29 +26,14 @@ class Domain
         return $this->domainName;
     }
 
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
-    }
-
     public function getExpirationDate(): \DateTime
     {
         return $this->expirationDate;
     }
 
-    public function setExpirationDate(\DateTime $expirationDate): void
-    {
-        $this->expirationDate = $expirationDate;
-    }
-
     public function getWillRenew(): ?bool
     {
         return $this->willRenew;
-    }
-
-    public function setWillRenew(bool $willRenew): void
-    {
-        $this->willRenew = $willRenew;
     }
 
     public function getNameServers(): array

@@ -21,29 +21,14 @@ class Account
         return $this->id;
     }
 
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
     public function getIdentifier(): string
     {
         return $this->identifier;
     }
 
-    public function setIdentifier(string $identifier): void
-    {
-        $this->identifier = $identifier;
-    }
-
     public function getServicepackId(): int
     {
         return $this->servicepackId;
-    }
-
-    public function setServicepackId(int $servicepackId): void
-    {
-        $this->servicepackId = $servicepackId;
     }
 
     public function getAddons(): array

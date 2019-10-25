@@ -18,18 +18,8 @@ class NameServer
         return $this->domainName;
     }
 
-    public function setDomainName(string $domainName): void
-    {
-        $this->domainName = $domainName;
-    }
-
     public function getIp(): string
     {
         return $this->ip;
-    }
-
-    public function setIp(string $ip): void
-    {
-        $this->ip = $ip;
     }
 }
