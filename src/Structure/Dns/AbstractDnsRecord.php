@@ -93,6 +93,7 @@ class AbstractDnsRecord
         if ($value < $min || $value > $max) {
             throw new \InvalidArgumentException('Invalid value for range '.$min.' - '.$max.': "'.$value.'"');
         }
+
         return $value;
     }
 

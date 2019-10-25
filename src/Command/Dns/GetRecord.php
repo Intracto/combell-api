@@ -36,12 +36,15 @@ class GetRecord extends AbstractCommand
             case 'SOA':
             case 'CAA':
                 $rec = new $className($record->id, $record->record_name, $record->ttl, $record->content);
+
                 break;
             case 'MX':
                 $rec = new $className($record->id, $record->record_name, $record->ttl, $record->content, $record->priority);
+
                 break;
             case 'SRV':
                 $rec = new $className($record->id, $record->record_name, $record->ttl, $record->service, $record->target, $record->protocol, $record->priority, $record->port, $record->weight);
+
                 break;
             default:
                 throw new \LogicException('Unknown DNS record type '.$record->type);

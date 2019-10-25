@@ -62,6 +62,7 @@ class CurlAdapter implements AdapterInterface
                     'headers' => $responseHeaders,
                     'body' => $responseBody,
                 ];
+
                 break;
 
             default:

@@ -41,6 +41,7 @@ class ListRecords extends PageableAbstractCommand
                         $record->ttl,
                         $record->content
                     );
+
                     break;
 
                 case 'MX':
@@ -51,6 +52,7 @@ class ListRecords extends PageableAbstractCommand
                         $record->content,
                         $record->priority
                     );
+
                     break;
 
                 case 'SRV':
@@ -65,6 +67,7 @@ class ListRecords extends PageableAbstractCommand
                         $record->port,
                         $record->weight
                     );
+
                     break;
 
                 default:

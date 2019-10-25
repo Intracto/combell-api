@@ -136,6 +136,7 @@ class DnsSOARecord extends AbstractDnsRecord
         } else {
             // store original values for rollback
             $org = [$this->master, $this->responsible, $this->serial, $this->refresh, $this->retry, $this->expire, $this->minimum];
+
             try {
                 $this->setMaster($arr[0], false);
                 $this->setResponsible($arr[1], false);
