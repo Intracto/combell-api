@@ -7,7 +7,6 @@ use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
 use TomCan\CombellApi\Command\LinuxHostings\ListLinuxHostings;
-use TomCan\CombellApi\Structure\LinuxHostings\LinuxHosting;
 use TomCan\CombellApi\Structure\LinuxHostings\LinuxHostingSummary;
 
 final class ListLinuxHostingsTest extends TestCase
