@@ -4,23 +4,15 @@ namespace TomCan\CombellApi\Exception;
 
 class ClientException extends \Exception
 {
-
     private $body;
 
-    /**
-     * @return mixed
-     */
-    public function getBody()
+    public function getBody(): string
     {
         return $this->body;
     }
 
-    /**
-     * @param mixed $body
-     */
-    public function setBody($body)
+    public function setBody(string $body): void
     {
         $this->body = $body;
     }
-
 }

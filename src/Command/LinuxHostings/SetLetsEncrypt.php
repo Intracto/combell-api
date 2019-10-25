@@ -6,80 +6,30 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class SetLetsEncrypt extends AbstractCommand
 {
-
-    private $domainname;
+    private $domainName;
     private $hostname;
     private $enabled;
 
-    public function __construct($domainname, $hostname, $enabled)
+    public function __construct(string $domainName, string $hostname, bool $enabled)
     {
-        parent::__construct("put", "/v2/linuxhostings/{domainname}/sslsettings/{hostname}/letsencrypt");
+        parent::__construct('put', '/v2/linuxhostings/{domainName}/sslsettings/{hostname}/letsencrypt');
 
-        $this->setDomainname($domainname);
-        $this->setHostname($hostname);
-        $this->setEnabled($enabled);
+        $this->domainName = $domainName;
+        $this->hostname = $hostname;
+        $this->enabled = $enabled;
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-
-        $this->setEndPoint("/v2/linuxhostings/".$this->domainname."/sslsettings/".$this->hostname."/letsencrypt");
+        $this->setEndPoint('/v2/linuxhostings/'.$this->domainName.'/sslsettings/'.$this->hostname.'/letsencrypt');
 
         $obj = new \stdClass();
         $obj->enabled = $this->enabled;
 
-        $this->setBody(
-            json_encode($obj)
-        );
-
+        $this->setBody((string) json_encode($obj));
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDomainname()
+    public function processResponse(array $response)
     {
-        return $this->domainname;
     }
-
-    /**
-     * @param mixed $domainname
-     */
-    public function setDomainname($domainname)
-    {
-        $this->domainname = $domainname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getHostname()
-    {
-        return $this->hostname;
-    }
-
-    /**
-     * @param mixed $hostname
-     */
-    public function setHostname($hostname)
-    {
-        $this->hostname = $hostname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEnabled()
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * @param mixed $enabled
-     */
-    public function setEnabled($enabled)
-    {
-        $this->enabled = $enabled;
-    }
-
 }

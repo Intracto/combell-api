@@ -6,62 +6,28 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class SetPhpVersion extends AbstractCommand
 {
+    private $domainName;
+    private $phpVersion;
 
-    private $domainname;
-    private $phpversion;
-
-    public function __construct($domainname, $phpversion)
+    public function __construct(string $domainName, string $phpVersion)
     {
-        parent::__construct("put", "/v2/linuxhostings/{domainname}/phpsettings/version");
+        parent::__construct('put', '/v2/linuxhostings/{domainName}/phpsettings/version');
 
-        $this->setDomainname($domainname);
-        $this->setPhpversion($phpversion);
+        $this->domainName = $domainName;
+        $this->phpVersion = $phpVersion;
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-
-        $this->setEndPoint("/v2/linuxhostings/".$this->domainname."/phpsettings/version");
+        $this->setEndPoint('/v2/linuxhostings/'.$this->domainName.'/phpsettings/version');
 
         $obj = new \stdClass();
-        $obj->version = $this->phpversion;
+        $obj->version = $this->phpVersion;
 
-        $this->setBody(
-            json_encode($obj)
-        );
-
+        $this->setBody((string) json_encode($obj));
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDomainname()
+    public function processResponse(array $response)
     {
-        return $this->domainname;
     }
-
-    /**
-     * @param mixed $domainname
-     */
-    public function setDomainname($domainname)
-    {
-        $this->domainname = $domainname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPhpversion()
-    {
-        return $this->phpversion;
-    }
-
-    /**
-     * @param mixed $phpversion
-     */
-    public function setPhpversion($phpversion)
-    {
-        $this->phpversion = $phpversion;
-    }
-
 }

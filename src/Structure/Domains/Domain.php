@@ -1,99 +1,43 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Tom
- * Date: 20/03/2018
- * Time: 0:17
- */
 
 namespace TomCan\CombellApi\Structure\Domains;
 
-
 class Domain
 {
-
-    private $domainname;
+    private $domainName;
     private $expirationDate;
     private $willRenew;
-    private $nameservers;
+    private $nameServers;
 
-    /**
-     * Domain constructor.
-     * @param $domainname
-     * @param $expirationDate
-     * @param $willRenew
-     * @param $nameservers
-     */
-    public function __construct($domainname, $expirationDate = null, $willRenew = null, $nameservers = null)
-    {
-        $this->domainname = $domainname;
+    public function __construct(
+        string $domainName,
+        \DateTime $expirationDate,
+        ?bool $willRenew = null,
+        array $nameServers = []
+    ) {
+        $this->domainName = $domainName;
         $this->expirationDate = $expirationDate;
         $this->willRenew = $willRenew;
-        $this->nameservers = $nameservers;
+        $this->nameServers = $nameServers;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDomainname()
+    public function getDomainName(): string
     {
-        return $this->domainname;
+        return $this->domainName;
     }
 
-    /**
-     * @param mixed $domainname
-     */
-    public function setDomainname($domainname)
-    {
-        $this->domainname = $domainname;
-    }
-
-    /**
-     * @return null
-     */
-    public function getExpirationDate()
+    public function getExpirationDate(): \DateTime
     {
         return $this->expirationDate;
     }
 
-    /**
-     * @param null $expirationDate
-     */
-    public function setExpirationDate($expirationDate)
-    {
-        $this->expirationDate = $expirationDate;
-    }
-
-    /**
-     * @return null
-     */
-    public function getWillRenew()
+    public function getWillRenew(): ?bool
     {
         return $this->willRenew;
     }
 
-    /**
-     * @param null $willRenew
-     */
-    public function setWillRenew($willRenew)
+    public function getNameServers(): array
     {
-        $this->willRenew = $willRenew;
+        return $this->nameServers;
     }
-
-    /**
-     * @return array
-     */
-    public function getNameservers()
-    {
-        return $this->nameservers;
-    }
-
-    /**
-     * @param array $nameservers
-     */
-    public function setNameservers(array $nameservers)
-    {
-        $this->nameservers = $nameservers;
-    }
-
 }

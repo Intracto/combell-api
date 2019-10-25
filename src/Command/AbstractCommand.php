@@ -2,168 +2,84 @@
 
 namespace TomCan\CombellApi\Command;
 
-class AbstractCommand
+abstract class AbstractCommand
 {
-
-    /**
-     * @var string
-     */
     private $method;
-
-    /**
-     * @var string
-     */
     private $endPoint;
-
-    /**
-     * @var string
-     */
-    private $queryString = "";
-
-    /**
-     * @var string
-     */
-    private $body = "";
-
-    /**
-     * @var int
-     */
+    private $queryString = '';
+    private $body = '';
     private $skip = 0;
-
-    /**
-     * @var int
-     */
     private $take = 25;
 
-
-    /**
-     * AbstractCommand constructor.
-     * @param $method
-     * @param $endPoint
-     */
-
-    public function __construct($method, $endPoint)
+    public function __construct(string $method, string $endPoint)
     {
         $this->setEndPoint($endPoint);
-        $this->setMethod($method);
+        $this->method = $method;
     }
 
-    public function prepare() {
-        // construct body and querystring
-        $this->queryString = "skip=" . $this->skip . "&take=" . $this->take;
+    // Construct body and querystring
+    public function prepare(): void
+    {
+        $this->queryString = 'skip='.$this->skip.'&take='.$this->take;
     }
 
-    public function processResponse($response) {
-        // do any post-processing on the response
-        return $response;
+    // Do any post-processing on the response, convert to objects
+    abstract public function processResponse(array $response);
+
+    public function processHeaders(array $headers): void
+    {
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return $this->method;
     }
 
-    /**
-     * @param string $method
-     */
-    public function setMethod($method)
-    {
-        $this->method = $method;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEndPoint()
+    public function getEndPoint(): string
     {
         return $this->endPoint;
     }
 
-    /**
-     * @param string $endPoint
-     */
-    public function setEndPoint($endPoint)
+    protected function setEndPoint(string $endPoint): void
     {
         $this->endPoint = $endPoint;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getQueryString()
+    public function getQueryString(): string
     {
         return $this->queryString;
     }
 
-    /**
-     * @param mixed $queryString
-     */
-    public function setQueryString($queryString)
+    public function appendQueryString(string $key, string $value): void
     {
-        $this->queryString = $queryString;
-    }
-
-    public function appendQueryString($key, $value, $blank = false) {
-
-        if ($blank || (!$blank && $value != "")) {
-            if ($this->queryString != "") {
-                $this->queryString .= "&" . $key . "=" . urlencode($value);
-            } else {
-                $this->queryString = $key . "=" . urlencode($value);
-            }
+        if (empty($value)) {
+            return;
         }
 
+        if ('' !== $this->queryString) {
+            $this->queryString .= '&';
+        }
+
+        $this->queryString .= $key.'='.urlencode($value);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getBody()
+    public function getBody(): string
     {
         return $this->body;
     }
 
-    /**
-     * @param mixed $body
-     */
-    public function setBody($body)
+    public function setBody(string $body): void
     {
         $this->body = $body;
     }
 
-    /**
-     * @return int
-     */
-    public function getSkip()
-    {
-        return $this->skip;
-    }
-
-    /**
-     * @param int $skip
-     */
-    public function setSkip($skip)
+    public function setSkip(int $skip): void
     {
         $this->skip = $skip;
     }
 
-    /**
-     * @return int
-     */
-    public function getTake()
-    {
-        return $this->take;
-    }
-
-    /**
-     * @param int $take
-     */
-    public function setTake($take)
+    public function setTake(int $take): void
     {
         $this->take = $take;
     }
-
 }

@@ -6,62 +6,28 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class SetGzipCompression extends AbstractCommand
 {
-
-    private $domainname;
+    private $domainName;
     private $enabled;
 
-    public function __construct($domainname, $enabled)
+    public function __construct(string $domainName, bool $enabled)
     {
-        parent::__construct("put", "/v2/linuxhostings/{domainname}/settings/gzipcompression");
+        parent::__construct('put', '/v2/linuxhostings/{domainName}/settings/gzipcompression');
 
-        $this->setDomainname($domainname);
-        $this->setEnabled($enabled);
+        $this->domainName = $domainName;
+        $this->enabled = $enabled;
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-
-        $this->setEndPoint("/v2/linuxhostings/".$this->domainname."/settings/gzipcompression");
+        $this->setEndPoint('/v2/linuxhostings/'.$this->domainName.'/settings/gzipcompression');
 
         $obj = new \stdClass();
         $obj->enabled = $this->enabled;
 
-        $this->setBody(
-            json_encode($obj)
-        );
-
+        $this->setBody((string) json_encode($obj));
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDomainname()
+    public function processResponse(array $response)
     {
-        return $this->domainname;
     }
-
-    /**
-     * @param mixed $domainname
-     */
-    public function setDomainname($domainname)
-    {
-        $this->domainname = $domainname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEnabled()
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * @param mixed $enabled
-     */
-    public function setEnabled($enabled)
-    {
-        $this->enabled = $enabled;
-    }
-
 }

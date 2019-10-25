@@ -7,29 +7,31 @@ use TomCan\CombellApi\Structure\MysqlDatabases\MysqlDatabase;
 
 class GetMysqlDatabase extends AbstractCommand
 {
-    /**
-     * @var string
-     */
     private $databaseName;
-    
-    public function __construct($databaseName)
+
+    public function __construct(string $databaseName)
     {
-        parent::__construct("get", "/v2/mysqldatabases");
-        
+        parent::__construct('get', '/v2/mysqldatabases');
+
         $this->databaseName = $databaseName;
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-        $this->setEndPoint("/v2/mysqldatabases/" . $this->databaseName);
+        $this->setEndPoint('/v2/mysqldatabases/'.$this->databaseName);
     }
 
-    public function processResponse($response)
+    public function processResponse(array $response)
     {
         $db = $response['body'];
 
-        $response['response'] = new MysqlDatabase($db->account_id, $db->name, $db->hostname, $db->user_count, $db->max_size, $db->actual_size);
-        
-        return $response;
+        return new MysqlDatabase(
+            $db->account_id,
+            $db->name,
+            $db->hostname,
+            $db->user_count,
+            $db->max_size,
+            $db->actual_size
+        );
     }
 }

@@ -4,80 +4,48 @@ namespace TomCan\CombellApi\Command\ProvisioningJobs;
 
 use TomCan\CombellApi\Command\AbstractCommand;
 use TomCan\CombellApi\Structure\ProvisioningJobs\ProvisioningJob;
+use TomCan\CombellApi\Structure\ProvisioningJobs\ResourceLink;
 
 class GetProvisioningJob extends AbstractCommand
 {
+    private $jobId;
 
-    private $job_id;
-
-    private $status = '';
-    private $resource_links = array();
-
-    public function __construct($job_id)
+    public function __construct(string $jobId)
     {
-        parent::__construct("get", "/v2/provisioningjobs/{jobid}");
+        parent::__construct('get', '/v2/provisioningjobs/{jobId}');
 
-        $this->job_id = $job_id;
-
+        $this->jobId = $jobId;
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-        $this->setEndPoint("/v2/provisioningjobs/" . $this->job_id);
+        $this->setEndPoint('/v2/provisioningjobs/'.$this->jobId);
     }
 
-    public function processResponse($response)
+    public function processResponse(array $response)
     {
+        $status = '';
+        $estimate = null;
+        $resourceLinks = [];
 
-        $provisioningJob = new ProvisioningJob($this->getJobId(), "");
-
-        if ($response['status'] == 200) {
-            $this->status = $response['body']->status;
-            $provisioningJob->setStatus($response['body']->status);
+        if (200 === (int) $response['status']) {
+            $status = $response['body']->status;
+            $estimate = new \DateTime($response['body']->completion->estimation);
         }
 
-        if ($response['status'] == 201) {
-            $this->status = 'finished';
-            $this->resource_links = array();
+        if (201 === (int) $response['status']) {
+            $status = 'finished';
             foreach ($response['body']->resource_links as $link) {
-                $matches = array();
-                if (preg_match('/\/([a-z]+)\/([^\/]+)$/', $link, $matches)) {
-                    $this->resource_links[] = array(
-                        'type' => $matches[1],
-                        'id' => $matches[2],
+                $linkData = [];
+                if (preg_match('/\/([a-z]+)\/([^\/]+)$/', $link, $linkData)) {
+                    $resourceLinks[] = new ResourceLink(
+                        $linkData[2],
+                        $linkData[1]
                     );
                 }
             }
-            $provisioningJob->setStatus('finished');
-            $provisioningJob->setLinks($this->resource_links);
         }
 
-        $response['response'] = $provisioningJob;
-        return $response;
+        return new ProvisioningJob($this->jobId, $status, $estimate, $resourceLinks);
     }
-
-    /**
-     * @return mixed
-     */
-    public function getJobId()
-    {
-        return $this->job_id;
-    }
-
-    /**
-     * @param mixed $job_id
-     */
-    public function setJobId($job_id)
-    {
-        $this->job_id = $job_id;
-    }
-
-    /**
-     * @return array
-     */
-    public function getResourceLinks()
-    {
-        return $this->resource_links;
-    }
-
 }

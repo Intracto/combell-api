@@ -3,60 +3,61 @@
 namespace TomCan\CombellApi\Command\LinuxHostings;
 
 use TomCan\CombellApi\Command\AbstractCommand;
+use TomCan\CombellApi\Structure\LinuxHostings\HostHeader;
 use TomCan\CombellApi\Structure\LinuxHostings\LinuxHosting;
+use TomCan\CombellApi\Structure\LinuxHostings\Site;
 
 class GetLinuxHosting extends AbstractCommand
 {
-    /**
-     * @var string
-     */
-    private $domainname;
+    private $domainName;
 
-    public function __construct($domainname)
+    public function __construct(string $domainName)
     {
-        parent::__construct("get", "/v2/linuxhostings");
+        parent::__construct('get', '/v2/linuxhostings');
 
-        $this->domainname = $domainname;
+        $this->domainName = $domainName;
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-        $this->setEndPoint("/v2/linuxhostings/" . $this->domainname);
+        $this->setEndPoint('/v2/linuxhostings/'.$this->domainName);
     }
 
-    /**
-     * @return string
-     */
-    public function getDomainname()
+    public function processResponse(array $response)
     {
-        return $this->domainname;
-    }
+        $linuxHosting = $response['body'];
 
-    /**
-     * @param string $domainname
-     */
-    public function setDomainname($domainname)
-    {
-        $this->domainname = $domainname;
-    }
+        $sites = [];
+        foreach ($linuxHosting->sites as $site) {
+            $hostHeaders = [];
+            foreach ($site->host_headers as $hostHeader) {
+                $hostHeaders[] = new HostHeader($hostHeader->name, $hostHeader->enabled);
+            }
+            $sites[] = new Site(
+                $site->name,
+                $site->path,
+                $hostHeaders,
+                $site->ssl_enabled,
+                $site->https_redirect_enabled,
+                $site->http2_enabled
+            );
+        }
 
-    public function processResponse($response)
-    {
-        $h = $response['body'];
-        $response['response'] = new LinuxHosting(
-            $h->domain_name,
-            $h->servicepack_id,
-            $h->max_webspace_size,
-            $h->max_size,
-            $h->webspace_usage,
-            $h->actual_size,
-            $h->ip,
-            $h->ip_type,
-            $h->ssh_host,
-            $h->ftp_username,
-            $h->ssh_username
+        return new LinuxHosting(
+            $linuxHosting->domain_name,
+            $linuxHosting->servicepack_id,
+            $linuxHosting->max_webspace_size,
+            $linuxHosting->max_size,
+            $linuxHosting->webspace_usage,
+            $linuxHosting->actual_size,
+            $linuxHosting->ip,
+            $linuxHosting->ip_type,
+            $linuxHosting->ftp_username,
+            $linuxHosting->ssh_host,
+            $linuxHosting->ssh_username,
+            $linuxHosting->php_version,
+            $sites,
+            $linuxHosting->mysql_database_names
         );
-
-        return $response;
     }
 }

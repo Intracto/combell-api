@@ -4,79 +4,40 @@ namespace TomCan\CombellApi\Structure\Accounts;
 
 class Account
 {
-
-    /**
-     * @var int
-     */
     private $id;
-    /**
-     * @var string
-     */
     private $identifier;
-    /**
-     * @var int
-     */
-    private $servicepack_id;
+    private $servicepackId;
+    private $addons = [];
 
-    /**
-     * SimpleAccount constructor.
-     * @param int $id
-     * @param string $identifier
-     * @param int $servicepack_id
-     */
-    public function __construct($id = 0, $identifier = "", $servicepack_id = 0)
+    public function __construct(int $id, string $identifier, int $servicepackId)
     {
         $this->id = $id;
         $this->identifier = $identifier;
-        $this->servicepack_id = $servicepack_id;
+        $this->servicepackId = $servicepackId;
     }
 
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
 
-    /**
-     * @param string $identifier
-     */
-    public function setIdentifier($identifier)
+    public function getServicepackId(): int
     {
-        $this->identifier = $identifier;
+        return $this->servicepackId;
     }
 
-    /**
-     * @return int
-     */
-    public function getServicepackId()
+    public function getAddons(): array
     {
-        return $this->servicepack_id;
+        return $this->addons;
     }
 
-    /**
-     * @param int $servicepack_id
-     */
-    public function setServicepackId($servicepack_id)
+    public function addAddon(int $addon): void
     {
-        $this->servicepack_id = $servicepack_id;
+        $this->addons[] = $addon;
     }
-
 }

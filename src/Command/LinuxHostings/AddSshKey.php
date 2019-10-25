@@ -6,62 +6,28 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class AddSshKey extends AbstractCommand
 {
+    private $domainName;
+    private $pubKey;
 
-    private $domainname;
-    private $pubkey;
-
-    public function __construct($domainname, $pubkey)
+    public function __construct(string $domainName, string $pubKey)
     {
-        parent::__construct("post", "/v2/linuxhostings/{domainname}/ssh/keys");
+        parent::__construct('post', '/v2/linuxhostings/{domainName}/ssh/keys');
 
-        $this->setDomainname($domainname);
-        $this->setPubkey($pubkey);
+        $this->domainName = $domainName;
+        $this->pubKey = $pubKey;
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-
-        $this->setEndPoint("/v2/linuxhostings/".$this->domainname."/ssh/keys");
+        $this->setEndPoint('/v2/linuxhostings/'.$this->domainName.'/ssh/keys');
 
         $obj = new \stdClass();
-        $obj->public_key = $this->pubkey;
+        $obj->public_key = $this->pubKey;
 
-        $this->setBody(
-            json_encode($obj)
-        );
-
+        $this->setBody((string) json_encode($obj));
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDomainname()
+    public function processResponse(array $response)
     {
-        return $this->domainname;
     }
-
-    /**
-     * @param mixed $domainname
-     */
-    public function setDomainname($domainname)
-    {
-        $this->domainname = $domainname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPubkey()
-    {
-        return $this->pubkey;
-    }
-
-    /**
-     * @param mixed $pubkey
-     */
-    public function setPubkey($pubkey)
-    {
-        $this->pubkey = $pubkey;
-    }
-
 }

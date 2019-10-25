@@ -6,62 +6,28 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class RegisterDomain extends AbstractCommand
 {
+    private $domainName;
+    private $nameServers;
 
-    private $domainname;
-    private $nameservers;
-
-    public function __construct($domainname, $nameservers)
+    public function __construct(string $domainName, array $nameServers)
     {
-        parent::__construct("post", "/v2/domains/registrations");
+        parent::__construct('post', '/v2/domains/registrations');
 
-        $this->setDomainname($domainname);
-        $this->setNameservers($nameservers);
+        $this->domainName = $domainName;
+        $this->nameServers = $nameServers;
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-
         $obj = new \stdClass();
-        $obj->domain_name = $this->domainname;
-        $obj->name_servers = $this->nameservers;
+        $obj->domain_name = $this->domainName;
+        $obj->name_servers = $this->nameServers;
 
-
-        $this->setBody(
-            json_encode($obj)
-        );
-
+        $this->setBody((string) json_encode($obj));
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDomainname()
+    public function processResponse(array $response)
     {
-        return $this->domainname;
+        return explode('/', $response['headers']['Location'][0])[3];
     }
-
-    /**
-     * @param mixed $domainname
-     */
-    public function setDomainname($domainname)
-    {
-        $this->domainname = $domainname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNameservers()
-    {
-        return $this->nameservers;
-    }
-
-    /**
-     * @param mixed $nameservers
-     */
-    public function setNameservers($nameservers)
-    {
-        $this->nameservers = $nameservers;
-    }
-
 }

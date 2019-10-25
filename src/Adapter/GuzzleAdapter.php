@@ -2,15 +2,17 @@
 
 namespace TomCan\CombellApi\Adapter;
 
-use GuzzleHttp\Exception\ClientException;
+use TomCan\CombellApi\Exception\ClientException;
+use GuzzleHttp\Exception\ClientException as HttpClientException;
+use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Psr7\Request;
 
-class GuzzleAdapter
+class GuzzleAdapter implements AdapterInterface
 {
-    public function Call($method, $uri, $headers, $body)
+    public function call(string $method, string $uri, array $headers, string $body): array
     {
-
-        $client = new \GuzzleHttp\Client();
-        $request = new \GuzzleHttp\Psr7\Request(strtoupper($method), $uri, $headers, $body);
+        $client = new HttpClient();
+        $request = new Request(strtoupper($method), $uri, $headers, $body);
 
         try {
             $response = $client->send($request);
@@ -21,43 +23,47 @@ class GuzzleAdapter
                 case 202:
                 case 204:
                     // request ok
-                    return array(
+                    return [
                         'status' => $response->getStatusCode(),
                         'headers' => $response->getHeaders(),
                         'body' => $response->getBody()->getContents(),
-                    );
-                    break;
+                    ];
 
                 default:
-                    $newEx = new \TomCan\CombellApi\Exception\ClientException(
-                        'Unexpected statuscode',
+                    $newEx = new ClientException(
+                        'Unexpected status code',
                         $response->getStatusCode()
                     );
                     $newEx->setBody($response->getBody()->getContents());
+
                     throw $newEx;
             }
-        } catch (ClientException $ex) {
-            switch ($ex->getCode()) {
+        } catch (HttpClientException $httpException) {
+            switch ($httpException->getCode()) {
                 case 401:
                 case 403:
                 case 404:
                 case 429:
-                    $newEx = new \TomCan\CombellApi\Exception\ClientException(
-                        $ex->getMessage(),
-                        $ex->getCode()
+                    $clientException = new ClientException(
+                        $httpException->getMessage(),
+                        $httpException->getCode()
                     );
-                    $newEx->setBody($ex->getResponse()->getBody()->getContents());
-                    throw $newEx;
-                    break;
+                    $response = $httpException->getResponse();
+                    $body = '';
+                    if (null !== $response) {
+                        $body = $response->getBody()->getContents();
+                    }
+                    $clientException->setBody($body);
 
+                    throw $clientException;
                 default:
-                    throw new \TomCan\CombellApi\Exception\ClientException(
-                        $ex->getMessage(),
-                        $ex->getCode()
+                    throw new ClientException(
+                        $httpException->getMessage(),
+                        $httpException->getCode()
                     );
             }
-        } catch (\Exception $ex) {
-            throw new \RuntimeException('Unspecified exception', $ex->getCode());
+        } catch (\Exception $e) {
+            throw new \RuntimeException('Unspecified exception', $e->getCode());
         }
     }
 }

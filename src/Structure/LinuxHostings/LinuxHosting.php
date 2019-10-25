@@ -2,10 +2,8 @@
 
 namespace TomCan\CombellApi\Structure\LinuxHostings;
 
-
 class LinuxHosting
 {
-
     private $domainName;
     private $servicepackId;
     private $maxWebspaceSize;
@@ -17,33 +15,25 @@ class LinuxHosting
     private $sshHost;
     private $ftpUserName;
     private $sshUserName;
+    private $phpVersion;
+    private $sites;
+    private $mysqlDatabaseNames;
 
-    /**
-     * LinuxHosting constructor.
-     * @param $domain_name
-     * @param $servicepackId
-     * @param $maxWebspaceSize
-     * @param $maxSize
-     * @param $webspaceUsage
-     * @param $actualSize
-     * @param $ip
-     * @param $ipType
-     * @param $sshHost
-     * @param $ftpUserName
-     * @param $sshUserName
-     */
     public function __construct(
-        $domainName,
-        $servicepackId,
-        $maxWebspaceSize = null,
-        $maxSize = null,
-        $webspaceUsage = null,
-        $actualSize = null,
-        $ip = null,
-        $ipType = null,
-        $sshHost = null,
-        $ftpUserName = null,
-        $sshUserName = null
+        string $domainName,
+        int $servicepackId,
+        int $maxWebspaceSize,
+        int $maxSize,
+        int $webspaceUsage,
+        int $actualSize,
+        string $ip,
+        string $ipType,
+        string $ftpUserName,
+        string $sshHost,
+        string $sshUserName,
+        string $phpVersion,
+        array $sites,
+        array $mysqlDatabaseNames
     ) {
         $this->domainName = $domainName;
         $this->servicepackId = $servicepackId;
@@ -53,193 +43,86 @@ class LinuxHosting
         $this->actualSize = $actualSize;
         $this->ip = $ip;
         $this->ipType = $ipType;
-        $this->sshHost = $sshHost;
         $this->ftpUserName = $ftpUserName;
+        $this->sshHost = $sshHost;
         $this->sshUserName = $sshUserName;
+        $this->phpVersion = $phpVersion;
+        $this->sites = $sites;
+        $this->mysqlDatabaseNames = $mysqlDatabaseNames;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDomainName()
+    public function getDomainName(): string
     {
         return $this->domainName;
     }
 
-    /**
-     * @param mixed $domain_name
-     */
-    public function setDomainName($domainName)
-    {
-        $this->domainName = $domainName;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getServicepackId()
+    public function getServicepackId(): int
     {
         return $this->servicepackId;
     }
 
-    /**
-     * @param mixed $servicepackId
-     */
-    public function setServicepackId($servicepackId)
-    {
-        $this->servicepackId = $servicepackId;
-    }
-
-    /**
-     * @return null
-     */
-    public function getMaxWebspaceSize()
+    public function getMaxWebspaceSize(): int
     {
         return $this->maxWebspaceSize;
     }
 
-    /**
-     * @param null $maxWebspaceSize
-     */
-    public function setMaxWebspaceSize($maxWebspaceSize)
-    {
-        $this->maxWebspaceSize = $maxWebspaceSize;
-    }
-
-    /**
-     * @return null
-     */
-    public function getMaxSize()
+    public function getMaxSize(): int
     {
         return $this->maxSize;
     }
 
-    /**
-     * @param null $maxSize
-     */
-    public function setMaxSize($maxSize)
-    {
-        $this->maxSize = $maxSize;
-    }
-
-    /**
-     * @return null
-     */
-    public function getWebspaceUsage()
+    public function getWebspaceUsage(): int
     {
         return $this->webspaceUsage;
     }
 
-    /**
-     * @param null $webspaceUsage
-     */
-    public function setWebspaceUsage($webspaceUsage)
-    {
-        $this->webspaceUsage = $webspaceUsage;
-    }
-
-    /**
-     * @return null
-     */
-    public function getActualSize()
+    public function getActualSize(): int
     {
         return $this->actualSize;
     }
 
-    /**
-     * @param null $actualSize
-     */
-    public function setActualSize($actualSize)
-    {
-        $this->actualSize = $actualSize;
-    }
-
-    /**
-     * @return null
-     */
-    public function getIp()
+    public function getIp(): string
     {
         return $this->ip;
     }
 
-    /**
-     * @param null $ip
-     */
-    public function setIp($ip)
-    {
-        $this->ip = $ip;
-    }
-
-    /**
-     * @return null
-     */
-    public function getIpType()
+    public function getIpType(): string
     {
         return $this->ipType;
     }
 
-    /**
-     * @param null $ipType
-     */
-    public function setIpType($ipType)
-    {
-        $this->ipType = $ipType;
-    }
-
-    /**
-     * @return null
-     */
-    public function getSshHost()
+    public function getSshHost(): string
     {
         return $this->sshHost;
     }
 
-    /**
-     * @param null $sshHost
-     */
-    public function setSshHost($sshHost)
+    public function getFtpHost(): string
     {
-        $this->sshHost = $sshHost;
+        return $this->sshUserName.'.webhosting.be';
     }
 
-    /**
-     * @return null
-     */
-    public function getFtpHost()
-    {
-        return $this->sshUserName . '.webhosting.be';
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getFtpUserName()
+    public function getFtpUserName(): string
     {
         return $this->ftpUserName;
     }
 
-    /**
-     * @param string|null $ftpUserName
-     */
-    public function setFtpUserName($ftpUserName)
-    {
-        $this->ftpUserName = $ftpUserName;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSshUserName()
+    public function getSshUserName(): string
     {
         return $this->sshUserName;
     }
 
-    /**
-     * @param string|null $sshUserName
-     */
-    public function setSshUserName($sshUserName)
+    public function getPhpVersion(): string
     {
-        $this->sshUserName = $sshUserName;
+        return $this->phpVersion;
     }
 
+    public function getSites(): array
+    {
+        return $this->sites;
+    }
+
+    public function getMysqlDatabaseNames(): array
+    {
+        return $this->mysqlDatabaseNames;
+    }
 }

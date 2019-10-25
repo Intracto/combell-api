@@ -2,65 +2,97 @@
 
 namespace TomCan\CombellApi\Common;
 
+use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Command\AbstractCommand;
 
 class Api
 {
-
-    private $apiKey;
-    private $apiSecret;
     private $adapter;
+    private $hmacGenerator;
 
-    /**
-     * Api constructor.
-     * @param $apiKey
-     * @param $apiSecret
-     * @param $adapter
-     */
-    public function __construct($apiKey, $apiSecret, $adapter)
+    private $responseCode = 0;
+    private $rateLimitLimit = 100;
+    private $rateLimitUsage = 0;
+    private $rateLimitRemaining = 100;
+    private $rateLimitReset = 60;
+
+    public function __construct(AdapterInterface $adapter, HmacGenerator $hmacGenerator)
     {
-        $this->apiKey = $apiKey;
-        $this->apiSecret = $apiSecret;
         $this->adapter = $adapter;
+        $this->hmacGenerator = $hmacGenerator;
     }
 
-    public function ExecuteCommand(AbstractCommand $command) {
-
+    public function executeCommand(AbstractCommand $command)
+    {
         $command->prepare();
 
-        $headers = array(
-            "Authorization" => $this->getHmacHeader($command),
-            "Accept" => "application/json",
-            "Content-type" => "application/json",
-        );
+        $headers = [
+            'Authorization' => $this->hmacGenerator->getHeader($command),
+            'Accept' => 'application/json',
+            'Content-type' => 'application/json',
+        ];
 
-        $ret = $this->adapter->Call(strtoupper($command->getMethod()), "https://api.combell.com" . $command->getEndPoint() . ( $command->getQueryString() !== '' ? '?' . $command->getQueryString() : "" ), $headers, $command->getBody());
-
-        // json_decode body
-        if ($ret["body"] !== "") {
-            $ret["body"] = \json_decode($ret["body"]);
+        if (getenv('DEBUG_DUMPS', true)) {
+            // @codeCoverageIgnoreStart
+            var_dump(
+                strtoupper($command->getMethod()),
+                'https://api.combell.com'.$command->getEndPoint().('' !== $command->getQueryString() ? '?'.$command->getQueryString() : ''),
+                $headers,
+                $command->getBody()
+            );
+            // @codeCoverageIgnoreEnd
         }
 
-        $ret = $command->processResponse($ret);
+        $ret = $this->adapter->call(
+            strtoupper($command->getMethod()),
+            'https://api.combell.com'.$command->getEndPoint().('' !== $command->getQueryString() ? '?'.$command->getQueryString() : ''),
+            $headers,
+            $command->getBody()
+        );
 
-        return $ret;
+        if (getenv('DEBUG_DUMPS', true)) {
+            // @codeCoverageIgnoreStart
+            var_dump($ret);
+            // @codeCoverageIgnoreEnd
+        }
 
+        $this->responseCode = (int) $ret['status'];
+        $this->rateLimitLimit = (int) current($ret['headers']['X-RateLimit-Limit']);
+        $this->rateLimitUsage = (int) current($ret['headers']['X-RateLimit-Usage']);
+        $this->rateLimitRemaining = (int) current($ret['headers']['X-RateLimit-Remaining']);
+        $this->rateLimitReset = (int) current($ret['headers']['X-RateLimit-Reset']);
+
+        if ('' !== $ret['body']) {
+            $ret['body'] = \json_decode($ret['body']);
+        }
+
+        $command->processHeaders($ret['headers']);
+
+        return $command->processResponse($ret);
     }
 
-    private function getHmacHeader(AbstractCommand $command) {
-
-        $timestamp = time();
-        $nonce = uniqid();
-        $input =    $this->apiKey .
-                    strtolower($command->getMethod()) .
-                    urlencode($command->getEndPoint() . ($command->getQueryString() !== '' ? '?' . $command->getQueryString() : '')) .
-                    $timestamp .
-                    $nonce .
-                    ($command->getBody() !== '' ? base64_encode(md5($command->getBody(), true)) : '');
-        $hmac = base64_encode(hash_hmac('sha256', $input, $this->apiSecret, true));
-
-        return "hmac " . $this->apiKey . ":" . $hmac . ":" . $nonce . ":" . $timestamp;
-
+    public function getResponseCode(): int
+    {
+        return $this->responseCode;
     }
 
+    public function getRateLimitLimit(): int
+    {
+        return $this->rateLimitLimit;
+    }
+
+    public function getRateLimitUsage(): int
+    {
+        return $this->rateLimitUsage;
+    }
+
+    public function getRateLimitRemaining(): int
+    {
+        return $this->rateLimitRemaining;
+    }
+
+    public function getRateLimitReset(): int
+    {
+        return $this->rateLimitReset;
+    }
 }

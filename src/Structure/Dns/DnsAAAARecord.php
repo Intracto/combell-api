@@ -2,50 +2,37 @@
 
 namespace TomCan\CombellApi\Structure\Dns;
 
-
 class DnsAAAARecord extends AbstractDnsRecord
 {
-
     private $content;
 
-    /**
-     * DnsAAAARecord constructor.
-     * @param $id
-     * @param $hostname
-     * @param $ttl
-     * @param $content
-     */
-    public function __construct($id = "", $hostname = "", $ttl = 3600, $content)
+    public function __construct(string $id = '', string $hostname = '', int $ttl = 3600, string $content = '')
     {
         parent::__construct($id, 'AAAA', $hostname, $ttl);
         $this->setContent($content);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
 
-    /**
-     * @param mixed $content
-     */
-    public function setContent($content)
+    private function setContent(string $content): void
     {
-        if ($filtered = filter_var($content, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-            $this->content = $filtered;
-        } else {
-            throw new \InvalidArgumentException("Not a valid IPv6 address");
+        $filtered = filter_var($content, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
+
+        if (false === $filtered) {
+            throw new \InvalidArgumentException('Not a valid IPv6 address');
         }
+
+        $this->content = $filtered;
     }
 
-    public function getObject()
+    public function getObject(): \stdClass
     {
         $obj = parent::getObject();
         $obj->content = $this->getContent();
+
         return $obj;
     }
-
 }

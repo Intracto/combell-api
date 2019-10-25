@@ -3,124 +3,64 @@
 namespace TomCan\CombellApi\Command\Accounts;
 
 use TomCan\CombellApi\Command\AbstractCommand;
-use TomCan\CombellApi\Command\ProvisioningJobs\GetProvisioningJob;
-use TomCan\CombellApi\Structure\ProvisioningJobs\ProvisioningJob;
 
 class CreateAccount extends AbstractCommand
 {
     private $identifier;
-    private $servicepack;
+    private $servicePack;
     private $password;
-    private $provisionJob;
 
-    public function __construct($identifier, $servicepack, $password = null)
+    public function __construct(string $identifier, int $servicePack, ?string $password = null)
     {
         parent::__construct('post', '/v2/accounts');
 
-        $this->setIdentifier($identifier);
-        $this->setServicepack($servicepack);
-        if ($password !== null) {
+        $this->identifier = $identifier;
+        $this->servicePack = $servicePack;
+        if (null !== $password) {
             $this->setPassword($password);
         }
     }
 
-    public function prepare()
+    private function setPassword(string $password): void
     {
-        $obj = new \stdClass();
-        $obj->identifier = $this->identifier;
-
-        if (is_object($this->servicepack)) {
-            $obj->servicepack_id = $this->servicepack->id;
-        } else {
-            $obj->servicepack_id = $this->servicepack;
-        }
-
-        if ($this->password !== '') {
-            $obj->ftp_password = $this->password;
-        }
-
-        $this->setBody(
-            json_encode($obj)
-        );
-    }
-
-    public function processResponse($response)
-    {
-        if (isset($response['headers']['Location'])) {
-            $h = $response['headers']['Location'][0];
-            $link = substr($h, strrpos($h, '/') + 1);
-            $this->provisionJob = $link;
-            $job = new ProvisioningJob($link, 'unknown');
-            $response['response'] = $job;
-        }
-
-        return $response;
-    }
-
-    public function getIdentifier()
-    {
-        return $this->identifier;
-    }
-
-    public function setIdentifier($identifier)
-    {
-        $this->identifier = $identifier;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getServicepack()
-    {
-        return $this->servicepack;
-    }
-
-    /**
-     * @param mixed $servicepack
-     */
-    public function setServicepack($servicepack)
-    {
-        $this->servicepack = $servicepack;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password)
-    {
-        $uppers = strlen(preg_replace('/[^A-Z]/', '', $password));
-        $lowers = strlen(preg_replace('/[^a-z]/', '', $password));
-        $numbers = strlen(preg_replace('/\D/', '', $password));
-        $others = strlen(preg_replace('/[a-zA-Z0-9]/', '', $password));
+        $uppers = \strlen((string) preg_replace('/[^A-Z]/', '', $password));
+        $lowers = \strlen((string) preg_replace('/[^a-z]/', '', $password));
+        $numbers = \strlen((string) preg_replace('/\D/', '', $password));
+        $others = \strlen((string) preg_replace('/[a-zA-Z0-9]/', '', $password));
 
         if ($others > 0) {
             throw new \InvalidArgumentException("Password can't contain special characters");
         }
 
-        if (strlen($password) < 8 || strlen($password) > 20) {
+        if (\strlen($password) < 8 || \strlen($password) > 20) {
             throw  new \InvalidArgumentException('Password must be between 8-20 characters long');
         }
 
-        if (($uppers + $lowers) === 0 || $numbers === 0) {
+        if (0 === ($uppers + $lowers) || 0 === $numbers) {
             throw new \InvalidArgumentException('Password must be a mix of letters and digits');
         }
 
         $this->password = $password;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getProvisionJob()
+    public function prepare(): void
     {
-        return $this->provisionJob;
+        $obj = new \stdClass();
+        $obj->identifier = $this->identifier;
+        $obj->servicepack_id = $this->servicePack;
+
+        if (!empty($this->password)) {
+            $obj->ftp_password = $this->password;
+        }
+
+        $this->setBody((string) json_encode($obj));
+    }
+
+    public function processResponse(array $response)
+    {
+        $link = $response['headers']['Location'][0];
+        $id = substr($link, strrpos($link, '/') + 1);
+
+        return $id;
     }
 }

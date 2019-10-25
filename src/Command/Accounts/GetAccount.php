@@ -7,28 +7,31 @@ use TomCan\CombellApi\Structure\Accounts\Account;
 
 class GetAccount extends AbstractCommand
 {
-
-    /**
-     * @var int
-     */
     private $id;
 
-    public function __construct($id)
+    public function __construct(int $id)
     {
-        parent::__construct("get", "/v2/accounts");
+        parent::__construct('get', '/v2/accounts');
 
         $this->id = $id;
-
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-        $this->setEndPoint("/v2/accounts/" . $this->id);
+        $this->setEndPoint('/v2/accounts/'.$this->id);
     }
 
-    public function processResponse($response)
+    public function processResponse(array $response)
     {
-        return new Account($response['body']->id, $response['body']->identifier, $response['body']->servicepack_id);
-    }
+        $account = new Account(
+            $response['body']->id,
+            $response['body']->identifier,
+            $response['body']->servicepack->id
+        );
+        foreach ($response['body']->addons as $addon) {
+            $account->addAddon($addon->id);
+        }
 
+        return $account;
+    }
 }

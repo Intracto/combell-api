@@ -2,72 +2,80 @@
 
 namespace TomCan\CombellApi\Command\Dns;
 
-use TomCan\CombellApi\Command\AbstractCommand;
+use TomCan\CombellApi\Command\PageableAbstractCommand;
 
-class ListRecords extends AbstractCommand
+class ListRecords extends PageableAbstractCommand
 {
+    private $domainName;
 
-    private $domainname;
-
-    public function __construct($domainname)
+    public function __construct(string $domainName)
     {
-        parent::__construct("get", "/v2/dns/{domainname}/records");
-        $this->setDomainname($domainname);
+        parent::__construct('get', '/v2/dns/{domainName}/records');
+
+        $this->domainName = $domainName;
     }
 
-    public function prepare()
+    public function prepare(): void
     {
         parent::prepare();
-        $this->setEndPoint('/v2/dns/'.$this->domainname.'/records');
+
+        $this->setEndPoint('/v2/dns/'.$this->domainName.'/records');
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDomainname()
+    public function processResponse(array $response)
     {
-        return $this->domainname;
-    }
-
-    /**
-     * @param mixed $domainname
-     */
-    public function setDomainname($domainname)
-    {
-        $this->domainname = $domainname;
-    }
-
-    public function processResponse($response)
-    {
-
-        $records = array();
+        $records = [];
         foreach ($response['body'] as $record) {
-            $className = "\\TomCan\\CombellApi\\Structure\\Dns\\Dns" . $record->type . "Record";
+            $className = '\\TomCan\\CombellApi\\Structure\\Dns\\Dns'.$record->type.'Record';
             switch ($record->type) {
-                case "A":
-                case "AAAA":
-                case "NS":
-                case "TXT":
-                case "CNAME":
-                case "SOA":
-                case "CAA":
-                    $rec = new $className($record->id, $record->record_name, $record->ttl, $record->content);
+                case 'A':
+                case 'AAAA':
+                case 'NS':
+                case 'TXT':
+                case 'CNAME':
+                case 'SOA':
+                case 'CAA':
+                    $rec = new $className(
+                        $record->id,
+                        $record->record_name,
+                        $record->ttl,
+                        $record->content
+                    );
+
                     break;
-                case "MX":
-                    $rec = new $className($record->id, $record->record_name, $record->ttl, $record->content, $record->priority);
+
+                case 'MX':
+                    $rec = new $className(
+                        $record->id,
+                        $record->record_name,
+                        $record->ttl,
+                        $record->content,
+                        $record->priority
+                    );
+
                     break;
-                case "SRV":
-                    $rec = new $className($record->id, $record->record_name, $record->ttl, $record->service, $record->target, $record->protocol, $record->priority, $record->port, $record->weight);
+
+                case 'SRV':
+                    $rec = new $className(
+                        $record->id,
+                        $record->record_name,
+                        $record->ttl,
+                        $record->service,
+                        $record->target,
+                        $record->protocol,
+                        $record->priority,
+                        $record->port,
+                        $record->weight
+                    );
+
                     break;
+
                 default:
-                    throw new \Exception("Unknown DNS record type " . $record->type);
+                    throw new \LogicException('Unknown DNS record type '.$record->type);
             }
             $records[] = $rec;
         }
 
-        $response['response'] = $records;
-        return $response;
-
+        return $records;
     }
-
 }

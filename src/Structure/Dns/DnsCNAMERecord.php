@@ -2,46 +2,36 @@
 
 namespace TomCan\CombellApi\Structure\Dns;
 
-
 class DnsCNAMERecord extends AbstractDnsRecord
 {
-
     private $content;
 
-    /**
-     * DnsCNAMERecord constructor.
-     * @param $id
-     * @param $hostname
-     * @param $ttl
-     * @param $content
-     */
-    public function __construct($id = "", $hostname = "", $ttl = 3600, $content)
+    public function __construct(string $id = '', string $hostname = '', int $ttl = 3600, string $content = '')
     {
         parent::__construct($id, 'CNAME', $hostname, $ttl);
         $this->setContent($content);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
 
-    /**
-     * @param mixed $content
-     */
-    public function setContent($content)
+    private function setContent(string $content): void
     {
-        $this->content = $content;
+        try {
+            $filtered = $this->validateHostname($content);
+            $this->content = $filtered;
+        } catch (\Exception $exception) {
+            throw new \InvalidArgumentException('Invalid value for content: "'.$content.'"');
+        }
     }
 
-    public function getObject()
+    public function getObject(): \stdClass
     {
         $obj = parent::getObject();
         $obj->content = $this->getContent();
+
         return $obj;
     }
-
 }

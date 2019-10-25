@@ -3,42 +3,34 @@
 namespace TomCan\CombellApi\Command\Mailboxes;
 
 use TomCan\CombellApi\Command\AbstractCommand;
+use TomCan\CombellApi\Structure\Mailbox\Quota;
 
 class GetQuota extends AbstractCommand
 {
+    private $domainName;
 
-    /**
-     * @var string
-     */
-    private $domainname;
-
-    public function __construct($domainname)
+    public function __construct(string $domainName)
     {
-        parent::__construct("get", "/v2/mailboxes/{domainname}/quota");
+        parent::__construct('get', '/v2/mailboxes/{domainName}/quota');
 
-        $this->domainname = $domainname;
-
+        $this->domainName = $domainName;
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-        $this->setEndPoint("/v2/mailboxes/" . $this->domainname . "/quota");
+        $this->setEndPoint('/v2/mailboxes/'.$this->domainName.'/quota');
     }
 
-    /**
-     * @return string
-     */
-    public function getDomainname()
+    public function processResponse(array $response)
     {
-        return $this->domainname;
-    }
+        $quotas = [];
+        foreach ($response['body'] as $quota) {
+            $quotas[] = new Quota(
+                $quota->size,
+                $quota->account_id
+            );
+        }
 
-    /**
-     * @param string $domainname
-     */
-    public function setDomainname($domainname)
-    {
-        $this->domainname = $domainname;
+        return $quotas;
     }
-
 }

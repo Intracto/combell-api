@@ -4,47 +4,38 @@ namespace TomCan\CombellApi\Command\Domains;
 
 use TomCan\CombellApi\Command\AbstractCommand;
 use TomCan\CombellApi\Structure\Domains\Domain;
-use TomCan\CombellApi\Structure\Domains\Nameserver;
+use TomCan\CombellApi\Structure\Domains\NameServer;
 
 class GetDomain extends AbstractCommand
 {
-
     private $domain;
 
-    public function __construct($domain)
+    public function __construct(string $domain)
     {
-        parent::__construct("get", "/v2/domains/{domainname}");
+        parent::__construct('get', '/v2/domains/{domainName}');
 
         $this->domain = $domain;
-
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-        $this->setEndPoint("/v2/domains/" . $this->domain);
+        $this->setEndPoint('/v2/domains/'.$this->domain);
     }
 
-    public function processResponse($response)
+    public function processResponse(array $response)
     {
-
-        $domains = array();
-        $domain = $response['body'];
-
-        $dom = new Domain($domain->domain_name, $domain->expiration_date, $domain->will_renew);
-        if (isset($domain->name_servers)) {
-            $nameservers = array();
-            foreach ($domain->name_servers as $name_server) {
-                $nameservers[] = new Nameserver($name_server->name, $name_server->ip);
+        $nameServers = [];
+        if (isset($response['body']->name_servers)) {
+            foreach ($response['body']->name_servers as $nameServer) {
+                $nameServers[] = new NameServer($nameServer->name, $nameServer->ip);
             }
-            $dom->setNameservers($nameservers);
         }
 
-        $domains[] = $dom;
-
-        $response['response'] = $domains;
-        return $response;
-
+        return new Domain(
+            $response['body']->domain_name,
+            new \DateTime($response['body']->expiration_date),
+            $response['body']->will_renew,
+            $nameServers
+        );
     }
-
-
 }

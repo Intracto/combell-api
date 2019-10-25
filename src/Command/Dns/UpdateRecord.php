@@ -3,63 +3,30 @@
 namespace TomCan\CombellApi\Command\Dns;
 
 use TomCan\CombellApi\Command\AbstractCommand;
+use TomCan\CombellApi\Structure\Dns\AbstractDnsRecord;
 
 class UpdateRecord extends AbstractCommand
 {
-
-    private $domainname;
+    private $domainName;
     private $record;
 
-    public function __construct($domainname, $record)
+    public function __construct(string $domainName, AbstractDnsRecord $record)
     {
-        parent::__construct("put", "/v2/dns/{domainname}/records/{recordid}");
+        parent::__construct('put', '/v2/dns/{domainName}/records/{recordId}');
 
-        $this->setDomainname($domainname);
-        $this->setRecord($record);
-    }
-
-    public function prepare()
-    {
-
-        $this->setEndPoint("/v2/dns/".$this->domainname."/records/".$this->record->getId());
-        $obj = $this->record->getObject();
-
-        $this->setBody(
-            json_encode($obj)
-        );
-
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDomainname()
-    {
-        return $this->domainname;
-    }
-
-    /**
-     * @param mixed $domainname
-     */
-    public function setDomainname($domainname)
-    {
-        $this->domainname = $domainname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRecord()
-    {
-        return $this->record;
-    }
-
-    /**
-     * @param mixed $record
-     */
-    public function setRecord($record)
-    {
+        $this->domainName = $domainName;
         $this->record = $record;
     }
 
+    public function prepare(): void
+    {
+        $this->setEndPoint('/v2/dns/'.$this->domainName.'/records/'.$this->record->getId());
+        $obj = $this->record->getObject();
+
+        $this->setBody((string) json_encode($obj));
+    }
+
+    public function processResponse(array $response)
+    {
+    }
 }

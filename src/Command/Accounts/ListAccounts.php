@@ -2,84 +2,51 @@
 
 namespace TomCan\CombellApi\Command\Accounts;
 
-use TomCan\CombellApi\Command\AbstractCommand;
+use TomCan\CombellApi\Command\PageableAbstractCommand;
 use TomCan\CombellApi\Structure\Accounts\Account;
 
-class ListAccounts extends AbstractCommand
+class ListAccounts extends PageableAbstractCommand
 {
     private $assetType;
     private $identifier;
 
-    public function __construct($assetType = "", $identifier = "")
+    public function __construct(string $assetType = '', string $identifier = '')
     {
-        parent::__construct("get", "/v2/accounts");
+        parent::__construct('get', '/v2/accounts');
         $this->setAssetType($assetType);
-        $this->setIdentifier($identifier);
-    }
-
-    public function prepare()
-    {
-        parent::prepare();
-
-        $this->appendQueryString("asset_type", $this->assetType);
-        $this->appendQueryString("identifier", $this->identifier);
-
-    }
-
-    /**
-     * @return string
-     */
-    public function getAssetType()
-    {
-        return $this->assetType;
-    }
-
-    /**
-     * @param string $assetType
-     */
-    public function setAssetType($assetType)
-    {
-
-        if ($assetType == "") {
-            $this->assetType = "";
-        } else {
-
-            if (in_array($assetType, array("domain", "linux_hosting", "mysql", "dns", "mailbox"))) {
-                $this->assetType = $assetType;
-            } else {
-                throw new \InvalidArgumentException("Invalid asset_type specified");
-            }
-
-        }
-
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIdentifier()
-    {
-        return $this->identifier;
-    }
-
-    /**
-     * @param mixed $identifier
-     */
-    public function setIdentifier($identifier)
-    {
         $this->identifier = $identifier;
     }
 
-    public function processResponse($response)
+    private function setAssetType(string $assetType): void
     {
+        if ('' === $assetType) {
+            $this->assetType = '';
 
-        $accounts = array();
-        foreach ($response['body'] as $item) {
-            $accounts[] = new Account($item->id, $item->identifier, $item->servicepack_id);
+            return;
         }
-        $response['response'] = $accounts;
-        return $response;
 
+        if (!\in_array($assetType, ['domain', 'linux_hosting', 'mysql', 'dns', 'mailbox'], true)) {
+            throw new \InvalidArgumentException('Invalid asset type specified');
+        }
+
+        $this->assetType = $assetType;
     }
 
+    public function prepare(): void
+    {
+        parent::prepare();
+
+        $this->appendQueryString('asset_type', $this->assetType);
+        $this->appendQueryString('identifier', $this->identifier);
+    }
+
+    public function processResponse(array $response)
+    {
+        $accounts = [];
+        foreach ($response['body'] as $account) {
+            $accounts[] = new Account($account->id, $account->identifier, $account->servicepack_id);
+        }
+
+        return $accounts;
+    }
 }

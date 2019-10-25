@@ -6,81 +6,34 @@ use TomCan\CombellApi\Command\AbstractCommand;
 
 class CreateMailbox extends AbstractCommand
 {
-
-    private $domainname;
+    private $domainName;
     private $email;
     private $password;
+    private $accountId;
 
-    public function __construct($domainname, $email, $password)
+    public function __construct(string $domainName, string $email, string $password, int $accountId)
     {
-        parent::__construct("post", "/v2/mailboxes/{domainname}");
+        parent::__construct('post', '/v2/mailboxes/{domainName}');
 
-        $this->setDomainname($domainname);
-        $this->setEmail($email);
-        $this->setPassword($password);
+        $this->domainName = $domainName;
+        $this->email = $email;
+        $this->password = $password;
+        $this->accountId = $accountId;
     }
 
-    public function prepare()
+    public function prepare(): void
     {
-
-        $this->setEndPoint("/v2/mailboxes/".$this->domainname);
+        $this->setEndPoint('/v2/mailboxes/'.$this->domainName);
 
         $obj = new \stdClass();
         $obj->email = $this->email;
         $obj->password = $this->password;
+        $obj->account_id = $this->accountId;
 
-        $this->setBody(
-            json_encode($obj)
-        );
-
+        $this->setBody((string) json_encode($obj));
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDomainname()
+    public function processResponse(array $response)
     {
-        return $this->domainname;
     }
-
-    /**
-     * @param mixed $domainname
-     */
-    public function setDomainname($domainname)
-    {
-        $this->domainname = $domainname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    }
-
 }

@@ -2,108 +2,61 @@
 
 namespace TomCan\CombellApi\Structure\Dns;
 
-
 class AbstractDnsRecord
 {
-
     protected $id;
     protected $type;
     protected $hostname;
     protected $ttl;
 
-    /**
-     * AbstractDnsRecord constructor.
-     * @param $id
-     * @param $type
-     * @param $hostname
-     * @param $ttl
-     */
-    public function __construct($id, $type, $hostname, $ttl)
+    public function __construct(string $id, string $type, string $hostname, int $ttl)
     {
-        $this->setId($id);
-        $this->setType($type);
+        $this->id = $id;
+        $this->type = $type;
         $this->setHostname($hostname);
         $this->setTtl($ttl);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param mixed $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getHostname()
+    public function getHostname(): string
     {
         return $this->hostname;
     }
 
-    /**
-     * @param mixed $hostname
-     */
-    public function setHostname($hostname)
+    private function setHostname(string $hostname): void
     {
-
-        $this->hostname = $hostname;
+        try {
+            $this->hostname = $this->validateHostname($hostname);
+        } catch (\Exception $exception) {
+            throw new \InvalidArgumentException('Invalid value for hostname: "'.$hostname.'"');
+        }
     }
 
-    /**
-     * @return mixed
-     */
-    public function getTtl()
+    public function getTtl(): int
     {
         return $this->ttl;
     }
 
-    /**
-     * @param mixed $ttl
-     */
-    public function setTtl($ttl)
+    private function setTtl(int $ttl): void
     {
-
-        if (!is_int($ttl)) {
-            throw new \InvalidArgumentException('Not a valid value for TTL');
+        try {
+            $this->ttl = $this->validateUInt32($ttl);
+        } catch (\Exception $exception) {
+            throw new \InvalidArgumentException('Invalid value for TTL: "'.$ttl.'"');
         }
-
-        $ttl = intval($ttl);
-        if ($ttl < 0 || $ttl > 2147483647) {
-            throw  new \InvalidArgumentException('Not a valid value for TTL');
-        }
-
-        $this->ttl = $ttl;
     }
 
-    public function getObject()
+    public function getObject(): \stdClass
     {
-
         $obj = new \stdClass();
         $obj->id = $this->getId();
         $obj->record_name = $this->getHostname();
@@ -111,7 +64,46 @@ class AbstractDnsRecord
         $obj->ttl = $this->getTtl();
 
         return $obj;
-
     }
 
+    protected function validateHostname(string $hostname, bool $allowOrigin = true): string
+    {
+        if ($allowOrigin && in_array($hostname, ['', '@'])) {
+            return $hostname;
+        } else {
+            // remove leading underscores from labels, as we considder them valid, then send through filter_var
+            $filtered = preg_replace('(^_|\._)', '', $hostname);
+            $filtered = filter_var($filtered, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME);
+
+            // did the check pass and did we removed leading underscores? if so, use original value;
+            if (false !== $filtered && $filtered !== $hostname) {
+                $filtered = $hostname;
+            }
+
+            if (false !== $filtered) {
+                return $filtered;
+            } else {
+                throw new \InvalidArgumentException();
+            }
+        }
+    }
+
+    private function validateInt(int $value, int $min, int $max): int
+    {
+        if ($value < $min || $value > $max) {
+            throw new \InvalidArgumentException('Invalid value for range '.$min.' - '.$max.': "'.$value.'"');
+        }
+
+        return $value;
+    }
+
+    protected function validateUInt16(int $value): int
+    {
+        return $this->validateInt($value, 0, 65535);
+    }
+
+    protected function validateUInt32(int $value): int
+    {
+        return $this->validateInt($value, 0, 2147483647);
+    }
 }

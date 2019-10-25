@@ -2,27 +2,23 @@
 
 namespace TomCan\CombellApi\Command\LinuxHostings;
 
-use TomCan\CombellApi\Command\AbstractCommand;
-use TomCan\CombellApi\Structure\LinuxHostings\LinuxHosting;
+use TomCan\CombellApi\Command\PageableAbstractCommand;
+use TomCan\CombellApi\Structure\LinuxHostings\LinuxHostingSummary;
 
-class ListLinuxHostings extends AbstractCommand
+class ListLinuxHostings extends PageableAbstractCommand
 {
-
     public function __construct()
     {
-        parent::__construct("get", "/v2/linuxhostings");
+        parent::__construct('get', '/v2/linuxhostings');
     }
 
-    public function processResponse($response)
+    public function processResponse(array $response)
     {
-
-        $hostings = array();
+        $hostings = [];
         foreach ($response['body'] as $hosting) {
-            $hostings[] = new LinuxHosting($hosting->domain_name, $hosting->servicepack_id);
+            $hostings[] = new LinuxHostingSummary($hosting->domain_name, $hosting->servicepack_id);
         }
-        $response['response'] = $hostings;
 
-        return $response;
+        return $hostings;
     }
-
 }
