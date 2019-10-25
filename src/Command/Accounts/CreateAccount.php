@@ -3,7 +3,6 @@
 namespace TomCan\CombellApi\Command\Accounts;
 
 use TomCan\CombellApi\Command\AbstractCommand;
-use TomCan\CombellApi\Structure\ProvisioningJobs\ProvisioningJob;
 
 class CreateAccount extends AbstractCommand
 {

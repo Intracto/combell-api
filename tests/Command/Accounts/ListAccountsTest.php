@@ -48,31 +48,31 @@ final class ListAccountsTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode([
-                (object) [ 'id' => 999001, 'identifier' => '01012018999001.example.com' ],
-                (object) [ 'id' => 999002, 'identifier' => '01012018999002.example.com' ],
-                (object) [ 'id' => 999003, 'identifier' => '01012018999003.example.com' ],
-                (object) [ 'id' => 999004, 'identifier' => '01012018999004.example.com' ],
-                (object) [ 'id' => 999005, 'identifier' => '01012018999005.example.com' ],
-                (object) [ 'id' => 999006, 'identifier' => '01012018999006.example.com' ],
-                (object) [ 'id' => 999007, 'identifier' => '01012018999007.example.com' ],
-                (object) [ 'id' => 999008, 'identifier' => '01012018999008.example.com' ],
-                (object) [ 'id' => 999009, 'identifier' => '01012018999009.example.com' ],
-                (object) [ 'id' => 999010, 'identifier' => '01012018999010.example.com' ],
-                (object) [ 'id' => 999011, 'identifier' => '01012018999011.example.com' ],
-                (object) [ 'id' => 999012, 'identifier' => '01012018999012.example.com' ],
-                (object) [ 'id' => 999013, 'identifier' => '01012018999013.example.com' ],
-                (object) [ 'id' => 999014, 'identifier' => '01012018999014.example.com' ],
-                (object) [ 'id' => 999015, 'identifier' => '01012018999015.example.com' ],
-                (object) [ 'id' => 999016, 'identifier' => '01012018999016.example.com' ],
-                (object) [ 'id' => 999017, 'identifier' => '01012018999017.example.com' ],
-                (object) [ 'id' => 999018, 'identifier' => '01012018999018.example.com' ],
-                (object) [ 'id' => 999019, 'identifier' => '01012018999019.example.com' ],
-                (object) [ 'id' => 999020, 'identifier' => '01012018999020.example.com' ],
-                (object) [ 'id' => 999021, 'identifier' => '01012018999021.example.com' ],
-                (object) [ 'id' => 999022, 'identifier' => '01012018999022.example.com' ],
-                (object) [ 'id' => 999023, 'identifier' => '01012018999023.example.com' ],
-                (object) [ 'id' => 999024, 'identifier' => '01012018999024.example.com' ],
-                (object) [ 'id' => 999025, 'identifier' => '01012018999025.example.com' ],
+                (object) [ 'id' => 999001, 'identifier' => '01012018999001.example.com', 'servicepack_id' => 1001 ],
+                (object) [ 'id' => 999002, 'identifier' => '01012018999002.example.com', 'servicepack_id' => 1002 ],
+                (object) [ 'id' => 999003, 'identifier' => '01012018999003.example.com', 'servicepack_id' => 1003 ],
+                (object) [ 'id' => 999004, 'identifier' => '01012018999004.example.com', 'servicepack_id' => 1004 ],
+                (object) [ 'id' => 999005, 'identifier' => '01012018999005.example.com', 'servicepack_id' => 1001 ],
+                (object) [ 'id' => 999006, 'identifier' => '01012018999006.example.com', 'servicepack_id' => 1002 ],
+                (object) [ 'id' => 999007, 'identifier' => '01012018999007.example.com', 'servicepack_id' => 1003 ],
+                (object) [ 'id' => 999008, 'identifier' => '01012018999008.example.com', 'servicepack_id' => 1004 ],
+                (object) [ 'id' => 999009, 'identifier' => '01012018999009.example.com', 'servicepack_id' => 1001 ],
+                (object) [ 'id' => 999010, 'identifier' => '01012018999010.example.com', 'servicepack_id' => 1002 ],
+                (object) [ 'id' => 999011, 'identifier' => '01012018999011.example.com', 'servicepack_id' => 1003 ],
+                (object) [ 'id' => 999012, 'identifier' => '01012018999012.example.com', 'servicepack_id' => 1004 ],
+                (object) [ 'id' => 999013, 'identifier' => '01012018999013.example.com', 'servicepack_id' => 1001 ],
+                (object) [ 'id' => 999014, 'identifier' => '01012018999014.example.com', 'servicepack_id' => 1002 ],
+                (object) [ 'id' => 999015, 'identifier' => '01012018999015.example.com', 'servicepack_id' => 1003 ],
+                (object) [ 'id' => 999016, 'identifier' => '01012018999016.example.com', 'servicepack_id' => 1004 ],
+                (object) [ 'id' => 999017, 'identifier' => '01012018999017.example.com', 'servicepack_id' => 1001 ],
+                (object) [ 'id' => 999018, 'identifier' => '01012018999018.example.com', 'servicepack_id' => 1002 ],
+                (object) [ 'id' => 999019, 'identifier' => '01012018999019.example.com', 'servicepack_id' => 1003 ],
+                (object) [ 'id' => 999020, 'identifier' => '01012018999020.example.com', 'servicepack_id' => 1004 ],
+                (object) [ 'id' => 999021, 'identifier' => '01012018999021.example.com', 'servicepack_id' => 1001 ],
+                (object) [ 'id' => 999022, 'identifier' => '01012018999022.example.com', 'servicepack_id' => 1002 ],
+                (object) [ 'id' => 999023, 'identifier' => '01012018999023.example.com', 'servicepack_id' => 1003 ],
+                (object) [ 'id' => 999024, 'identifier' => '01012018999024.example.com', 'servicepack_id' => 1004 ],
+                (object) [ 'id' => 999025, 'identifier' => '01012018999025.example.com', 'servicepack_id' => 1001 ],
             ])
         ];
 
@@ -92,6 +92,7 @@ final class ListAccountsTest extends TestCase
         $api = new Api($adapterStub, $hmacGeneratorStub);
 
         $cmd = new ListAccounts();
+        /** @var Account[] $accounts */
         $accounts = $api->executeCommand($cmd);
 
         $this->assertEquals(0, $cmd->getPagingSkipped());
@@ -102,5 +103,6 @@ final class ListAccountsTest extends TestCase
         $this->assertInstanceOf(Account::class, $accounts[7]);
         $this->assertEquals('999008', $accounts[7]->getId());
         $this->assertEquals('01012018999008.example.com', $accounts[7]->getIdentifier());
+        $this->assertEquals(1004, $accounts[7]->getServicepackId());
     }
 }

@@ -27,7 +27,20 @@ final class GetAccountTest extends TestCase
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
-                (object) [ 'id' => 999015, 'identifier' => '01012018999015.example.com' ]
+                (object) [
+                    'id' => 999015,
+                    'identifier' => 'example.com',
+                    'servicepack' => (object) [
+                        'id' => 1040,
+                        'name' => 'Basic E-Mail'
+                    ],
+                    'addons' => [
+                        (object) [
+                            'id' => 1099,
+                            'name' => 'Basic 1-pack addon',
+                        ]
+                    ]
+                ]
             )
         ];
 
@@ -52,6 +65,9 @@ final class GetAccountTest extends TestCase
 
         $this->assertInstanceOf(Account::class, $account);
         $this->assertEquals('999015', $account->getId());
-        $this->assertEquals('01012018999015.example.com', $account->getIdentifier());
+        $this->assertEquals('example.com', $account->getIdentifier());
+        $this->assertEquals(1040, $account->getServicepackId());
+        $this->assertCount(1, $account->getAddons());
+        $this->assertEquals(1099, $account->getAddons()[0]);
     }
 }

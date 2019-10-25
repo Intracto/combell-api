@@ -44,7 +44,7 @@ class ListAccounts extends PageableAbstractCommand
     {
         $accounts = [];
         foreach ($response['body'] as $account) {
-            $accounts[] = new Account($account->id, $account->identifier);
+            $accounts[] = new Account($account->id, $account->identifier, $account->servicepack_id);
         }
 
         return $accounts;

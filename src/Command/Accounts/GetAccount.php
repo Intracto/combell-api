@@ -23,6 +23,15 @@ class GetAccount extends AbstractCommand
 
     public function processResponse(array $response)
     {
-        return new Account($response['body']->id, $response['body']->identifier);
+        $account = new Account(
+            $response['body']->id,
+            $response['body']->identifier,
+            $response['body']->servicepack->id
+        );
+        foreach ($response['body']->addons as $addon) {
+            $account->addAddon($addon->id);
+        }
+
+        return $account;
     }
 }
