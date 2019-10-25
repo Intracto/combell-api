@@ -1,7 +1,7 @@
 # tomcan\combell-api
 
-This is my take on the Combell shared-hosting API. The goal is to provide a client library that makes it easy for you to
-interact with the Combell shared hosting public API.
+This is a Combell shared-hosting API client implementation. The goal is to provide a client library that makes it
+easy for you to interact with the Combell shared hosting public API.
 
 ## Current status
 
