@@ -28,7 +28,7 @@ class GetAccount extends AbstractCommand
 
     public function processResponse($response)
     {
-        return new Account($response['body']->id, $response['body']->identifier);
+        return new Account($response['body']->id, $response['body']->identifier, $response['body']->servicepack_id);
     }
 
 }

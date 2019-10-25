@@ -7,7 +7,6 @@ use TomCan\CombellApi\Structure\Accounts\Account;
 
 class ListAccounts extends AbstractCommand
 {
-
     private $assetType;
     private $identifier;
 
@@ -76,7 +75,7 @@ class ListAccounts extends AbstractCommand
 
         $accounts = array();
         foreach ($response['body'] as $item) {
-            $accounts[] = new Account($item->id, $item->identifier);
+            $accounts[] = new Account($item->id, $item->identifier, $item->servicepack_id);
         }
         $response['response'] = $accounts;
         return $response;
