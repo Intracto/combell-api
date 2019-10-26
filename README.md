@@ -3,6 +3,8 @@
 This is a Combell shared-hosting API client implementation. The goal is to provide a client library that makes it
 easy for you to interact with the Combell shared hosting public API.
 
+[![Build Status](https://travis-ci.org/Intracto/combell-api.svg?branch=master)](https://travis-ci.org/Intracto/combell-api)
+
 ## Current status
 
 Since the Combell API is still in development and new functionality is added regularly, this library might not implement
