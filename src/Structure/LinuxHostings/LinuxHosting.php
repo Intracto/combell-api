@@ -116,6 +116,9 @@ class LinuxHosting
         return $this->phpVersion;
     }
 
+    /**
+     * @return Site[]
+     */
     public function getSites(): array
     {
         return $this->sites;

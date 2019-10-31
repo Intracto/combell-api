@@ -32,6 +32,9 @@ class ProvisioningJob
         return $this->estimate;
     }
 
+    /**
+     * @return ResourceLink[]
+     */
     public function getResourceLinks(): array
     {
         return $this->resourceLinks;

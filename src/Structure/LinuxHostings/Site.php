@@ -37,6 +37,9 @@ class Site
         return $this->path;
     }
 
+    /**
+     * @return HostHeader[]
+     */
     public function getHostHeaders(): array
     {
         return $this->hostHeaders;
