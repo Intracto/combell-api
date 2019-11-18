@@ -30,7 +30,7 @@ class GetProvisioningJob extends AbstractCommand
 
         if (200 === (int) $response['status']) {
             $status = $response['body']->status;
-            $estimate = new \DateTime($response['body']->completion->estimation);
+            $estimate = new \DateTime($response['body']->completion->estimate);
         }
 
         if (201 === (int) $response['status']) {

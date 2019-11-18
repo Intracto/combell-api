@@ -27,7 +27,7 @@ final class GetProvisioningJobTest extends TestCase
                 (object) [
                     'id' => '12345678-90ab-cdef-1234-567890abcde0',
                     'status' => 'ongoing',
-                    'completion' => (object) ['estimation' => '2019-10-20T18:43:54.007'],
+                    'completion' => (object) ['estimate' => '2019-10-20T18:43:54.007'],
                 ]
             ),
         ];
@@ -74,7 +74,7 @@ final class GetProvisioningJobTest extends TestCase
                 (object) [
                     'id' => '12345678-90ab-cdef-1234-567890abcde1',
                     'status' => 'failed',
-                    'completion' => (object) ['estimation' => '2019-10-20T14:48:24.7446134Z'],
+                    'completion' => (object) ['estimate' => '2019-10-20T14:48:24.7446134Z'],
                 ]
             ),
         ];
