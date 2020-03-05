@@ -1,6 +1,6 @@
 <?php
 
-namespace TomCan\CombellApi\Command\LinuxHostings;
+namespace TomCan\CombellApi\Command\WindowsHostings;
 
 use TomCan\CombellApi\Command\AbstractCommand;
 use TomCan\CombellApi\Structure\WindowsHostings\Site;
