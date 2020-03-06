@@ -8,8 +8,9 @@ easy for you to interact with the Combell shared hosting public API.
 ## Current status
 
 Since the Combell API is still in development and new functionality is added regularly, this library might not implement
-every call yet. We do try to keep it up-to-date as much as possible. If there are calls missing, please open an issue
-to tell us about it or even a pull request to add the call!
+every call yet. We do try to keep it up-to-date as much as possible. We keep an eye on the 
+[Combell API changelog](https://api.combell.com/v2/documentation/changelog) but if there are calls missing, do let us
+know by opening an issue or even better a pull request ;)
 
 ## Usage
 
