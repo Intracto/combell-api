@@ -1,6 +1,6 @@
 <?php
 
-namespace TomCan\CombellApi\Command\Accounts;
+namespace TomCan\CombellApi\Command\Ssh;
 
 use TomCan\CombellApi\Command\PageableAbstractCommand;
 use TomCan\CombellApi\Structure\Ssh\SshKey;

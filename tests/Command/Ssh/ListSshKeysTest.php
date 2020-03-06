@@ -4,7 +4,7 @@ namespace Test\Command\Ssh;
 
 use PHPUnit\Framework\TestCase;
 use TomCan\CombellApi\Adapter\AdapterInterface;
-use TomCan\CombellApi\Command\Accounts\ListSshKeys;
+use TomCan\CombellApi\Command\Ssh\ListSshKeys;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
 use TomCan\CombellApi\Structure\Ssh\SshKey;
