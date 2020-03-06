@@ -7,8 +7,6 @@ use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Command\Accounts\ListSshKeys;
 use TomCan\CombellApi\Common\HmacGenerator;
 use TomCan\CombellApi\Common\Api;
-use TomCan\CombellApi\Command\Servicepacks\ListServicepacks;
-use TomCan\CombellApi\Structure\Servicepacks\Servicepack;
 use TomCan\CombellApi\Structure\Ssh\SshKey;
 
 final class ListSshKeysTest extends TestCase
