@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Command\Dns;
+namespace Test\Command\Domains;
 
 use PHPUnit\Framework\TestCase;
 use TomCan\CombellApi\Adapter\AdapterInterface;

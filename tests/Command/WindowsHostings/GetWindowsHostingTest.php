@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Command\MysqlDatabases;
+namespace Test\Command\WindowsHostings;
 
 use PHPUnit\Framework\TestCase;
 use TomCan\CombellApi\Adapter\AdapterInterface;

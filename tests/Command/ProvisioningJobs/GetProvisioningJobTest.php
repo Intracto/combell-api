@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Command\Domains;
+namespace Test\Command\ProvisioningJobs;
 
 use PHPUnit\Framework\TestCase;
 use TomCan\CombellApi\Adapter\AdapterInterface;
