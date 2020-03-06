@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Command\Accounts;
+namespace Test\Command\Ssh;
 
 use PHPUnit\Framework\TestCase;
 use TomCan\CombellApi\Adapter\AdapterInterface;
