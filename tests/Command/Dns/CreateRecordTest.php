@@ -18,7 +18,7 @@ final class CreateRecordTest extends TestCase
             'status' => 201,
             'headers' => [
                 'Content-Length' => ['0'],
-                'Location' => '/v2/dns/example.com/records/1-9988776610',
+                'Location' => ['/v2/dns/example.com/records/1-9988776610'],
                 'X-RateLimit-Limit' => ['100'],
                 'X-RateLimit-Usage' => ['1'],
                 'X-RateLimit-Remaining' => ['99'],
