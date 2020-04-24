@@ -39,6 +39,6 @@ class CreateRecord extends AbstractCommand
 
     public function processResponse(array $response)
     {
-        return explode('/', $response['headers']['Location'])[5];
+        return explode('/', current($response['headers']['Location']))[5];
     }
 }
