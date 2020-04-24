@@ -68,11 +68,11 @@ class AbstractDnsRecord
 
     protected function validateHostname(string $hostname, bool $allowOrigin = true): string
     {
-        if ($allowOrigin && in_array($hostname, ['', '@'])) {
+        if ($allowOrigin && in_array($hostname, ['', '@', '*'])) {
             return $hostname;
         } else {
-            // remove leading underscores from labels, as we considder them valid, then send through filter_var
-            $filtered = preg_replace('(^_|\._)', '', $hostname);
+            // remove leading underscores or wildcards from labels, as we consider them valid, then send through filter_var
+            $filtered = preg_replace('(^\*\.|^_|\._)', '', $hostname);
             $filtered = filter_var($filtered, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME);
 
             // did the check pass and did we removed leading underscores? if so, use original value;
