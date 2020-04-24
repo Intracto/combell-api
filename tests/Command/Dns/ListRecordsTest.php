@@ -32,8 +32,8 @@ final class ListRecordsTest extends TestCase
                 'X-RateLimit-Remaining' => ['99'],
                 'X-RateLimit-Reset' => ['60'],
                 'X-Paging-Skipped' => ['0'],
-                'X-Paging-Take' => ['9'],
-                'X-Paging-TotalResults' => ['9'],
+                'X-Paging-Take' => ['11'],
+                'X-Paging-TotalResults' => ['11'],
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode([
@@ -154,6 +154,32 @@ final class ListRecordsTest extends TestCase
                     'port' => null,
                     'weight' => null,
                 ],
+                (object) [
+                    'id' => '1-9988776610',
+                    'type' => 'A',
+                    'record_name' => '*',
+                    'ttl' => 3600,
+                    'content' => '127.0.0.1',
+                    'service' => null,
+                    'target' => null,
+                    'protocol' => null,
+                    'priority' => null,
+                    'port' => null,
+                    'weight' => null,
+                ],
+                (object) [
+                    'id' => '1-9988776611',
+                    'type' => 'A',
+                    'record_name' => '*.testing',
+                    'ttl' => 3600,
+                    'content' => '127.0.0.1',
+                    'service' => null,
+                    'target' => null,
+                    'protocol' => null,
+                    'priority' => null,
+                    'port' => null,
+                    'weight' => null,
+                ],
             ]),
         ];
 
@@ -177,10 +203,10 @@ final class ListRecordsTest extends TestCase
         $domains = $api->executeCommand($cmd);
 
         $this->assertEquals(0, $cmd->getPagingSkipped());
-        $this->assertEquals(9, $cmd->getPagingTake());
-        $this->assertEquals(9, $cmd->getPagingTotalResults());
+        $this->assertEquals(11, $cmd->getPagingTake());
+        $this->assertEquals(11, $cmd->getPagingTotalResults());
 
-        $this->assertCount(9, $domains);
+        $this->assertCount(11, $domains);
 
         $this->assertInstanceOf(DnsARecord::class, $domains[0]);
         $this->assertEquals('www', $domains[0]->getHostName());
