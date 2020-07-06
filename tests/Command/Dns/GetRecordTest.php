@@ -26,10 +26,10 @@ final class GetRecordTest extends TestCase
             'headers' => [
                 'Transfer-Encoding' => ['chunked'],
                 'Content-Type' => ['application/json; charset=utf-8'],
-                'X-RateLimit-Limit' => ['100'],
-                'X-RateLimit-Usage' => ['1'],
-                'X-RateLimit-Remaining' => ['99'],
-                'X-RateLimit-Reset' => ['60'],
+                'x-ratelimit-limit' => ['100'],
+                'x-ratelimit-usage' => ['1'],
+                'x-ratelimit-remaining' => ['99'],
+                'x-ratelimit-reset' => ['60'],
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
@@ -81,10 +81,10 @@ final class GetRecordTest extends TestCase
             'headers' => [
                 'Transfer-Encoding' => ['chunked'],
                 'Content-Type' => ['application/json; charset=utf-8'],
-                'X-RateLimit-Limit' => ['100'],
-                'X-RateLimit-Usage' => ['1'],
-                'X-RateLimit-Remaining' => ['99'],
-                'X-RateLimit-Reset' => ['60'],
+                'x-ratelimit-limit' => ['100'],
+                'x-ratelimit-usage' => ['1'],
+                'x-ratelimit-remaining' => ['99'],
+                'x-ratelimit-reset' => ['60'],
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
@@ -136,10 +136,10 @@ final class GetRecordTest extends TestCase
             'headers' => [
                 'Transfer-Encoding' => ['chunked'],
                 'Content-Type' => ['application/json; charset=utf-8'],
-                'X-RateLimit-Limit' => ['100'],
-                'X-RateLimit-Usage' => ['1'],
-                'X-RateLimit-Remaining' => ['99'],
-                'X-RateLimit-Reset' => ['60'],
+                'x-ratelimit-limit' => ['100'],
+                'x-ratelimit-usage' => ['1'],
+                'x-ratelimit-remaining' => ['99'],
+                'x-ratelimit-reset' => ['60'],
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
@@ -191,10 +191,10 @@ final class GetRecordTest extends TestCase
             'headers' => [
                 'Transfer-Encoding' => ['chunked'],
                 'Content-Type' => ['application/json; charset=utf-8'],
-                'X-RateLimit-Limit' => ['100'],
-                'X-RateLimit-Usage' => ['1'],
-                'X-RateLimit-Remaining' => ['99'],
-                'X-RateLimit-Reset' => ['60'],
+                'x-ratelimit-limit' => ['100'],
+                'x-ratelimit-usage' => ['1'],
+                'x-ratelimit-remaining' => ['99'],
+                'x-ratelimit-reset' => ['60'],
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
@@ -246,10 +246,10 @@ final class GetRecordTest extends TestCase
             'headers' => [
                 'Transfer-Encoding' => ['chunked'],
                 'Content-Type' => ['application/json; charset=utf-8'],
-                'X-RateLimit-Limit' => ['100'],
-                'X-RateLimit-Usage' => ['1'],
-                'X-RateLimit-Remaining' => ['99'],
-                'X-RateLimit-Reset' => ['60'],
+                'x-ratelimit-limit' => ['100'],
+                'x-ratelimit-usage' => ['1'],
+                'x-ratelimit-remaining' => ['99'],
+                'x-ratelimit-reset' => ['60'],
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
@@ -301,10 +301,10 @@ final class GetRecordTest extends TestCase
             'headers' => [
                 'Transfer-Encoding' => ['chunked'],
                 'Content-Type' => ['application/json; charset=utf-8'],
-                'X-RateLimit-Limit' => ['100'],
-                'X-RateLimit-Usage' => ['1'],
-                'X-RateLimit-Remaining' => ['99'],
-                'X-RateLimit-Reset' => ['60'],
+                'x-ratelimit-limit' => ['100'],
+                'x-ratelimit-usage' => ['1'],
+                'x-ratelimit-remaining' => ['99'],
+                'x-ratelimit-reset' => ['60'],
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
@@ -356,10 +356,10 @@ final class GetRecordTest extends TestCase
             'headers' => [
                 'Transfer-Encoding' => ['chunked'],
                 'Content-Type' => ['application/json; charset=utf-8'],
-                'X-RateLimit-Limit' => ['100'],
-                'X-RateLimit-Usage' => ['1'],
-                'X-RateLimit-Remaining' => ['99'],
-                'X-RateLimit-Reset' => ['60'],
+                'x-ratelimit-limit' => ['100'],
+                'x-ratelimit-usage' => ['1'],
+                'x-ratelimit-remaining' => ['99'],
+                'x-ratelimit-reset' => ['60'],
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
@@ -411,10 +411,10 @@ final class GetRecordTest extends TestCase
             'headers' => [
                 'Transfer-Encoding' => ['chunked'],
                 'Content-Type' => ['application/json; charset=utf-8'],
-                'X-RateLimit-Limit' => ['100'],
-                'X-RateLimit-Usage' => ['1'],
-                'X-RateLimit-Remaining' => ['99'],
-                'X-RateLimit-Reset' => ['60'],
+                'x-ratelimit-limit' => ['100'],
+                'x-ratelimit-usage' => ['1'],
+                'x-ratelimit-remaining' => ['99'],
+                'x-ratelimit-reset' => ['60'],
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
@@ -467,10 +467,10 @@ final class GetRecordTest extends TestCase
             'headers' => [
                 'Transfer-Encoding' => ['chunked'],
                 'Content-Type' => ['application/json; charset=utf-8'],
-                'X-RateLimit-Limit' => ['100'],
-                'X-RateLimit-Usage' => ['1'],
-                'X-RateLimit-Remaining' => ['99'],
-                'X-RateLimit-Reset' => ['60'],
+                'x-ratelimit-limit' => ['100'],
+                'x-ratelimit-usage' => ['1'],
+                'x-ratelimit-remaining' => ['99'],
+                'x-ratelimit-reset' => ['60'],
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
@@ -528,10 +528,10 @@ final class GetRecordTest extends TestCase
             'headers' => [
                 'Transfer-Encoding' => ['chunked'],
                 'Content-Type' => ['application/json; charset=utf-8'],
-                'X-RateLimit-Limit' => ['100'],
-                'X-RateLimit-Usage' => ['1'],
-                'X-RateLimit-Remaining' => ['99'],
-                'X-RateLimit-Reset' => ['60'],
+                'x-ratelimit-limit' => ['100'],
+                'x-ratelimit-usage' => ['1'],
+                'x-ratelimit-remaining' => ['99'],
+                'x-ratelimit-reset' => ['60'],
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode(
