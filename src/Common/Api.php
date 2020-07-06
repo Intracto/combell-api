@@ -56,11 +56,18 @@ class Api
             // @codeCoverageIgnoreEnd
         }
 
+        // headers are no longer mixed case, but lower case. Force lower case
+        foreach ($ret['headers'] as $key => $value) {
+            if ($key != strtolower($key)) {
+                $ret[strtolower($key)] = $value;
+            }
+        }
+
         $this->responseCode = (int) $ret['status'];
-        $this->rateLimitLimit = (int) current($ret['headers']['X-RateLimit-Limit']);
-        $this->rateLimitUsage = (int) current($ret['headers']['X-RateLimit-Usage']);
-        $this->rateLimitRemaining = (int) current($ret['headers']['X-RateLimit-Remaining']);
-        $this->rateLimitReset = (int) current($ret['headers']['X-RateLimit-Reset']);
+        $this->rateLimitLimit = (int) current($ret['headers']['x-ratelimit-limit']);
+        $this->rateLimitUsage = (int) current($ret['headers']['x-ratelimit-usage']);
+        $this->rateLimitRemaining = (int) current($ret['headers']['x-ratelimit-remaining']);
+        $this->rateLimitReset = (int) current($ret['headers']['x-ratelimit-reset']);
 
         if ('' !== $ret['body']) {
             $ret['body'] = \json_decode($ret['body']);
