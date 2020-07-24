@@ -58,7 +58,11 @@ class CreateAccount extends AbstractCommand
 
     public function processResponse(array $response)
     {
-        $link = $response['headers']['Location'][0];
+        if (isset($response['headers']['Location'])) {
+            $link = $response['headers']['Location'][0];
+        } else {
+            $link = $response['headers']['location'][0];
+        }
         $id = substr($link, strrpos($link, '/') + 1);
 
         return $id;
