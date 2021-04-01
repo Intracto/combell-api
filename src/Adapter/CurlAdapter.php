@@ -63,8 +63,6 @@ class CurlAdapter implements AdapterInterface
                     'body' => $responseBody,
                 ];
 
-                break;
-
             default:
                 if ($statusCode >= 400 && $statusCode <= 499) {
                     // client error, we did something wrong

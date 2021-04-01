@@ -16,5 +16,5 @@ debug:
 | DEBUG_DUMPS=1 php -dzend_extension=xdebug ./vendor/bin/phpunit
 
 phpstan:
-| php -dmemory_limit=-1 ./vendor/bin/phpstan analyse --level=7 src
+| php -dmemory_limit=-1 ./vendor/bin/phpstan analyse --level=5 src
 
