@@ -66,7 +66,11 @@ class Api
         $this->responseCode = (int) $ret['status'];
         $this->rateLimitLimit = (int) current($ret['headers']['x-ratelimit-limit']);
         $this->rateLimitUsage = (int) current($ret['headers']['x-ratelimit-usage']);
-        $this->rateLimitRemaining = (int) current($ret['headers']['x-ratelimit-remaining']);
+        if (is_array($ret['headers']['x-ratelimit-remaining'])) {
+            $this->rateLimitRemaining = (int) current($ret['headers']['x-ratelimit-remaining']);
+        } else {
+            $this->rateLimitRemaining = (int) $ret['headers']['x-ratelimit-remaining'];
+        }
         $this->rateLimitReset = (int) current($ret['headers']['x-ratelimit-reset']);
 
         if ('' !== $ret['body']) {
