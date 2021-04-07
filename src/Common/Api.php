@@ -64,14 +64,10 @@ class Api
         }
 
         $this->responseCode = (int) $ret['status'];
-        $this->rateLimitLimit = (int) current($ret['headers']['x-ratelimit-limit']);
-        $this->rateLimitUsage = (int) current($ret['headers']['x-ratelimit-usage']);
-        if (is_array($ret['headers']['x-ratelimit-remaining'])) {
-            $this->rateLimitRemaining = (int) current($ret['headers']['x-ratelimit-remaining']);
-        } else {
-            $this->rateLimitRemaining = (int) $ret['headers']['x-ratelimit-remaining'];
-        }
-        $this->rateLimitReset = (int) current($ret['headers']['x-ratelimit-reset']);
+        $this->rateLimitLimit = (int) current((array) $ret['headers']['x-ratelimit-limit']);
+        $this->rateLimitUsage = (int) current((array) $ret['headers']['x-ratelimit-usage']);
+        $this->rateLimitRemaining = (int) current((array) $ret['headers']['x-ratelimit-remaining']);
+        $this->rateLimitReset = (int) current((array) $ret['headers']['x-ratelimit-reset']);
 
         if ('' !== $ret['body']) {
             $ret['body'] = \json_decode($ret['body']);
