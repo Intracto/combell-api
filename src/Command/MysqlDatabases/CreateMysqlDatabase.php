@@ -33,9 +33,9 @@ class CreateMysqlDatabase extends AbstractCommand
     public function processResponse(array $response)
     {
         if (isset($response['headers']['Location'])) {
-            return explode('/', $response['headers']['Location'][0])[3];
+            return explode('/', ((array) $response['headers']['Location'])[0])[3];
         }
 
-        return explode('/', $response['headers']['location'][0])[3];
+        return explode('/', ((array) $response['headers']['location'])[0])[3];
     }
 }
