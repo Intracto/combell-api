@@ -66,7 +66,7 @@ class CurlAdapter implements AdapterInterface
             default:
                 if ($statusCode >= 400 && $statusCode <= 499) {
                     // client error, we did something wrong
-                    $clientException = new ClientException('Unexpected status code', $statusCode);
+                    $clientException = new ClientException('Unexpected status code: (statuscode '.$statusCode.')', $statusCode);
                     $clientException->setBody((string) $output);
 
                     throw $clientException;
@@ -82,7 +82,7 @@ class CurlAdapter implements AdapterInterface
                 }
 
                 // some other error
-                throw new \RuntimeException('Unspecified exception', $statusCode);
+                throw new \RuntimeException('Unspecified exception: (statuscode '.$statusCode.')', $statusCode);
         }
     }
 }
