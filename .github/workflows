@@ -1,0 +1,22 @@
+name: Run tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [7.2, 7.3, 7.4, 8.0]
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: php-actions/composer@v5
+      with:
+        php_version: ${{ matrix.php }}
+    - name: Display PHP version
+      run: php -v
+    - name: Run tests
+      run: make test
+
