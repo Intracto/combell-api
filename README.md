@@ -3,7 +3,7 @@
 This is a Combell shared-hosting API client implementation. The goal is to provide a client library that makes it
 easy for you to interact with the Combell shared hosting public API.
 
-[![Build Status](https://travis-ci.org/Intracto/combell-api.svg?branch=master)](https://travis-ci.org/Intracto/combell-api)
+[![Run tests](https://github.com/Intracto/combell-api/actions/workflows/run-test.yml/badge.svg)](https://github.com/Intracto/combell-api/actions/workflows/run-test.yml)
 
 ## Current status
 
