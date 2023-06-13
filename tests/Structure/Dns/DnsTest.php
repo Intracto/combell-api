@@ -34,10 +34,10 @@ final class DnsTest extends TestCase
     private function doStandardObjectTests(AbstractDnsRecord $record, stdClass $object): void
     {
         // check if attributes exist
-        $this->assertObjectHasAttribute('id', $object);
-        $this->assertObjectHasAttribute('record_name', $object);
-        $this->assertObjectHasAttribute('type', $object);
-        $this->assertObjectHasAttribute('ttl', $object);
+        $this->assertObjectHasProperty('id', $object);
+        $this->assertObjectHasProperty('record_name', $object);
+        $this->assertObjectHasProperty('type', $object);
+        $this->assertObjectHasProperty('ttl', $object);
 
         // check if attribute values equal record values
         $this->assertEquals($record->getId(), $object->id);
@@ -83,7 +83,7 @@ final class DnsTest extends TestCase
         // test object
         $o = $r->getObject();
         $this->doStandardObjectTests($r, $o);
-        $this->assertObjectHasAttribute('content', $o);
+        $this->assertObjectHasProperty('content', $o);
         $this->assertEquals($r->getContent(), $o->content);
     }
 
@@ -112,7 +112,7 @@ final class DnsTest extends TestCase
         // test object
         $o = $r->getObject();
         $this->doStandardObjectTests($r, $o);
-        $this->assertObjectHasAttribute('content', $o);
+        $this->assertObjectHasProperty('content', $o);
         $this->assertEquals($r->getContent(), $o->content);
     }
 
@@ -141,7 +141,7 @@ final class DnsTest extends TestCase
         // test object
         $o = $r->getObject();
         $this->doStandardObjectTests($r, $o);
-        $this->assertObjectHasAttribute('content', $o);
+        $this->assertObjectHasProperty('content', $o);
         $this->assertEquals($r->getContent(), $o->content);
     }
 
@@ -158,7 +158,7 @@ final class DnsTest extends TestCase
         // test object
         $o = $r->getObject();
         $this->doStandardObjectTests($r, $o);
-        $this->assertObjectHasAttribute('content', $o);
+        $this->assertObjectHasProperty('content', $o);
         $this->assertEquals($r->getContent(), $o->content);
     }
 
@@ -188,9 +188,9 @@ final class DnsTest extends TestCase
         // test object
         $o = $r->getObject();
         $this->doStandardObjectTests($r, $o);
-        $this->assertObjectHasAttribute('content', $o);
+        $this->assertObjectHasProperty('content', $o);
         $this->assertEquals($r->getContent(), $o->content);
-        $this->assertObjectHasAttribute('priority', $o);
+        $this->assertObjectHasProperty('priority', $o);
         $this->assertEquals($r->getPriority(), $o->priority);
     }
 
@@ -231,7 +231,7 @@ final class DnsTest extends TestCase
         // test object
         $o = $r->getObject();
         $this->doStandardObjectTests($r, $o);
-        $this->assertObjectHasAttribute('content', $o);
+        $this->assertObjectHasProperty('content', $o);
         $this->assertEquals($r->getContent(), $o->content);
     }
 
@@ -268,7 +268,7 @@ final class DnsTest extends TestCase
         // test object
         $o = $r->getObject();
         $this->doStandardObjectTests($r, $o);
-        $this->assertObjectHasAttribute('content', $o);
+        $this->assertObjectHasProperty('content', $o);
         $this->assertEquals($r->getContent(), $o->content);
     }
 
@@ -291,17 +291,17 @@ final class DnsTest extends TestCase
         // test object
         $o = $r->getObject();
         $this->doStandardObjectTests($r, $o);
-        $this->assertObjectHasAttribute('service', $o);
+        $this->assertObjectHasProperty('service', $o);
         $this->assertEquals($r->getService(), $o->service);
-        $this->assertObjectHasAttribute('target', $o);
+        $this->assertObjectHasProperty('target', $o);
         $this->assertEquals($r->getTarget(), $o->target);
-        $this->assertObjectHasAttribute('protocol', $o);
+        $this->assertObjectHasProperty('protocol', $o);
         $this->assertEquals($r->getProtocol(), $o->protocol);
-        $this->assertObjectHasAttribute('priority', $o);
+        $this->assertObjectHasProperty('priority', $o);
         $this->assertEquals($r->getPriority(), $o->priority);
-        $this->assertObjectHasAttribute('port', $o);
+        $this->assertObjectHasProperty('port', $o);
         $this->assertEquals($r->getPort(), $o->port);
-        $this->assertObjectHasAttribute('weight', $o);
+        $this->assertObjectHasProperty('weight', $o);
         $this->assertEquals($r->getWeight(), $o->weight);
     }
 
@@ -318,7 +318,7 @@ final class DnsTest extends TestCase
         // test object
         $o = $r->getObject();
         $this->doStandardObjectTests($r, $o);
-        $this->assertObjectHasAttribute('content', $o);
+        $this->assertObjectHasProperty('content', $o);
         $this->assertEquals($r->getContent(), $o->content);
     }
 
@@ -406,7 +406,7 @@ final class DnsTest extends TestCase
         $this->assertTrue($isValid);
     }
 
-    public function dataIpv4Values()
+    public static function dataIpv4Values()
     {
         return [
             ['', false],
@@ -418,7 +418,7 @@ final class DnsTest extends TestCase
         ];
     }
 
-    public function dataIpv6Values()
+    public static function dataIpv6Values()
     {
         return [
             ['', false],
@@ -431,7 +431,7 @@ final class DnsTest extends TestCase
         ];
     }
 
-    public function dataHostnameValues()
+    public static function dataHostnameValues()
     {
         return [
             ['', true],
@@ -450,7 +450,7 @@ final class DnsTest extends TestCase
         ];
     }
 
-    public function dataHostnameValuesNoOrigin()
+    public static function dataHostnameValuesNoOrigin()
     {
         return [
             ['example', true],
@@ -467,7 +467,7 @@ final class DnsTest extends TestCase
         ];
     }
 
-    public function dataUInt16Values()
+    public static function dataUInt16Values()
     {
         return [
             [0, true],
@@ -477,7 +477,7 @@ final class DnsTest extends TestCase
         ];
     }
 
-    public function dataUInt32Values()
+    public static function dataUInt32Values()
     {
         return [
             [0, true],
