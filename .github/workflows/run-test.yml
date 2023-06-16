@@ -17,11 +17,11 @@ jobs:
       with:
         path: /tmp/composer-cache
         key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
-    - uses: php-actions/composer@v6
-      with:
-        php_version: ${{ matrix.php }}
     - name: Display PHP version
       run: php -v
+    - uses: php-actions/composer@v6
+      with:
+        php_version: ${{ matrix.php-versions }}
     - name: Run tests
       run: make test
 
