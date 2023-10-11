@@ -36,8 +36,9 @@ class Account
         return $this->addons;
     }
 
-    public function addAddon(int $addon): void
+    public function addAddon(int $id, string $name): void
     {
-        $this->addons[] = $addon;
+        // don't use id a key/index, as the same add-on can be applied multiple times to the same account
+        $this->addons[] = [$id ,$name];
     }
 }

@@ -29,7 +29,7 @@ class GetAccount extends AbstractCommand
             $response['body']->servicepack->id
         );
         foreach ($response['body']->addons as $addon) {
-            $account->addAddon($addon->id);
+            $account->addAddon($addon->id, $addon->name);
         }
 
         return $account;
