@@ -35,6 +35,7 @@ class ListRecords extends PageableAbstractCommand
                 case 'CNAME':
                 case 'SOA':
                 case 'CAA':
+                case 'ALIAS':
                     $rec = new $className(
                         $record->id,
                         $record->record_name,

@@ -71,8 +71,8 @@ class AbstractDnsRecord
         if ($allowOrigin && in_array($hostname, ['', '@', '*'])) {
             return $hostname;
         } else {
-            // remove leading underscores or wildcards from labels, as we consider them valid, then send through filter_var
-            $filtered = preg_replace('(^\*\.|^_|\._)', '', $hostname);
+            // remove special characters from labels, as we consider them valid, then send through filter_var
+            $filtered = preg_replace('(^\*\._|^\*\.|^_|\._|\#)', '', $hostname);
             $filtered = filter_var($filtered, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME);
 
             // did the check pass and did we removed leading underscores? if so, use original value;
