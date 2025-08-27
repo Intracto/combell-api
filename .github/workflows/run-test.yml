@@ -2,32 +2,38 @@ name: Run tests
 
 on: [push, pull_request]
 
+# See https://github.com/marketplace/actions/setup-php-action for php version support
+
 jobs:
   test:
-
-    # See https://github.com/marketplace/actions/setup-php-action for php version support
     runs-on: ubuntu-24.04
     strategy:
       matrix:
         php-versions: ['8.1', '8.2', '8.3', '8.4']
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php-versions }}
-        extensions: intl
-    - name: Cache Composer dependencies
-      uses: actions/cache@v3
-      with:
-        path: /tmp/composer-cache
-        key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
-    - uses: php-actions/composer@v6
-      with:
-        php_version: ${{ matrix.php-versions }}
-    - name: Display PHP version
-      run: php -v
-    - name: Run tests
-      run: make test
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: intl
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Display PHP version and extensions
+        run: |
+          php -v
+          php -m
+
+      - name: Run tests
+        run: make test
 
