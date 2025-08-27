@@ -19,7 +19,7 @@ class Api
     private $rateLimitRemaining = 100;
     private $rateLimitReset = 60;
 
-    public function __construct(AdapterInterface $adapter, HmacGenerator $hmacGenerator, LoggerInterface $logger = null)
+    public function __construct(AdapterInterface $adapter, HmacGenerator $hmacGenerator, ?LoggerInterface $logger = null)
     {
         $this->adapter = $adapter;
         $this->hmacGenerator = $hmacGenerator;

@@ -32,8 +32,8 @@ final class ListRecordsTest extends TestCase
                 'x-ratelimit-remaining' => ['99'],
                 'x-ratelimit-reset' => ['60'],
                 'x-paging-skipped' => ['0'],
-                'x-paging-take' => ['11'],
-                'x-paging-totalresults' => ['11'],
+                'x-paging-take' => ['12'],
+                'x-paging-totalresults' => ['12'],
                 'Date' => ['Sat, 02 Feb 2019 20:23:35 GMT'],
             ],
             'body' => json_encode([
@@ -180,6 +180,19 @@ final class ListRecordsTest extends TestCase
                     'port' => null,
                     'weight' => null,
                 ],
+                (object) [
+                    'id' => '1-9988776612',
+                    'type' => 'CNAME',
+                    'record_name' => 'cafémüllerstraße',
+                    'ttl' => 3600,
+                    'content' => 'coffee.example.com',
+                    'service' => null,
+                    'target' => null,
+                    'protocol' => null,
+                    'priority' => 0,
+                    'port' => null,
+                    'weight' => null,
+                ],
             ]),
         ];
 
@@ -203,10 +216,10 @@ final class ListRecordsTest extends TestCase
         $domains = $api->executeCommand($cmd);
 
         $this->assertEquals(0, $cmd->getPagingSkipped());
-        $this->assertEquals(11, $cmd->getPagingTake());
-        $this->assertEquals(11, $cmd->getPagingTotalResults());
+        $this->assertEquals(12, $cmd->getPagingTake());
+        $this->assertEquals(12, $cmd->getPagingTotalResults());
 
-        $this->assertCount(11, $domains);
+        $this->assertCount(12, $domains);
 
         $this->assertInstanceOf(DnsARecord::class, $domains[0]);
         $this->assertEquals('www', $domains[0]->getHostName());
