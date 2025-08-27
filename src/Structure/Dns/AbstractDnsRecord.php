@@ -71,8 +71,14 @@ class AbstractDnsRecord
         if ($allowOrigin && in_array($hostname, ['', '@', '*'])) {
             return $hostname;
         } else {
+            // convert to punycode
+            $ascii = idn_to_ascii($hostname, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
+            if ($ascii === false) {
+                throw new \InvalidArgumentException("Invalid IDN domain: $hostname");
+            }
+
             // remove special characters from labels, as we consider them valid, then send through filter_var
-            $filtered = preg_replace('(^\*\._|^\*\.|^_|\._|\#)', '', $hostname);
+            $filtered = preg_replace('(^\*\._|^\*\.|^_|\._|\#)', '', $ascii);
             $filtered = filter_var($filtered, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME);
 
             // did the check pass and did we removed leading underscores? if so, use original value;
