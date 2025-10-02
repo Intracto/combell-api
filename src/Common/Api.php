@@ -6,6 +6,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use TomCan\CombellApi\Adapter\AdapterInterface;
 use TomCan\CombellApi\Command\AbstractCommand;
+use TomCan\CombellApi\Exception\ClientException;
 
 class Api
 {
@@ -52,12 +53,17 @@ class Api
             ]
         );
 
-        $ret = $this->adapter->call(
-            strtoupper($command->getMethod()),
-            'https://api.combell.com'.$command->getEndPoint().('' !== $command->getQueryString() ? '?'.$command->getQueryString() : ''),
-            $headers,
-            $command->getBody()
-        );
+        try {
+            $ret = $this->adapter->call(
+                strtoupper($command->getMethod()),
+                'https://api.combell.com' . $command->getEndPoint() . ('' !== $command->getQueryString() ? '?' . $command->getQueryString() : ''),
+                $headers,
+                $command->getBody()
+            );
+        } catch (ClientException $e) {
+            $this->log(LogLevel::DEBUG,"ClientException: {message}\n{body}", ['message' => $e->getMessage(), 'body' => $e->getBody()]);
+            throw $e;
+        }
 
         $this->log(LogLevel::DEBUG,"Response:\n{response}", ['response' => print_r($ret, true)]);
 
