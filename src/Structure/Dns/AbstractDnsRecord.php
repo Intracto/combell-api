@@ -66,7 +66,7 @@ class AbstractDnsRecord
         return $obj;
     }
 
-    protected function validateHostname(string $hostname, bool $allowOrigin = true): string
+    protected function validateHostname(string $hostname, bool $allowOrigin = true, bool $lax = false): string
     {
         if ($allowOrigin && in_array($hostname, ['', '@', '*'])) {
             return $hostname;
@@ -79,9 +79,12 @@ class AbstractDnsRecord
 
             // remove special characters from labels, as we consider them valid, then send through filter_var
             $filtered = preg_replace('(^\*\._|^\*\.|^_|\._|\#)', '', $ascii);
+            if ($lax) {
+                $filtered = str_replace('_', '', $filtered);
+            }
             $filtered = filter_var($filtered, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME);
 
-            // did the check pass and did we removed leading underscores? if so, use original value;
+            // did the check pass and did we remove leading underscores? if so, use original value;
             if (false !== $filtered && $filtered !== $hostname) {
                 $filtered = $hostname;
             }

@@ -162,7 +162,7 @@ final class DnsTest extends TestCase
         $this->assertEquals($r->getContent(), $o->content);
     }
 
-    /** @dataProvider dataHostnameValues */
+    /** @dataProvider dataHostnameValuesCname */
     public function testDNSCNAMERecordContentValidation($address, $isValid)
     {
         if (!$isValid) {
@@ -446,6 +446,25 @@ final class DnsTest extends TestCase
             ['brown_banana.example.com', false],
             ['_banana.example.com', true],
             ['__banana.example.com', false],
+            ['-banana.example.com', false],
+        ];
+    }
+
+    public static function dataHostnameValuesCname()
+    {
+        return [
+            ['', true],
+            ['@', true],
+            ['example', true],
+            ['example.com', true],
+            ['example.com ', false],
+            [' example.com', false],
+            ['127.0.0.1', true],
+            ['2001:0db8:85a3:0000:0000:8a2e:0370:7334', false],
+            ['yellow-banana.example.com', true],
+            ['brown_banana.example.com', true],
+            ['_banana.example.com', true],
+            ['__banana.example.com', true],
             ['-banana.example.com', false],
         ];
     }
