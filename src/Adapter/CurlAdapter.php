@@ -48,7 +48,9 @@ class CurlAdapter implements AdapterInterface
         $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         // clean up
-        curl_close($curl);
+        if (PHP_VERSION_ID < 80000) {
+            curl_close($curl);
+        }
 
         // process response
         switch ($statusCode) {
